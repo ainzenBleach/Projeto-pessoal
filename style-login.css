@@ -1,0 +1,139 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: inter;
+}
+body{
+    background-color: #FFFAF0;
+}
+
+/*Configuração do header*/
+#header_pagina{
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   font-size: 20px;
+   padding-left: 100px;
+   padding-right: 100px;
+   padding-top: 10px;
+   padding-bottom: 10px;
+   background-color: #D9D9D9;
+   border-bottom: solid 1px black;
+}
+#header_pagina a{
+   color:black;
+   text-decoration: none;
+   font-weight: 400;
+   transition: 0.3s;
+}
+#header_pagina a:hover /*validar*/{
+   font-weight: 500;
+   scale: 1.1;
+   text-decoration: underline solid 1px black;
+   background-color: aqua;
+   padding: 6px;
+   border-radius: 40px;
+}
+#header_pagina a:active /*validar*/{
+   transition: 0.1s;
+   color: white;
+   text-decoration: underline solid 1px white;
+}
+#header_pagina span {
+   background-color: aqua;
+   padding: 6px;
+   border-radius: 40px;
+}
+
+
+
+
+.card{
+
+    display: flex;
+    height: 500px;
+    justify-content: center;
+    align-items: center;
+}
+
+.formulario{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: fit-content;
+    background-color: #D9D9D9;
+    width: 650px;
+    height: fit-content;
+    border-radius: 8px;
+    border: solid 1px black;
+}
+
+.campo{
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+    font-size: 20px;
+}
+.campo span{
+   padding-bottom: 2px;
+   padding-left: 2px;
+}
+.username{
+   padding-top: 40px;
+}
+
+.senha{
+   padding-top: 30px;
+}
+
+/*Configuração do input*/
+ .campo input{
+    width: 500px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    background-color: transparent;
+    border:solid 2px black;
+    border-radius: 8px;
+    padding-left: 10px;
+    font-weight: 400;
+    transition: 0.3s;
+ }
+.campo input:hover /*validar*/{
+   scale: 1.05;
+}
+.campo input:focus /*validar*/{
+   scale: 1.05; /*validar*/
+   background-color: transparent;
+}
+
+/* Configuração do botão "Login" */
+.botao{
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+
+ .botao button{
+    width: 300px;
+    height: 55px;
+    background-color: #312E2E;
+    color: white;
+    font-size: 40px;
+    border: none;
+    border-radius: 8px;
+    transition: 0.3s; /*Validar*/
+ }
+
+.botao button:hover /*Validar*/{
+    transition: 0.3s; /*Validar*/
+    scale: 1.05; /*Validar*/
+    border: solid 1px #312E2E;
+ }
+.botao button:active /*validar*/{
+   transition: 0.3s;
+   background-color: white;
+   color:  #312E2E;
+}

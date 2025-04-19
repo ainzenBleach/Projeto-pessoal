@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style-cadastro.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header id="header_pagina">
+      <a href="">Início</a>
+      <a href="">Aparições</a>
+      <a href="">Novo post</a>
+      <a href="login.html">Login</a>
+      <a href="cadastro.html"><span>Cadastrar</span></a>
+    </header>
+    <div class="card">
+      <div class="formulario">
+
+        <div class="campo username">
+          <span>Nome</span>
+          <input
+            type="text"
+            id="input_nome"
+            placeholder="Digite seu nome de usuário"
+          />
+        </div>
+
+        <div class="campo senha">
+          <span>Senha</span>
+          <input
+            type="password"
+            id="input_senha"
+            placeholder="Digite sua senha"
+          />
+        </div>
+
+        <div class="campo senha">
+          <span>Confirmar senha</span>
+          <input
+            type="password"
+            id="input_senha"
+            placeholder="Confirma sua senha"
+          />
+        </div>
+        <div class="select">
+            <div class="cotinente escolha">
+                <span>Continente</span>
+                <select id="continente">
+                    <option value="#" selected>Escolha seu continente</option>
+                    <option value="">América</option>
+                    <option value="">Europa</option>
+                    <option value="">Ásia</option>
+                    <option value="">Africa</option>
+                    <option value="">Oceania</option>
+                    <option value="">Antártida</option>
+                </select>
+            </div>
+            <div class="cargo escolha">
+                <span>Cargo</span>
+                <select id="cargo">
+                    <option value="#" selected>Escolha seu cargo</option>
+                    <option value="">Explorador</option>
+                    <option value="">Pesquisador</option>
+                    <option value="">Fotografos</option>
+                    <option value="">Visitante</option>
+                    
+                </select>
+            </div>
+        </div>
+
+        <div class="botao">
+          <button>Cadastrar</button>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>
