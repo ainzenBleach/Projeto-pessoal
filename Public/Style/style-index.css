@@ -64,7 +64,7 @@ body{
 .post{
    padding:15px;
 }
-#scroll_post{
+.scroll_post{
    display: flex;
    flex-direction: column;
 }
@@ -89,7 +89,7 @@ body{
    margin-bottom: 10px;
 }
 
-#relato_imagem img{
+.relato_imagem img{
    width: 400px;
    padding-top: 5px;
    padding-bottom: 5px;
