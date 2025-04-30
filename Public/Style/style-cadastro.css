@@ -167,3 +167,12 @@ body{
    background-color: white;
    color:  #312E2E;
 }
+
+#aviso{
+   padding-bottom: 15px;
+}
+
+#aviso span{
+   font-size: 15px;
+   color: red;
+}
