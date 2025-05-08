@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Style/style-novo_post.css">
+    <title>Document</title>
+</head>
+<body onload="carregar()">
+    <header id="header_pagina">
+        <img src="img/Logo_criptoradar.png" alt="">
+        <a href="index.html">Início</a>
+        <a href="aparicoes.html">Aparições</a>
+        <a href="novo_post.html"><span>Novo post</span></a>
+        <a href="login.html" id="login">Login</a>
+        <a href="cadastro.html" id="cadastro">Cadastrar</a>
+        <a href="" style="display: none;" id="perfil">perfil</a>
+        <a href="" style="display:none;" onclick="sair() " id="sair">sair</a>
+    </header>
+
+    <div class="card novo_post">
+        <div class="campo titulo">
+            <h3>Título</h3>
+            <input type="text" id="input_titulo_novo_post" placeholder="Digite o título do seu relato..." name="titulo">
+        </div>
+        <div class=" campo imagem_carregar">
+            <div class="texto">
+                <h3>Foto</h3>
+            </div>
+            <div class="input_arquivo">
+                <input type="file" id="input_arquivo_post" name="foto">
+            </div>
+        </div>
+
+        <div class="campo descricao">
+            <h3>Descrição</h3>
+            <textarea name="" id="textarea_descricao_novo_post" placeholder="Digite a descrição..." name="descricao"></textarea>
+            <button onclick="enviar()">Criar post</button>
+        </div>
+        
+    </div>
+</body>
+</html>
+<script>
+
+function enviar() {
+    const formData = new FormData();
+    if(sessionStorage.ID_USUARIO != undefined){
+        formData.append('foto', input_arquivo_post.files[0])
+        formData.append('descricao', textarea_descricao_novo_post.value)
+        formData.append('titulo', input_titulo_novo_post.value)
+        formData.append('idUsuario', sessionStorage.ID_USUARIO)
+
+        fetch("/novoPost/novoPost", {
+      method: "POST",
+      body: formData
+    })
+      .then(res => {
+        window.location = "/index.html"
+      })
+      .catch(err => {
+        console.log(err);
+      })
+
+    } else{
+        alert('Login não efetuado')
+    }
+    }
+    
+
+function carregar(){
+    var sessao = sessionStorage.ID_USUARIO
+    if(sessao != undefined){
+    document.getElementById("sair").style.display = "block";
+    document.getElementById("perfil").style.display = "block";
+    document.getElementById("login").style.display = "none";
+    document.getElementById("cadastro").style.display = "none";
+   }
+}
+
+function sair(){
+    sessionStorage.clear()
+}
+</script>

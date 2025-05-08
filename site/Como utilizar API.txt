@@ -1,0 +1,24 @@
+Para utilizar  API devemos seguir esse caminho =>
+
+config.js (Banco de dados) 
+    -- É realizado a configuração do banco de dados para que possa ocorrer o insert e/ou select dos dados.
+
+<=> 
+app.js 
+    -- È realizado a configuração dos endpoints para armazenar os valores que seram utilizados no insert ou select
+    -- 1° Passo - Criação de variavéis para armazenar o caminho do routes
+    -- 2° Passo - 
+<=> 
+Model.js 
+    --
+
+<=> 
+Controller.js 
+    --
+
+<=> 
+Routes.js 
+    --
+
+<=> 
+pagina(qualquer)

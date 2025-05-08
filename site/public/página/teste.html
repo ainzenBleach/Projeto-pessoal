@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro - CriptoRadar</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #1d2b21; /* Fundo escuro */
+      color: #f0e1c2; /* Texto principal */
+    }
+
+    nav {
+      background-color: #2e3d33;
+      padding: 10px 0;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    nav a {
+      color: #f0e1c2;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 16px;
+    }
+
+    nav a.active {
+      background-color: #3ca197; /* Botão ativo */
+      border-radius: 5px;
+    }
+
+    .form-container {
+      background-color: #3b4c42;
+      width: 350px;
+      margin: 100px auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    .form-container label {
+      display: block;
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
+
+    .form-container input, .form-container select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: none;
+      border-radius: 5px;
+      background-color: #f0e1c2;
+      color: #1d2b21;
+    }
+
+    .form-container button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #8a3f2f; /* Botão */
+      color: #f0e1c2;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .form-container button:hover {
+      background-color: #a54d3d;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="#">Início</a>
+    <a href="#">Aparições</a>
+    <a href="#">Novo post</a>
+    <a href="#">Logar</a>
+    <a href="#" class="active">Cadastro</a>
+  </nav>
+
+  <div class="form-container">
+    <label for="nome">Nome</label>
+    <input type="text" id="nome" name="nome" placeholder="Digite seu nome">
+
+    <label for="senha">Senha</label>
+    <input type="password" id="senha" name="senha" placeholder="Digite sua senha">
+
+    <label for="confirmar">Confirmar senha</label>
+    <input type="password" id="confirmar" name="confirmar" placeholder="Confirme sua senha">
+
+    <div style="display: flex; gap: 10px; margin-top: 15px;">
+      <div style="flex: 1;">
+        <label for="continente">Continente</label>
+        <select id="continente" name="continente">
+          <option>América do Sul</option>
+          <option>América do Norte</option>
+          <option>Europa</option>
+          <option>África</option>
+          <option>Ásia</option>
+          <option>Oceania</option>
+        </select>
+      </div>
+      <div style="flex: 1;">
+        <label for="cargo">Cargo</label>
+        <select id="cargo" name="cargo">
+          <option>Explorador</option>
+          <option>Observador</option>
+          <option>Pesquisador</option>
+        </select>
+      </div>
+    </div>
+
+    <button type="submit">Cadastrar</button>
+  </div>
+</body>
+</html>

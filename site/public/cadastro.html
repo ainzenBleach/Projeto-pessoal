@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="Style/style-cadastro.css" />
+    <title>Document</title>
+  </head>
+  <body onload="listar()" >
+    <header id="header_pagina">
+      <img src="img/Logo_criptoradar.png" alt="">
+      <a href="index.html">Início</a>
+      <a href="aparicoes.html">Aparições</a>
+      <a href="novo_post.html">Novo post</a>
+      <a href="login.html" id="login">Login</a>
+      <a href="cadastro.html" id="cadastro"><span>Cadastrar</span></a>
+      <a href="" style="display: none;" id="perfil">perfil</a>
+      <a href="" style="display: none;" onclick="sair()">sair</a>
+  </header>
+    <div class="card">
+      <div class="formulario">
+
+        <div class="campo username">
+          <span>Nome</span>
+          <input
+            type="text"
+            id="input_nome"
+            placeholder="Digite seu nome de usuário"
+          />
+        </div>
+
+        <div class="campo email">
+          <span>Email</span>
+          <input
+            type="text"
+            id="input_email"
+            placeholder="Digite seu email para cadastrar"
+          />
+        </div>
+
+        <div class="campo senha">
+          <span>Senha</span>
+          <input
+            type="password"
+            id="input_senha"
+            placeholder="Digite sua senha"
+          />
+        </div>
+
+        <div class="campo senha">
+          <span>Confirmar senha</span>
+          <input
+            type="password"
+            id="input_senha_confirmada"
+            placeholder="Confirma sua senha"
+            oninput="cadastrar()"
+          />
+        </div>
+        <div class="select">
+            <div class="cotinente escolha">
+                <span>Continente</span>
+                <select id="select_continente">
+                    <option value="#" selected disabled>Escolha seu continente</option>
+                    <option>América</option>
+                    <option>Europa</option>
+                    <option>Ásia</option>
+                    <option>Africa</option>
+                    <option>Oceania</option>
+                    <option>Antártida</option>
+                </select>
+            </div>
+            <div class="cargo escolha">
+                <span>Cargo</span>
+                <select id="select_cargo">
+                    <option value="#" selected disabled>Escolha seu cargo</option>
+                    <option>Explorador</option>
+                    <option>Pesquisador</option>
+                    <option>Fotografos</option>
+                    <option>Visitante</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="botao">
+          <button onclick="cadastrar()">Cadastrar</button>
+        </div>
+        <div id="aviso"><span></span></div>
+      </div>
+    </div>
+  </body>
+</html>
+<script>
+
+const listaDeEmail = []
+
+
+function cadastrar(){
+    var nome = input_nome.value
+
+    var email = input_email.value
+
+    var senha = input_senha.value
+    var senha_confirmada = input_senha_confirmada.value
+
+    var continente = select_continente.value
+    var cargo = select_cargo.value
+
+    var mensagem = ``
+
+    var nome_caractere = nome.length
+    var senha_caractere = senha.length
+
+    if(nome_caractere < 1){
+        mensagem = `<span>Nome muito pequeno</span>`
+    }else if(email.length == 0){
+        mensagem = `<span>insira um email</span>`
+    }else if(email.indexOf("@") < 0 || email.endsWith(".com") == false){
+        mensagem = `<span>insira um email válido com @ e '.com'</span>`
+    }else if(email.indexOf("gmail") < 0 & email.indexOf("hotmail") < 0 && email.indexOf("outlook") < 0){
+        mensagem = `<span>insira um gmail, hotmail ou outlook</span>`
+    }else if(senha_caractere < 8){
+        mensagem = `<span>A senha deve ter mais 8 caractere</span>`
+    }else if(senha != senha_confirmada){
+        mensagem = `<span>As senhas devem ser iguais</span>`
+    }else if(continente == '#'){
+        mensagem = `<span>Escolha um continente</span>`
+    }else if(cargo == "#"){
+        mensagem = `<span>Escolha um cargo</span>`
+    }else{
+      
+      
+     // Enviando o valor da nova input
+    fetch("/usuarios/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        nomeServer: nome,
+        emailServer: email,
+        senhaServer: senha,
+        continenteServer: continente,
+        cargoServer: cargo
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+
+          alert("Cadastro realizado")
+          setTimeout(function(){
+            window.location = "login.html"
+          },1000 )
+
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        finalizarAguardar();
+      });
+    }
+  aviso.innerHTML = mensagem
+}
+
+function carregar(){
+    var sessao = sessionStorage.ID_USUARIO
+    if(sessao != undefined){
+    document.getElementById("sair").style.display = "block";
+    document.getElementById("perfil").style.display = "block";
+    document.getElementById("login").style.display = "none";
+    document.getElementById("cadastro").style.display = "none";
+   }
+}
+
+function sair(){
+    sessionStorage.clear()
+}
+
+</script>

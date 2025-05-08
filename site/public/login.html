@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="Style/style-login.css" />
+    
+    <title>Login - Página criptidios</title>
+  </head>
+  <body>
+    <header id="header_pagina">
+      <img src="img/Logo_criptoradar.png" alt="">
+      <a href="index.html">Início</a>
+      <a href="aparicoes.html">Aparições</a>
+      <a href="novo_post.html">Novo post</a>
+      <a href="login.html" id="login"><span>Login</span></a>
+      <a href="cadastro.html" id="cadastro">Cadastrar</a>
+      <a href="" style="display: none;" id="perfil">perfil</a>
+      <a href="" style="display: none;" onclick="sair()">sair</a>
+  </header>
+    <div class="card">
+      <div class="formulario">
+        <div class="campo username">
+          <span>Email</span>
+          <input
+            type="text"
+            id="input_email"
+            placeholder="Digite seu nome de usuário"
+            />
+        </div>
+        <div class="campo senha">
+          <span>Senha</span>
+          <input
+            type="password"
+            id="input_senha"
+            placeholder="Digite sua senha"
+          />
+        </div>
+        <div class="botao">
+          <button onclick="entrar()">Login</button>
+        </div>
+      </div> 
+    </div>
+  </body>
+</html>
+<script>
+
+function entrar() {
+        var emailVar = input_email.value;
+        var senhaVar = input_senha.value;
+
+        if (emailVar == "" || senhaVar == "") {
+            alert("Mensagem de erro para todos os campos em branco")
+        }
+        else {
+        alert(`login efetuado`)
+        console.log("FORM LOGIN: ", emailVar);
+        console.log("FORM SENHA: ", senhaVar);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+          console.log(resposta)
+            if (resposta.ok) {
+                console.log(resposta);
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.ID_USUARIO = json.idUsuario;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                });
+                window.location.href = "index.html";
+            } else {
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+      } 
+    }
+  
+  
+</script>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Style/style-aparicoes.css">
+    <title>Document</title>
+</head>
+<body onload="carregar()">
+    <header id="header_pagina">
+        <img src="img/Logo_criptoradar.png" alt="">
+        <a href="index.html">Início</a>
+        <a href="aparicoes.html"><span>Aparições</span></a>
+        <a href="novo_post.html">Novo post</a>
+        <a href="login.html" id="login">Login</a>
+        <a href="cadastro.html" id="cadastro">Cadastrar</a>
+        <a href="" style="display: none;" id="perfil">perfil</a>
+        <a href="" style="display: none;" onclick="sair() " id="sair">sair</a>
+    </header>
+
+    <div class="aparicoes">
+
+            <div class="card">
+                <div class="imagem_aparicoes">
+                    <img src="/img/avistamento 2.jpg" alt="">
+                </div>
+                <div class="informacoes_aparicoes">
+                    <span>Ups:11</span>
+                    <span>Comentários: 35</span>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="imagem_aparicoes">
+                    <img src="/img/avistamento 2.jpg" alt="">
+                </div>
+                <div class="informacoes_aparicoes">
+                    <span>Ups:11</span>
+                    <span>Comentários: 35</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="imagem_aparicoes">
+                    <img src="/img/avistamento 2.jpg" alt="">
+                </div>
+                <div class="informacoes_aparicoes">
+                    <span>Ups:11</span>
+                    <span>Comentários: 35</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="imagem_aparicoes">
+                    <img src="/img/avistamento 2.jpg" alt="">
+                </div>
+                <div class="informacoes_aparicoes">
+                    <span>Ups:11</span>
+                    <span>Comentários: 35</span>
+                </div>
+            </div> 
+            <div class="card">
+                <div class="imagem_aparicoes">
+                    <img src="/img/avistamento 2.jpg" alt="">
+                </div>
+                <div class="informacoes_aparicoes">
+                    <span>Ups:11</span>
+                    <span>Comentários: 35</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="imagem_aparicoes">
+                    <img src="/img/avistamento 2.jpg" alt="">
+                </div>
+                <div class="informacoes_aparicoes">
+                    <span>Ups:11</span>
+                    <span>Comentários: 35</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="imagem_aparicoes">
+                    <img src="/img/avistamento 2.jpg" alt="">
+                </div>
+                <div class="informacoes_aparicoes">
+                    <span>Ups:11</span>
+                    <span>Comentários: 35</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="imagem_aparicoes">
+                    <img src="/img/avistamento 2.jpg" alt="">
+                </div>
+                <div class="informacoes_aparicoes">
+                    <span>Ups:11</span>
+                    <span>Comentários: 35</span>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="imagem_aparicoes">
+                    <img src="/img/avistamento 2.jpg" alt="">
+                </div>
+                <div class="informacoes_aparicoes">
+                    <span>Ups:11</span>
+                    <span>Comentários: 35</span>
+                </div>
+            </div>
+
+    </div>
+</body>
+</html>
+<script>
+
+function carregar(){
+    var sessao = sessionStorage.ID_USUARIO
+    if(sessao != undefined){
+    document.getElementById("sair").style.display = "block";
+    document.getElementById("perfil").style.display = "block";
+    document.getElementById("login").style.display = "none";
+    document.getElementById("cadastro").style.display = "none";
+   }
+}
+
+function sair(){
+    sessionStorage.clear()
+}
+
+
+</script>

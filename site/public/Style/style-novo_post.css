@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: inter;
+}
+body{
+    background-color: #1A1F1B;
+}
+
+/*Configuração do header*/
+#header_pagina{
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   font-size: 20px;
+   padding-left: 100px;
+   padding-right: 100px;
+   background-color: #3E5641;
+   border-bottom: solid 1px black;
+   position: sticky;
+   top: 0;
+}
+#header_pagina img{
+   width: 80px;
+}
+
+#header_pagina a{
+   color:#D6C4A8;
+   text-decoration: none;
+   font-weight: 400;
+   transition: 0.3s;
+}
+#header_pagina a:hover /*validar*/{
+   font-weight: 500;
+   scale: 1.1;
+   text-decoration: underline solid 1px #D6C4A8;
+   background-color: #3CA197;
+   padding: 6px;
+   border-radius: 40px;
+}
+#header_pagina a:active /*validar*/{
+   transition: 0.1s;
+   color: white;
+   text-decoration: underline solid 1px white;
+}
+#header_pagina span {
+   background-color: #3CA197;
+   padding: 6px;
+   border-radius: 40px;
+}
+
+/* Configuração do campos */
+.campo{
+    box-shadow: 0 0 10px;
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px;
+}
+
+/* Configuração do campo titulo - Novo Post */
+.titulo{
+    width: 700px;
+    background-color: #3E5641;
+    padding: 15px;
+}
+
+.titulo h3 {
+    font-size: 24px;
+    font-weight: 300;
+    padding-bottom: 5px;
+    color: white;
+}
+
+.titulo input{
+    width: 100%;
+    background-color: #D6C4A8;
+    border: none;
+    height: 25px;
+    padding-left: 8px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 18px;
+    font-weight: 400;
+    border-radius: 8px;
+    transition: 0.5s;
+}
+
+.titulo input:hover{
+    scale: 1.05;
+}
+
+.titulo input:focus{
+    scale: 1.05;
+}
+
+/* Configuração do campo imagem - Novo Post */
+.imagem_carregar{
+    background-color: #3E5641;
+    margin-top: 40px;
+    width: 700px;
+    padding: 15px;
+}
+
+.imagem_carregar .texto{
+    background-color: #A3422C;
+    color: white;
+    width: fit-content;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-weight: 300;
+    font-size: 15px;
+}
+
+.imagem_carregar .input_arquivo{
+    background-color: #A3422C;
+    margin-top: 15px;
+    padding: 20px;
+    text-align: center;
+    color: #FFFAF0;
+}
+
+/* Configuração do campo de descrição - Novo Post */
+.descricao{
+    width: 700px;
+    background-color: #3E5641;
+    padding: 15px;
+    margin-top: 30px;
+}
+
+.descricao h3{
+    font-size: 24px;
+    font-weight: 300px;
+    color: white;
+}
+
+.descricao textarea{
+    margin-top: 10px;
+    height: 150px;
+    width: 98%;
+    background-color: #D6C4A8;
+    border-radius: 8px;
+    padding: 5px;
+    word-break: break-word;
+    transition: 0.5s;
+    font-size: 15px;
+}
+
+.descricao textarea:hover{
+    scale: 1.05;
+}
+
+.descricao textarea:focus{
+    scale: 1.05;
+}
+
+.descricao button{
+    width: 150px;
+    height: 30px;
+    background-color: #A3422C;
+    color: white;
+    font-size: 20px;
+    border: none;
+    border-radius: 8px;
+    margin-top: 10px;
+    transition: 0.3s; /*Validar*/
+ }
+
+.descricao button:hover{
+    transition: 0.3s;
+    scale: 1.05; 
+    border: solid 1px #ffffff;
+ }
+.descricao button:active {
+   transition: 0.3s;
+   background-color: white;
+   color:  #A3422C;
+   border: solid 1px #A3422C;
+}
