@@ -1,154 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Style/style-index.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="Style/style-index.css" />
     <title>Document</title>
-</head>
-<body onload="carregar()">
+  </head>
+  <body onload="carregarPost()">
     <header id="header_pagina">
-        <img src="img/Logo_criptoradar.png" alt="">
-        <a href="index.html"><span>Início</span></a>
-        <a href="aparicoes.html">Aparições</a>
-        <a href="novo_post.html">Novo post</a>
-        <a href="login.html" id="login">Login</a>
-        <a href="cadastro.html" id="cadastro">Cadastrar</a>
-        <a href="" style="display: none;" id="perfil">perfil</a>
-        <a href="" style="display:none;" onclick="sair() " id="sair">sair</a>
+      <img src="img/Logo_criptoradar.png" alt="" />
+      <a href="index.html"><span>Início</span></a>
+      <a href="aparicoes.html">Aparições</a>
+      <a href="novo_post.html">Novo post</a>
+      <a href="login.html" id="login">Login</a>
+      <a href="cadastro.html" id="cadastro">Cadastrar</a>
+      <a href="" style="display: none" id="perfil">perfil</a>
+      <a href="" style="display: none" onclick="sair() " id="sair">sair</a>
     </header>
 
     <div class="principal">
-        <div class="scroll_post">
+      <div class="scroll_post" id="scroll_post">
+        <div class="card post" id="post_0">
+          <div class="titulo">
+            <span>Primeiro contato</span>
+            <span>22/04/2018</span>
+          </div>
 
-            <div class="card post" id="post_0">
-                    <div class="titulo">
-                        <span>Primeiro contato</span>
-                        <span>22/04/2018</span>
-                    </div>
-
-                    <div class="imagem_post">
-                        <div class="relato_imagem">
-                            <img src="../img/avistamento 2.jpg" alt="">
-                        </div>
-                    </div>
-
-                    <div class="ups">
-                        <button>☝</button>
-                        <button>👇</button>
-                    </div>
-
-                    <div class="descricao" >
-                        <div>
-                            <h4>Titulo descrição</h4>
-                            <span>sgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjb</span>
-                        </div>
-                    </div>
-
-                    <div class="campo_comentario">
-
-                        <div class="inserir_comentario">
-                        <input type="text" class="adicionar_comentario" placeholder="Adicione um comentário" id="input_post_0">
-                        <button onclick="comentar()">Comentar</button>
-                        </div>
-
-                        <div class="visualizar_comentario" id="campo_comentario">
-                            <h3>Comentário:</h3>
-
-                            <div class="comentario_campo" id="comentario_0">
-                                <div class="comentario_texto">
-                                    <div> <h4>Nome do usuário</h4> </div>
-                                    <div> <span>sdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvcdertyjbvcdrtyujbvcdfrtyujbvcdrtysdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvcdertyjbvcdrtyujbvcdfrtyujbvcdrtysdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvcdertyjbvcdrtyujbvcdfrtyujbvcdrty</span></div> 
-                                </div> 
-                                <div class="comentario_botao">
-                                    <button>☝</button>
-                                    <button>👇</button>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
+          <div class="imagem_post">
+            <div class="relato_imagem">
+              <img src="../img/avistamento 2.jpg" alt="" />
             </div>
-            <div class="card post" id="post_0">
-                    <div class="titulo">
-                        <span>Primeiro contato</span>
-                        <span>22/04/2018</span>
-                    </div>
+          </div>
 
-                    <div class="imagem_post">
-                        <div class="relato_imagem">
-                            <img src="../img/avistamento 2.jpg" alt="">
-                        </div>
-                    </div>
+          <div class="ups">
+            <button>☝</button>
+            <button>👇</button>
+          </div>
 
-                    <div class="ups">
-                        <button>☝</button>
-                        <button>👇</button>
-                    </div>
+          <div class="descricao">
+            <div>
+              <h4>Titulo descrição</h4>
+              <span
+                >sgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjb</span
+              >
+            </div>
+          </div>
 
-                    <div class="descricao" >
-                        <div>
-                            <h4>Titulo descrição</h4>
-                            <span>sgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjb</span>
-                        </div>
-                    </div>
-
-                    <div class="campo_comentario">
-
-                        <div class="inserir_comentario">
-                        <input type="text" class="adicionar_comentario" placeholder="Adicione um comentário" id="input_post_0">
-                        <button onclick="comentar()">Comentar</button>
-                        </div>
-
-                        <div class="visualizar_comentario" id="campo_comentario">
-                            <h3>Comentário:</h3>
-
-                            <div class="comentario_campo" id="comentario_0">
-                                <div class="comentario_texto">
-                                    <div> <h4>Nome do usuário</h4> </div>
-                                    <div> <span>sdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvcdertyjbvcdrtyujbvcdfrtyujbvcdrtysdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvcdertyjbvcdrtyujbvcdfrtyujbvcdrtysdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvcdertyjbvcdrtyujbvcdfrtyujbvcdrty</span></div> 
-                                </div> 
-                                <div class="comentario_botao">
-                                    <button>☝</button>
-                                    <button>👇</button>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
+          <div class="campo_comentario">
+            <div class="inserir_comentario">
+              <input
+                type="text"
+                class="adicionar_comentario"
+                placeholder="Adicione um comentário"
+                id="input_post_0"
+              />
+              <button onclick="comentar()">Comentar</button>
             </div>
 
+            <div class="visualizar_comentario" id="campo_comentario">
+              <h3>Comentário:</h3>
+
+              <div id="div_scroll_comentrios_1">
+                <div class="comentario_campo" id="comentario_0">
+                  <div class="comentario_texto">
+                    <div><h4>Nome do usuário</h4></div>
+                    <div>
+                      <span
+                        >sdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvcdertyjbvcdrtyujbvcdfrtyujbvcdrtysdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvcdertyjbvcdrtyujbvcdfrtyujbvcdrtysdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvcdertyjbvcdrtyujbvcdfrtyujbvcdrty</span
+                      >
+                    </div>
+                  </div>
+                  <div class="comentario_botao">
+                    <button>☝</button>
+                    <button>👇</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="card destaque" id="">
-            <h4>Bem vindo</h4> <img src="/img/Logo_criptoradar.png" alt="">
-            <div><span>Bem vindo ao criptoradar, o lugar de pessoas e criaturas esperando ser documentadas.</span></div>
-            
+      </div>
+      <div class="card destaque" id="">
+        <h4>Bem vindo</h4>
+        <img src="/img/Logo_criptoradar.png" alt="" />
+        <div>
+          <span
+            >Bem vindo ao criptoradar, o lugar de pessoas e criaturas esperando
+            ser documentadas.</span
+          >
         </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>
 <script>
 
-function comentar(){
-    var texto_comentario = input_post_0.value
-    var campo_comentario = document.getElementById("campo_comentario");
-    var usuario = `Batatinha123`
-}
 
-function carregar(){
-    var sessao = sessionStorage.ID_USUARIO
-    if(sessao != undefined){
-    document.getElementById("sair").style.display = "block";
-    document.getElementById("perfil").style.display = "block";
-    document.getElementById("login").style.display = "none";
-    document.getElementById("cadastro").style.display = "none";
-   }
-}
 
-function sair(){
-    sessionStorage.clear()
-}
+  function carregarPost() {
+      fetch(`/carregarPost`, {
+        method: "GET"
+      })
+        .then(res => {
+          res.json().then(json => {
 
+            const post = json;
+
+            console.log(`post: ${JSON.stringify(post)}`)
+            console.log(`post: ${post[0].id}`)
+            console.log(`post: ${post.length}`)
+
+              for(var i = 0; i < post.length; i++){
+                  scroll_post.innerHTML += `
+
+            <div class="card post" id="post_${post[i].id}">
+                      <div class="titulo">
+                          <span>${post[i].titulo}</span>
+                          <span>${post[i].data}</span>
+                      </div>
+                      <div class="imagem_post">
+                          <div class="relato_imagem">
+                              <img src="../img/${post[i].imagem}" alt="">
+                          </div>
+                      </div>
+                      <div class="ups">
+                          <button>☝</button>
+                          <button>👇</button>
+                      </div>
+                      <div class="descricao" >
+                          <div>
+                              <h4>${post[i].usuario}</h4>
+                              <span>${post[i].descricao}</span>
+                          </div>
+                      </div>
+                      <div class="campo_comentario">
+                          <div class="inserir_comentario">
+                          <input type="text" class="adicionar_comentario" placeholder="Adicione um comentário" id="input_post_0">
+                          <button onclick="comentar()">Comentar</button>
+                          </div>
+                          <div class="visualizar_comentario" id="campo_comentario">
+                              <h3>Comentário:</h3>
+                              <div id="div_scroll_comentrios_${post[i].id}">
+                                  <div class="comentario_campo" id="comentario_0">
+                                      <div class="comentario_texto">
+                                          <div> <h4>Nome do usuário</h4> </div>
+                                          <div> <span>sdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvcdertyjbvcdrtyujbvcdfrtyujbvcdrtysdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvcdertyjbvcdrtyujbvcdfrtyujbvcdrtysdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvcdertyjbvcdrtyujbvcdfrtyujbvcdrty</span></div>
+                                      </div>
+                                      <div class="comentario_botao">
+                                          <button>☝</button>
+                                          <button>👇</button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+              </div>
+            `
+            const idPost = post[i].id;
+            if (idPost !== undefined) {
+            carregarComentario(idPost);
+            }
+              }
+
+          })
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
+
+  function carregarComentario(idPost){
+      fetch(`/carregarComentario/${idPost}`,{
+      })
+      .then(
+          res => {
+          res.json().then(json =>{
+              const comentario = json;
+
+              console.log(comentario)
+              const divComentarios = document.getElementById(`div_scroll_comentrios_${idPost}`)
+
+              for(var i = 0; i < comentario.length; i++){
+                divComentarios.innerHTML += `
+
+              <div class="comentario_campo" id="comentario_${comentario[i].idComentario}">
+                  <div class="comentario_texto">
+                      <div> <h4>${comentario[i].usuario}</h4> </div>
+                      <div> <span>${comentario[i].Comentario}</span></div>
+                  </div>
+                  <div class="comentario_botao">
+                      <button>☝</button>
+                      <button>👇</button>
+                  </div>
+              </div>
+            `
+              }
+            
+
+          })}
+      )
+      .catch(err => {
+          console.log(err);}
+      )
+          }
+
+  function comentar(){
+      var texto_comentario = input_post_0.value
+      var campo_comentario = document.getElementById("campo_comentario");
+      var usuario = `Batatinha123`
+  }
+
+  function carregar(){
+      var sessao = sessionStorage.ID_USUARIO
+      if(sessao != undefined){
+      document.getElementById("sair").style.display = "block";
+      document.getElementById("perfil").style.display = "block";
+      document.getElementById("login").style.display = "none";
+      document.getElementById("cadastro").style.display = "none";
+     }
+  }
+
+  function sair(){
+      sessionStorage.clear()
+  }
 </script>

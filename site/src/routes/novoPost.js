@@ -12,8 +12,5 @@ router.post('/novoPost', upload.single('foto'), (req, res) => {
   novoPostController.salvar(req, res);
 });
 
-// router.get('/:id', upload.single('foto'), (req, res) => {
-//   usuarioController.buscarUsuarioPeloId(req, res);
-// });
 
 module.exports = router;

@@ -1,5 +1,12 @@
-Para utilizar  API devemos seguir esse caminho =>
+A API é dividida em package.jon, na qual faz o detalhamento para informar as bibliotecas utilizadas e suas versões, informar sobre o que será utilizado no projeto.
+- Git_ignore: Utilizado para ignorar o upload de arquivos ou pastas que o git vai ignorar.
+- Node_modules: Pasta na qual faz o armazenamento das bibiliotecas.
+- Public: Pasta destinado para o Front-end.
+- Src: Pasta destinda para o Back-end.
 
+Utilizando o MVC
+
+Para utilizar  API devemos seguir esse caminho =>
 config.js (Banco de dados) 
     -- É realizado a configuração do banco de dados para que possa ocorrer o insert e/ou select dos dados.
 
@@ -18,7 +25,12 @@ Controller.js
 
 <=> 
 Routes.js 
-    --
+    -- Fazemos o requerimento do uso da bibilioteca para utiliza a função dela { var exemplo = require(biblioteca)}
+    -- Apos fazer o requerimento da bibliotecas criamos uma variavel para utilizar uma das funções {var router = express.router}, fazer a variavel para podemos simplificar e utilizar repetidamente a variavel.
+    -- A utilização da express fazemos o usso de protocolo http, na nossa API é utilizado o get e post
+    -- Atribuimos  /fetch para criar o endpoint para armazenar os valores que serão pego
 
 <=> 
 pagina(qualquer)
+
+

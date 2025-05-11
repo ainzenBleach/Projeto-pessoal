@@ -16,16 +16,4 @@ function salvar(req, res) {
   });
 }
 
-// function buscarUsuarioPeloId(req, res) {
-//   console.log(req.params.id);
-//   usuarioModel.buscarUsuarioPeloId(req.params.id)
-//   .then(resultado => {
-//     res.json(resultado);
-//   }).catch(err => {
-//     res.status(500).send(err);
-//   });
-// }
-
-module.exports = { salvar
-//  , buscarUsuarioPeloId 
-}
+module.exports = { salvar}

@@ -1,0 +1,4 @@
+Usado o hover.
+Usado o Transition.
+
+Padronizar tags para melhor estilização.

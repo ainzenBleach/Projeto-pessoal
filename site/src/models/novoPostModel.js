@@ -6,12 +6,4 @@ function salvar(post) {
   return database.executar(instrucao);
 }
 
-// function buscarUsuarioPeloId(id) {
-//   const instrucao = `select * from usuario where id = ${id}`;
-
-//   return database.executar(instrucao);
-// }
-
-module.exports = { salvar
-  // , buscarUsuarioPeloId 
-}
+module.exports = {salvar}
