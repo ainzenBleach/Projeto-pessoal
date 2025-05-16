@@ -14,7 +14,7 @@
         <a href="novo_post.html"><span>Novo post</span></a>
         <a href="login.html" id="login">Login</a>
         <a href="cadastro.html" id="cadastro">Cadastrar</a>
-        <a href="" style="display: none;" id="perfil">perfil</a>
+        <a href="#" style="display: none" id="perfil" onclick="dashboard()">perfil</a>
         <a href="" style="display:none;" onclick="sair() " id="sair">sair</a>
     </header>
 
@@ -81,4 +81,15 @@ function carregar(){
 function sair(){
     sessionStorage.clear()
 }
+
+function dashboard(){
+    var cargo = sessionStorage.CARGO_USUARIO
+    
+    if(cargo != "administrador"){
+        window.location.href = "dashboard-comum.html";
+    }else{
+        window.location.href = "dashboard-adm.html";
+    }
+}
+
 </script>

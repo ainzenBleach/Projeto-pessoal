@@ -6,7 +6,7 @@ select p.idPost as "id",
 p.titulo as "titulo",
 p.imagem as "imagem",
 p.descricao as "descricao",
-p.dtPost as "data",
+date_format(p.dtPost, '%d/%m/%Y') as "data",
 u.nome as "usuario"
 from
 post p join dadosUsuarios u 
@@ -31,5 +31,15 @@ join dadosUsuarios u
   return database.executar(instrucao);
 }
 
+function salvarComentario(idUsuario, idPost, comentario) {
 
-module.exports = {carregarPost, carregarComentario}
+const instrucao = `
+INSERT INTO comentario (fkUsuario, fkPost, comentario) VALUES
+(${idUsuario},${idPost}, '${comentario}');
+`;
+
+  return database.executar(instrucao);
+}
+
+
+module.exports = {carregarPost, carregarComentario, salvarComentario}

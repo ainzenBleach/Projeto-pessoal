@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="Style/style-index.css" />
     <title>Document</title>
   </head>
-  <body onload="carregarPost()">
+  <body onload="carregarPost(),carregar()">
     <header id="header_pagina">
       <img src="img/Logo_criptoradar.png" alt="" />
       <a href="index.html"><span>Início</span></a>
@@ -14,71 +14,13 @@
       <a href="novo_post.html">Novo post</a>
       <a href="login.html" id="login">Login</a>
       <a href="cadastro.html" id="cadastro">Cadastrar</a>
-      <a href="" style="display: none" id="perfil">perfil</a>
-      <a href="" style="display: none" onclick="sair() " id="sair">sair</a>
+      <a href="#" style="display: none" id="perfil" onclick="dashboard">perfil</a>
+      <a style="display: none" onclick="sair() " id="sair">sair</a>
     </header>
 
     <div class="principal">
       <div class="scroll_post" id="scroll_post">
-        <div class="card post" id="post_0">
-          <div class="titulo">
-            <span>Primeiro contato</span>
-            <span>22/04/2018</span>
-          </div>
 
-          <div class="imagem_post">
-            <div class="relato_imagem">
-              <img src="../img/avistamento 2.jpg" alt="" />
-            </div>
-          </div>
-
-          <div class="ups">
-            <button>☝</button>
-            <button>👇</button>
-          </div>
-
-          <div class="descricao">
-            <div>
-              <h4>Titulo descrição</h4>
-              <span
-                >sgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjbsgbuhvdsdrtgvbjb</span
-              >
-            </div>
-          </div>
-
-          <div class="campo_comentario">
-            <div class="inserir_comentario">
-              <input
-                type="text"
-                class="adicionar_comentario"
-                placeholder="Adicione um comentário"
-                id="input_post_0"
-              />
-              <button onclick="comentar()">Comentar</button>
-            </div>
-
-            <div class="visualizar_comentario" id="campo_comentario">
-              <h3>Comentário:</h3>
-
-              <div id="div_scroll_comentrios_1">
-                <div class="comentario_campo" id="comentario_0">
-                  <div class="comentario_texto">
-                    <div><h4>Nome do usuário</h4></div>
-                    <div>
-                      <span
-                        >sdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvcdertyjbvcdrtyujbvcdfrtyujbvcdrtysdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvcdertyjbvcdrtyujbvcdfrtyujbvcdrtysdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvcdertyjbvcdrtyujbvcdfrtyujbvcdrty</span
-                      >
-                    </div>
-                  </div>
-                  <div class="comentario_botao">
-                    <button>☝</button>
-                    <button>👇</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
       <div class="card destaque" id="">
         <h4>Bem vindo</h4>
@@ -94,9 +36,9 @@
   </body>
 </html>
 <script>
-
-
-
+var deuLikeUp = false
+var deuLikeDown = false
+// Carregar post da pagina
   function carregarPost() {
       fetch(`/carregarPost`, {
         method: "GET"
@@ -106,17 +48,17 @@
 
             const post = json;
 
-            console.log(`post: ${JSON.stringify(post)}`)
-            console.log(`post: ${post[0].id}`)
-            console.log(`post: ${post.length}`)
-
               for(var i = 0; i < post.length; i++){
                   scroll_post.innerHTML += `
 
             <div class="card post" id="post_${post[i].id}">
                       <div class="titulo">
-                          <span>${post[i].titulo}</span>
-                          <span>${post[i].data}</span>
+                        <div class="titulo_1">
+                          <span id="up_like_${post[i].id}">${post[i].titulo}</span>
+                        </div>
+                        <div class="titulo_2">
+                          <span id="down_like_${post[i].id}">${post[i].data}</span>
+                        </div>
                       </div>
                       <div class="imagem_post">
                           <div class="relato_imagem">
@@ -124,8 +66,15 @@
                           </div>
                       </div>
                       <div class="ups">
-                          <button>☝</button>
-                          <button>👇</button>
+                            <div id="up_${post[i].id}">
+                            <span></span>
+                            </div>
+                            <button onclick="ups(${post[i].id})">☝</button>
+                            <button onclick="down(${post[i].id})">👇</button>
+
+                            <div id="down_${post[i].id}">
+                            <span></span>
+                            </div>
                       </div>
                       <div class="descricao" >
                           <div>
@@ -135,30 +84,24 @@
                       </div>
                       <div class="campo_comentario">
                           <div class="inserir_comentario">
-                          <input type="text" class="adicionar_comentario" placeholder="Adicione um comentário" id="input_post_0">
-                          <button onclick="comentar()">Comentar</button>
+                          <input type="text" class="adicionar_comentario" placeholder="Adicione um comentário" id="input_post_${post[i].id}">
+                          <button onclick="comentar(${post[i].id})">Comentar</button>
                           </div>
-                          <div class="visualizar_comentario" id="campo_comentario">
+                          <div class="visualizar_comentario" id="campo_comentari_${post[i].id}">
                               <h3>Comentário:</h3>
                               <div id="div_scroll_comentrios_${post[i].id}">
-                                  <div class="comentario_campo" id="comentario_0">
-                                      <div class="comentario_texto">
-                                          <div> <h4>Nome do usuário</h4> </div>
-                                          <div> <span>sdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvcdertyjbvcdrtyujbvcdfrtyujbvcdrtysdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvcdertyjbvcdrtyujbvcdfrtyujbvcdrtysdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvsdrtyjnbvcdertyjbvcdrtyujbvcdfrtyujbvcdrty</span></div>
-                                      </div>
-                                      <div class="comentario_botao">
-                                          <button>☝</button>
-                                          <button>👇</button>
-                                      </div>
-                                  </div>
                               </div>
+                          </div>
                           </div>
                       </div>
               </div>
             `
             const idPost = post[i].id;
+
             if (idPost !== undefined) {
             carregarComentario(idPost);
+            carregarLikeUp(idPost);
+            carregarLikeDown(idPost);
             }
               }
 
@@ -169,15 +112,16 @@
         })
     }
 
+// Carregar comntarios do post
   function carregarComentario(idPost){
       fetch(`/carregarComentario/${idPost}`,{
+        method: "GET"
       })
       .then(
           res => {
           res.json().then(json =>{
               const comentario = json;
 
-              console.log(comentario)
               const divComentarios = document.getElementById(`div_scroll_comentrios_${idPost}`)
 
               for(var i = 0; i < comentario.length; i++){
@@ -187,10 +131,6 @@
                   <div class="comentario_texto">
                       <div> <h4>${comentario[i].usuario}</h4> </div>
                       <div> <span>${comentario[i].Comentario}</span></div>
-                  </div>
-                  <div class="comentario_botao">
-                      <button>☝</button>
-                      <button>👇</button>
                   </div>
               </div>
             `
@@ -204,12 +144,315 @@
       )
           }
 
-  function comentar(){
-      var texto_comentario = input_post_0.value
+//Função para carregar os likes do post
+function carregarLikeUp(idPost){
+    fetch(`/like/carregarLikeUp/${idPost}`, {
+      method:"GET"
+    })
+    .then(res => {
+          res.json().then(json => {
+
+          var up = json
+
+          var div_mensagemUp = document.getElementById(`up_${idPost}`)
+
+          for(var i = 0; i < up.length; i++){
+                div_mensagemUp.innerHTML = `<span>${up[i].curtida}</span>`
+          }
+  
+          })
+      })
+
+    .catch(
+    )
+}
+function carregarLikeDown(idPost){
+  fetch(`/like/carregarLikeDown/${idPost}`,{
+      method:"GET"
+    })
+    .then( res => {
+            res.json().then(json => {
+              var down = json
+
+              var div_mensagemDown = document.getElementById(`down_${idPost}`)
+
+              for(var i = 0; i < down.length; i++){
+                div_mensagemDown.innerHTML = `<span>${down[i].curtida}</span>`
+              }
+            
+            })
+    })
+    .catch(
+
+    )
+}
+
+// Função para comentar e salvar no banco de dados
+  function comentar(idPost){
+      var valorComentario = document.getElementById(`input_post_${idPost}`)
+      var comentario = valorComentario.value
       var campo_comentario = document.getElementById("campo_comentario");
-      var usuario = `Batatinha123`
+      var usuario = sessionStorage.ID_USUARIO
+      var div_mensagem = document.getElementById(`div_scroll_comentrios_${idPost}`)
+      if(sessionStorage.ID_USUARIO != undefined){
+        div_mensagem.innerHTML += `
+        <div class="comentario_campo" id="comentario_${idPost}">
+              <div class="comentario_texto">
+                <div> <h4>${sessionStorage.NOME_USUARIO}</h4> </div>
+                <div> <span>${comentario}</span></div>
+              </div>
+        </div>
+      `
+
+     fetch(`/salvarComentario`,{
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json",
+        },
+      body: JSON.stringify({
+        usuarioServer: usuario,
+        postServer: idPost,
+        comentarioServer: comentario
+      }),
+    })
+      .then(
+          alert(`Comentario postado com sucesso`)
+      )
+      .catch(err => {
+        console.error("Erro ao salvar comentário:", err);
+        res.status(500).send(err);
+      });
+      }else{
+        alert(`Realize o login`)
+      } 
+      
+      
+
   }
 
+// Sistema de like 
+function ups(idPost){
+
+  var idUsuario = sessionStorage.ID_USUARIO;
+
+  if(sessionStorage.ID_USUARIO == undefined){
+    alert("Realize um login para poder interagir")
+  }else{
+    //Ver se o  usuario deu um up no post
+    fetch(`/like/carregarLikeUsuarioUp/${idUsuario}`, {
+      method:"GET"
+    })
+    .then( res => {
+            res.text().then(text => {
+              if (!text) return;
+
+              const json = JSON.parse(text);
+
+             var likeUsuarioUp = json
+             deuLikeUp = false
+             for(var i = 0; i < likeUsuarioUp.length; i++){
+                if(likeUsuarioUp[i].fkPost == idPost){
+                  deuLikeUp = true
+              }
+             }
+             console.log("Ups" + likeUsuarioUp)
+            })
+    })
+    .catch(
+    )
+
+    //Ver se o usuario deu um down no post
+    fetch(`/like/carregarLikeUsuarioDown/${idUsuario}`, {
+      method:"GET"
+    })
+    .then( res => {
+            res.text().then(text => {
+            if (!text) return;
+
+            const json = JSON.parse(text);
+
+             var likeUsuarioDown = json
+             deuLikeDown = false
+             for(var i = 0; i < likeUsuarioDown.length; i++){
+                if(likeUsuarioDown[i].fkPost == idPost){
+                  deuLikeDown = true
+              }
+             }
+              console.log("Down:" + likeUsuarioDown) 
+            })
+    })
+    .catch(
+    )
+
+    // Inserir no banco o up, sem o usuario ter dado um up ou down no post
+    if(deuLikeDown == false && deuLikeUp == false){
+      fetch(`/like/upInserir/${idUsuario}/${idPost}`, {
+      method:"POST",
+      body: JSON.stringify({
+        usuarioServer: idUsuario,
+        postServer: idPost
+      })
+    })
+    .then( res => {
+            res.text().then(text => {
+            if (!text) return;
+
+            const json = JSON.parse(text);
+
+              console.log("Like computado up") 
+               carregarLikeUp(idPost);
+                carregarLikeDown(idPost);
+            })
+    })
+    .catch( err =>{
+      console.error(err)
+      console.log("Like não computado") 
+    } 
+      )
+
+    }else if(deuLikeDown == true && deuLikeUp == false){
+       var troca = true
+        fetch(`/like/updateLike/${idUsuario}/${idPost}/${troca}`, {
+      method:"POST",
+      body: JSON.stringify({
+        trocaServer: troca,
+        usuarioServer: idUsuario,
+        postServer: idPost
+      })
+    })
+    .then( res => {
+            res.text().then(text => {
+            if (!text) return;
+
+            const json = JSON.parse(text);
+
+              console.log("Like computado e trocado") 
+              carregarLikeUp(idPost);
+                carregarLikeDown(idPost);
+            })
+    })
+    .catch(
+      console.log("Like não computado") 
+    )
+
+    
+    }
+
+
+  }
+}
+
+function down(idPost){
+
+
+  var idUsuario = sessionStorage.ID_USUARIO;
+
+  if(sessionStorage.ID_USUARIO == undefined){
+    alert("Realize um login para poder interagir")
+  }else{
+    //Ver se o  usuario deu um up no post
+    fetch(`/like/carregarLikeUsuarioUp/${idUsuario}`, {
+      method:"GET"
+    })
+    .then( res => {
+            res.text().then(text => {
+            if (!text) return;
+
+            const json = JSON.parse(text);
+
+             var likeUsuarioUp = json
+             deuLikeUp = false
+             for(var i = 0; i < likeUsuarioUp.length; i++){
+                if(likeUsuarioUp[i].fkPost == idPost){
+                  deuLikeUp = true
+              }
+             }
+             console.log("Ups" + likeUsuarioUp)
+            })
+    })
+    .catch(
+    )
+
+    //Ver se o usuario deu um down no post
+    fetch(`/like/carregarLikeUsuarioDown/${idUsuario}`, {
+      method:"GET"
+    })
+    .then( res => {
+            res.text().then(text => {
+            if (!text) return;
+
+            const json = JSON.parse(text);
+
+             var likeUsuarioDown = json
+             deuLikeDown = false
+             for(var i = 0; i < likeUsuarioDown.length; i++){
+                if(likeUsuarioDown[i].fkPost == idPost){
+                  deuLikeDown = true
+              }
+             }
+              console.log("Down:" + likeUsuarioDown) 
+            })
+    })
+    .catch(
+    )
+
+    // Inserir no banco o up, sem o usuario ter dado um up ou down no post
+    if(deuLikeDown == false && deuLikeUp == false){
+
+      fetch(`/like/downInserir/${idUsuario}/${idPost}`, {
+      method:"POST",
+      body: JSON.stringify({
+        usuarioServer: idUsuario,
+        postServer: idPost
+      })
+    })
+    .then( res => {
+            res.text().then(text => {
+            if (!text) return;
+
+            const json = JSON.parse(text);
+
+              console.log("Like computado down") 
+              carregarLikeUp(idPost);
+                carregarLikeDown(idPost);
+            })
+    })
+    .catch(
+      console.log("Like não computado") 
+    )
+
+    }else if(deuLikeDown == false && deuLikeUp == true){
+       var troca = false
+        fetch(`/like/updateLike/${idUsuario}/${idPost}/${troca}`, {
+      method:"POST",
+      body: JSON.stringify({
+        trocaServer: troca,
+        usuarioServer: idUsuario,
+        postServer: idPost
+      })
+    })
+    .then( res => {
+            res.text().then(text => {
+            if (!text) return;
+
+            const json = JSON.parse(text);
+              console.log("Like computado e trocado") 
+              carregarLikeUp(idPost);
+              carregarLikeDown(idPost);
+            })
+    })
+    .catch(
+      console.log("Like não computado") 
+    )
+
+    
+    }
+
+
+  }
+}
+
+  //manter os dados de login do usuário
   function carregar(){
       var sessao = sessionStorage.ID_USUARIO
       if(sessao != undefined){
@@ -219,8 +462,87 @@
       document.getElementById("cadastro").style.display = "none";
      }
   }
-
   function sair(){
       sessionStorage.clear()
   }
+function dashboard(){
+    var cargo = sessionStorage.CARGO_USUARIO
+    
+    if(cargo != "administrador"){
+        window.location.href = "dashboard-comum.html";
+    }else{
+        window.location.href = "dashboard-adm.html";
+    }
+}
+
+
+// var idUsuario = sessionStorage.ID_USUARIO;
+
+//   if (idUsuario == undefined) {
+//     alert("Realize um login para poder interagir");
+//     return;
+//   }
+
+  
+//   const resUp = await fetch(`/like/carregarLikeUsuarioUp/${idUsuario}`);
+//   const likeUsuarioUp = await resUp.json();
+
+//   const resDown = await fetch(`/like/carregarLikeUsuarioDown/${idUsuario}`);
+//   const likeUsuarioDown = await resDown.json();
+
+ 
+//   const deuLikeUp = likeUsuarioUp.some(like => like.fkPost == idPost);
+//   const deuLikeDown = likeUsuarioDown.some(like => like.fkPost == idPost);
+
+
+//   if (deuLikeUp == false && deuLikeDown == false) {
+//     await fetch(`/like/downInserir/${idUsuario}/${idPost}`, {
+//       method: "POST"
+//     });
+//   } else if (deuLikeUp && deuLikeDown == false) {
+//     await fetch(`/like/updateLike/${idUsuario}/${idPost}/false`, {
+//       method: "POST"
+//     });
+//   }
+
+
+//   carregarLikeUp(idPost);
+//   carregarLikeDown(idPost);
+
+
+
+
+
+// var idUsuario = sessionStorage.ID_USUARIO;
+
+  // if (!idUsuario) {
+  //   alert("Realize um login para poder interagir");
+  //   return;
+  // }
+
+  
+  // const resUp = await fetch(`/like/carregarLikeUsuarioUp/${idUsuario}`);
+  // const likeUsuarioUp = await resUp.json();
+
+  
+  // const resDown = await fetch(`/like/carregarLikeUsuarioDown/${idUsuario}`);
+  // const likeUsuarioDown = await resDown.json();
+
+  // const deuLikeUp = likeUsuarioUp.some(like => like.fkPost == idPost);
+  // const deuLikeDown = likeUsuarioDown.some(like => like.fkPost == idPost);
+
+  // if (!deuLikeUp && !deuLikeDown) {
+  //   await fetch(`/like/upInserir/${idUsuario}/${idPost}`, {
+  //     method: "POST"
+  //   });
+
+  // } else if (deuLikeDown && !deuLikeUp) {
+  //   await fetch(`/like/updateLike/${idUsuario}/${idPost}/true`, {
+  //     method: "POST"
+  //   });
+  // }
+
+  // carregarLikeUp(idPost);
+  // carregarLikeDown(idPost);
+
 </script>

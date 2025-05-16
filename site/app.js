@@ -18,7 +18,7 @@ var HOST_APP = process.env.APP_HOST;
 // 1° passo 
 var app = express();
 
-
+var likeRouter = require("./src/routes/like")
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var aparicoesRouter = require("./src/routes/aparicoes");
@@ -34,9 +34,10 @@ app.use(cors());
 
 // 2° passo  
 
+app.use("/like", likeRouter);
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
-// app.use("/aparicoes", aparicoesRouter);
+app.use("/aparicoes", aparicoesRouter);
 // app.use("/dashAdm", dashboardAdmRouter);
 // app.use("/dashComun", dashboardComunRouter);
 app.use("/novoPost", novoPostRouter);

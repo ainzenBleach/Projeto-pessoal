@@ -77,8 +77,9 @@ function entrar() {
                     sessionStorage.ID_USUARIO = json.idUsuario;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.CARGO_USUARIO = json.cargo
+                    window.location.href = "index.html";
                 });
-                window.location.href = "index.html";
             } else {
                 console.log("Houve um erro ao tentar realizar o login!");
 

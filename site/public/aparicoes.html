@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="Style/style-aparicoes.css">
     <title>Document</title>
 </head>
-<body onload="carregar()">
+<body onload="carregar(), aparicoesImagem()">
     <header id="header_pagina">
         <img src="img/Logo_criptoradar.png" alt="">
         <a href="index.html">Início</a>
@@ -14,105 +14,88 @@
         <a href="novo_post.html">Novo post</a>
         <a href="login.html" id="login">Login</a>
         <a href="cadastro.html" id="cadastro">Cadastrar</a>
-        <a href="" style="display: none;" id="perfil">perfil</a>
+        <a href="#" style="display: none" id="perfil" onclick="dashboard()">perfil</a>
         <a href="" style="display: none;" onclick="sair() " id="sair">sair</a>
     </header>
 
-    <div class="aparicoes">
-
-            <div class="card">
-                <div class="imagem_aparicoes">
-                    <img src="/img/avistamento 2.jpg" alt="">
-                </div>
-                <div class="informacoes_aparicoes">
-                    <span>Ups:11</span>
-                    <span>Comentários: 35</span>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="imagem_aparicoes">
-                    <img src="/img/avistamento 2.jpg" alt="">
-                </div>
-                <div class="informacoes_aparicoes">
-                    <span>Ups:11</span>
-                    <span>Comentários: 35</span>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="imagem_aparicoes">
-                    <img src="/img/avistamento 2.jpg" alt="">
-                </div>
-                <div class="informacoes_aparicoes">
-                    <span>Ups:11</span>
-                    <span>Comentários: 35</span>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="imagem_aparicoes">
-                    <img src="/img/avistamento 2.jpg" alt="">
-                </div>
-                <div class="informacoes_aparicoes">
-                    <span>Ups:11</span>
-                    <span>Comentários: 35</span>
-                </div>
-            </div> 
-            <div class="card">
-                <div class="imagem_aparicoes">
-                    <img src="/img/avistamento 2.jpg" alt="">
-                </div>
-                <div class="informacoes_aparicoes">
-                    <span>Ups:11</span>
-                    <span>Comentários: 35</span>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="imagem_aparicoes">
-                    <img src="/img/avistamento 2.jpg" alt="">
-                </div>
-                <div class="informacoes_aparicoes">
-                    <span>Ups:11</span>
-                    <span>Comentários: 35</span>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="imagem_aparicoes">
-                    <img src="/img/avistamento 2.jpg" alt="">
-                </div>
-                <div class="informacoes_aparicoes">
-                    <span>Ups:11</span>
-                    <span>Comentários: 35</span>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="imagem_aparicoes">
-                    <img src="/img/avistamento 2.jpg" alt="">
-                </div>
-                <div class="informacoes_aparicoes">
-                    <span>Ups:11</span>
-                    <span>Comentários: 35</span>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="imagem_aparicoes">
-                    <img src="/img/avistamento 2.jpg" alt="">
-                </div>
-                <div class="informacoes_aparicoes">
-                    <span>Ups:11</span>
-                    <span>Comentários: 35</span>
-                </div>
-            </div>
+    <div class="aparicoes" id="scroll_aparicoes">
 
     </div>
 </body>
 </html>
 <script>
+
+ function aparicoesImagem(){
+    
+      fetch('/aparicoes/carregarAparicoesImagem',{
+        method: "GET"
+      })
+      .then(
+        res => { res.json().then(json => {
+        var imagemAparicoes = json;
+
+        for(var i = 0; i < imagemAparicoes.lenght; i++){
+
+        scroll_aparicoes.innerHTML += `
+            <div class="card" id="aparicoes_${i + 1}">
+                <div class="imagem_aparicoes">
+                    <img src="/img/${imagemAparicoes[i].imagem}" alt="">
+                </div>
+                <div class="informacoes_aparicoes">
+                    <div id="aparicoes_up_${i + 1}">
+                    <span>Ups:11</span>
+                    </div>
+                    <div id="aparicoes_comentarios_${i + 1}">
+                    <span>Comentários: 35</span>
+                    </div>    
+                /div>
+            </div>
+        ` 
+        
+    
+      }
+
+        }   
+        )
+    })
+          
+      
+}
+
+async function aparicoesCurtida(idPost){
+
+      fetch('/aparicoes/carregarAparicoesUp',{
+        method: "GET"
+      })
+      .then(
+        res => { res.json().then(json => {
+            var curtidaAparicoes = json;
+        }   
+        )
+    })
+      
+
+      var div_mensagem = document.getElementById(`aparicoes_up_${idPost}`)
+
+      div_mensagem.innerHTML = `<span> Ups: ${curtidaAparicoes[0]} </span>`
+}
+
+async function aparicoesUp(idPost){
+
+    fetch('/aparicoes/carregarAparicoesComentario',{
+        method: "GET"
+      })
+      .then(
+        res => { res.json().then(json => {
+            var comentarioAparicoes = json;
+        }   
+        )
+    })
+
+    var div_mensagem = document.getElementById(`aparicoes_comentarios_${idPost}`)
+
+    div_mensagem.innerHTML = `<span> Comentários: ${comentarioAparicoes[idPost - 1]} </span>`
+}
 
 function carregar(){
     var sessao = sessionStorage.ID_USUARIO
@@ -124,9 +107,19 @@ function carregar(){
    }
 }
 
+
 function sair(){
     sessionStorage.clear()
 }
 
+function dashboard(){
+    var cargo = sessionStorage.CARGO_USUARIO
+    
+    if(cargo != "administrador"){
+        window.location.href = "dashboard-comum.html";
+    }else{
+        window.location.href = "dashboard-adm.html";
+    }
+}
 
 </script>

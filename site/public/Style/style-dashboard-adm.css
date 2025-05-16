@@ -6,7 +6,7 @@
     font-family: inter;
 }
 body{
-    background-color: #FFFAF0;
+    background-color: #1A1F1B;
 }
 
 .dashboard{
@@ -15,7 +15,8 @@ body{
 }
 
 .painel{
-    background-color: #D9D9D9;
+    background-color: #3E5641;
+    box-shadow: 0 0 10px;
     height: 100vh;
     width: 40vh;
     display: flex;
@@ -24,6 +25,7 @@ body{
 }
 
 .painel h3{
+    color: white;
     text-align: center;
     padding-top: 20px;
     font-size: 25px;
@@ -32,10 +34,13 @@ body{
 
 .painel button{
     margin-bottom: 30px;
+    color: white;
     align-self: center;
     width: 200px;
     height: fit-content;
     font-size: 25px;
+    background-color: #A3422C;
+    border: none;
 }
 
 .quadro{
@@ -55,18 +60,29 @@ body{
 }
 
 .escolha_filtro{
-    background-color: #312E2E;
+    background-color: #A3422C;
     height: 250px;
     width: 150px;
     align-self: center;
     display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-around;
+    box-shadow: 0 0 10px;
 }
 
-.escolha_filtro h3{
+.escolha_filtro button{
     color: aqua;
+    width: 130px;
     background-color: blue;
     text-align: center;
-    margin-top: 10px;
     height: fit-content;
+}
 
+#post_button{
+    margin-bottom: 0px;
+}
+
+#tipo_button{
+    margin-bottom: 0px;
 }

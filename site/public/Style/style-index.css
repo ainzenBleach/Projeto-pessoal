@@ -88,6 +88,7 @@ body{
 .titulo{
    display: flex;
    justify-content: space-between;
+   
 }
 
 .titulo span{
@@ -95,6 +96,20 @@ body{
    padding-bottom: 10px;
    font-size: 20px;
 }
+
+.titulo_1{
+   width: 300px;
+   word-break: break-word;
+}
+.titulo_2{
+   width: 120px;
+   word-break: break-word;
+   color:white;
+   padding-bottom: 10px;
+   font-size: 20px;
+   text-align: end;
+}
+
 /* configuração da imagem do post */
 .relato_imagem{
    background-color: #A3422C;
@@ -113,6 +128,10 @@ body{
 /* Configuração do botão embaixo da imagem do post */
 .ups{
    margin-bottom: 10px;
+   box-shadow: 0 0 10px;
+   width: 100px;
+   display: flex;
+   justify-content: center;
 }
 
 .ups button{
@@ -120,8 +139,14 @@ body{
    width: 25px;
    height: 25px;
    font-size: 15px;
+   margin-left: 10px;
+   margin: 10px;
 }
-
+.ups span{
+   text-align: center;
+   padding-top: 5px;
+   font-size: 20px;
+}
 /* Configuração da descrição */
 .descricao{
    background-color: #D6C4A8;
@@ -199,12 +224,14 @@ body{
 
 .visualizar_comentario{
    background: transparent;
-   border: solid 1px #A3422C;
+   border: solid 2px #A3422C;
+   padding-bottom: 10px;
    margin-top: 15px;
    border-radius: 10px;
-   height:  180px;
+   height: 180px;
    overflow-x: auto;
 }
+
 
 .visualizar_comentario h3{
    padding-left: 10px;
@@ -218,8 +245,8 @@ body{
    margin-left: 5px;
    color: black;
    background-color: #D6C4A8;
-   width:380px ;
-   border-radius: 50px;
+   width:370px ;
+   border-radius: 20px;
    padding-top: 8px;
    padding-bottom: 8px;
    padding-left: 15px;
@@ -234,12 +261,14 @@ body{
 
 .comentario_texto span{
    word-break: break-word;
-   font-size: 12px;
+   font-weight: 500;
+   font-size: 11px;
 }
 
 .comentario_texto h4{
    word-break: break-word;
-   font-size: 18px;
+   font-weight: 800;
+   font-size: 16px;
 }
 
 .comentario_texto{
@@ -248,6 +277,7 @@ body{
    padding-bottom: 15px;
    padding-left: 10px;
    flex:1;
+   padding-right: 10px;
 }
 
 .comentario_nome_usuario{
@@ -256,21 +286,6 @@ body{
 
 .comentario_usuario{
    height: fit-content;
-}
-/* Botão do up no campo de comentario */
-.comentario_botao button{
-   width: 25px;
-   height: 25px;
-   background: transparent;
-   border: solid 1px #A3422C;
-
-}
-
-.comentario_botao{
-   padding-top: 10px;
-   display: flex;
-   height: fit-content;
-   padding-right: 15px;
 }
 
 /* Configuraação dos destaques */
