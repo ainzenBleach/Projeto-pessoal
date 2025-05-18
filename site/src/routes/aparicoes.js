@@ -11,12 +11,12 @@ router.get("/carregarAparicoesImagem", (req, res) => {
     aparicoesController.informacaoAparicoesImagem(req, res)
 });
 
-router.get("/carregarAparicoesCurtida", (req, res) => {
+router.get("/carregarAparicoesCurtida/:idPost", (req, res) => {
     aparicoesController.informacaoAparicoesCurtida(req, res)
 });
 
-router.get("/carregarAparicoesUp", (req, res) => {
-    aparicoesController.informacaoAparicoesUp(req, res)
+router.get("/carregarAparicoesComentarios/:idPost", (req, res) => {
+    aparicoesController.informacaoAparicoesComentarios(req, res)
 });
 
 

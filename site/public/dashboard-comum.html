@@ -3,22 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Style/style-dashboard-adm.css">
+    <link rel="stylesheet" href="Style/style-dashboard-comun.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Document</title>
 </head>
-<body>
+<body onload="carregar()">
     <div class="dashboard">
         <div class="painel">
             <h3>Bem vindo, ${nome_usuário}</h3>
-            <div class="escolha_filtro">
-                <button id="tipo_button">tipo</button>
+
+            <div class="escolha_filtro" id="scroll">
+                <button id="tipo_button" onclick="adicionar()">tipo</button>
+                <button id="post_button">post</button>
+                <button id="post_button">post</button>
+                <button id="post_button">post</button>
+                <button id="post_button">post</button>
+                <button id="post_button">post</button>
                 <button id="post_button">post</button>
             </div>
-            <button>Sair</button>
+
+            <button onclick="sair()" class="botao-sair">Sair</button>
         </div>
         <div class="quadro">
-            <div id="grafico_tipo_conta" class="grafico_tipo_conta">
-                graffico
+            <div id="grafico_tipo_conta" class="grafico_tipo_conta" style="margin-bottom: 50px ;">
+                <canvas id="grafico_1" style="width: 400px; ">
+                </canvas>
             </div>
             <div id="grafico_total_conta" class="grafico_total_conta">
                 grafico
@@ -27,3 +36,67 @@
     </div>
 </body>
 </html>
+
+<script>
+
+function carregar(){
+  
+}
+
+
+//     var valor = 0
+//     var valor2 = 0
+//     var valor3 = 0
+//     var valor4 = 0
+//     var valor5 = 0
+//     var valor6 = 0
+
+    
+//     const ctx = document.getElementById('grafico_1');
+
+//   var grafico = new Chart(ctx, {
+//     type: 'line',
+//     data: {
+//       labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+//       datasets: [{
+//         label: '# of Votes',
+//         data: [valor, valor2, valor3, valor4, valor5, valor6],
+//         borderWidth: 1
+//       }]
+//     },
+//     options: {
+//       scales: {
+//         y: {
+//           beginAtZero: true
+//         }
+//       }
+//     }
+//   });
+
+// setInterval(() =>{
+//         var numeroAleatorio = parseInt(Math.random() * 5)
+//         var numeroAleatorio2 = parseInt(Math.random() * 5)
+//         var numeroAleatorio3 = parseInt(Math.random() * 5)
+//         var numeroAleatorio4 = parseInt(Math.random() * 5)
+//         var numeroAleatorio5 = parseInt(Math.random() * 5)
+//         var numeroAleatorio6 = parseInt(Math.random() * 5)
+
+//         valor += numeroAleatorio        
+//         valor2 += numeroAleatorio2
+//         valor3 += numeroAleatorio3
+//         valor4 += numeroAleatorio4
+//         valor5 += numeroAleatorio5
+//         valor6 += numeroAleatorio6
+
+//         // grafico.data.datasets[0].data.push(valor, valor2, valor3, valor4, valor5, valor6)
+//         // grafico.update()
+
+//         grafico.data.datasets[0].data = [valor, valor2, valor3, valor4, valor5, valor6]
+//         grafico.update()
+//     }, 1000)
+
+  function sair(){
+    window.location.href = "index.html"
+  }
+</script>
+ 

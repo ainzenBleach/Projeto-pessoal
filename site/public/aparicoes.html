@@ -26,7 +26,7 @@
 <script>
 
  function aparicoesImagem(){
-    
+
       fetch('/aparicoes/carregarAparicoesImagem',{
         method: "GET"
       })
@@ -34,25 +34,29 @@
         res => { res.json().then(json => {
         var imagemAparicoes = json;
 
-        for(var i = 0; i < imagemAparicoes.lenght; i++){
+        for(var i = 0; i < imagemAparicoes.length; i++){
+        
+        const post = imagemAparicoes[i];
+        const idPost = post.idPost;
 
         scroll_aparicoes.innerHTML += `
-            <div class="card" id="aparicoes_${i + 1}">
+            <div class="card" id="aparicoes_${idPost}">
                 <div class="imagem_aparicoes">
-                    <img src="/img/${imagemAparicoes[i].imagem}" alt="">
+                    <img src="/img/${post.imagem}" alt="">
                 </div>
                 <div class="informacoes_aparicoes">
-                    <div id="aparicoes_up_${i + 1}">
-                    <span>Ups:11</span>
+                    <div id="aparicoes_up_${idPost}">
+                    <span></span>
                     </div>
-                    <div id="aparicoes_comentarios_${i + 1}">
-                    <span>Comentários: 35</span>
+                    <div id="aparicoes_comentarios_${idPost}">
+                    <span></span>
                     </div>    
-                /div>
+                </div>
             </div>
-        ` 
-        
-    
+        `
+
+        aparicoesCurtida(idPost)
+        aparicoesComentario(idPost)
       }
 
         }   
@@ -64,37 +68,60 @@
 
 async function aparicoesCurtida(idPost){
 
-      fetch('/aparicoes/carregarAparicoesUp',{
+      fetch(`/aparicoes/carregarAparicoesCurtida/${idPost}`,{
         method: "GET"
       })
       .then(
-        res => { res.json().then(json => {
+        res => { res.json()
+        .then(json => {
             var curtidaAparicoes = json;
+
+            var div_mensagem = document.getElementById(`aparicoes_up_${idPost}`)
+
+            if(curtidaAparicoes.length > 0 && curtidaAparicoes[0].curtida != null){
+                div_mensagem.innerHTML = `<span> Ups: ${curtidaAparicoes[0].curtida} </span>`;
+            }else{
+                div_mensagem.innerHTML = `<span> Ups: 0 </span>`;
+            }
         }   
         )
+        .catch(() => {
+          var div_mensagem = document.getElementById(`aparicoes_up_${idPost}`);
+          div_mensagem.innerHTML = `<span> Ups: 0 </span>`;
+        })
+
     })
       
 
-      var div_mensagem = document.getElementById(`aparicoes_up_${idPost}`)
-
-      div_mensagem.innerHTML = `<span> Ups: ${curtidaAparicoes[0]} </span>`
+      
 }
 
-async function aparicoesUp(idPost){
+async function aparicoesComentario(idPost){
 
-    fetch('/aparicoes/carregarAparicoesComentario',{
+    fetch(`/aparicoes/carregarAparicoesComentarios/${idPost}`,{
         method: "GET"
       })
       .then(
-        res => { res.json().then(json => {
+        res => { res.json()
+            .then(json => {
             var comentarioAparicoes = json;
+
+            var div_mensagem = document.getElementById(`aparicoes_comentarios_${idPost}`)
+
+            if(comentarioAparicoes.length > 0 && comentarioAparicoes[0].comentarios != null){
+                div_mensagem.innerHTML = `<span> Comentários: ${comentarioAparicoes[0].comentarios} </span>`;
+            }else{
+                div_mensagem.innerHTML = `<span> Comentários: 0 </span>`;
+            }
+
         }   
         )
     })
-
-    var div_mensagem = document.getElementById(`aparicoes_comentarios_${idPost}`)
-
-    div_mensagem.innerHTML = `<span> Comentários: ${comentarioAparicoes[idPost - 1]} </span>`
+    .catch(() => {
+          const div_mensagem = document.getElementById(`aparicoes_comentarios_${idPost}`);
+          div_mensagem.innerHTML = `<span> Comentários: 0 </span>`;
+      });
+    
 }
 
 function carregar(){

@@ -67,6 +67,7 @@ body{
    background-color: #3E5641;
    margin-bottom: 50px;
    transition: 0.5s;
+   height: fit-content;
 }
 
 .card:hover{

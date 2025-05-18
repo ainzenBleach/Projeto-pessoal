@@ -17,25 +17,31 @@ var database = require("../database/config");
 
 function carregarAparicoesImagem(){
     const instrucao = `
-    select imagem from post;
+    select idPost, imagem from post;
     `;
 
   return database.executar(instrucao);
 }
 
-function carregarAparicoesCurtida(){
+function carregarAparicoesCurtida(idPost){
     const instrucao = `
-    select fkPost as idPost, count(curtida) as curtida from curtida
-	where curtida = true;
+    select fkPost as idPost, 
+    count(*) as curtida 
+    from curtida
+    where curtida = true and fkPost = ${idPost}
+    group by fkPost;
     `;
 
   return database.executar(instrucao);
 }
 
-function carregarAparicoesUp(){
+function carregarAparicoesComentarios(idPost){
     const instrucao = `
-    select count(comentario) as comentarios from comentario;
+    select fkPost as idPost, count(comentario) as comentarios from comentario
+	where fkPost = ${idPost}
+    group by fkPost;
     `;
+
 
   return database.executar(instrucao);
 }
@@ -43,5 +49,5 @@ function carregarAparicoesUp(){
 module.exports = {
 carregarAparicoesImagem,
 carregarAparicoesCurtida,
-carregarAparicoesUp
+carregarAparicoesComentarios
 }

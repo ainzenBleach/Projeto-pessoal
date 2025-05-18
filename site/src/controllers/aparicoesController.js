@@ -12,6 +12,7 @@ const aparicoesModel = require('../models/aparicoesModel');
 // }
 
 function informacaoAparicoesImagem(req, res){
+
     aparicoesModel.carregarAparicoesImagem()
 
   .then(resultado => {
@@ -23,7 +24,10 @@ function informacaoAparicoesImagem(req, res){
 }
 
 function informacaoAparicoesCurtida(req, res){
-    aparicoesModel.carregarAparicoesCurtida()
+
+    var idPost = req.params.idPost
+
+    aparicoesModel.carregarAparicoesCurtida(idPost)
 
   .then(resultado => {
     res.json(resultado);
@@ -33,8 +37,10 @@ function informacaoAparicoesCurtida(req, res){
 
 }
 
-function informacaoAparicoesUp(req, res){
-    aparicoesModel.carregarAparicoesUp()
+function informacaoAparicoesComentarios(req, res){
+    var idPost = req.params.idPost
+
+    aparicoesModel.carregarAparicoesComentarios(idPost)
 
   .then(resultado => {
     res.json(resultado);
@@ -48,5 +54,5 @@ function informacaoAparicoesUp(req, res){
 module.exports = {
 informacaoAparicoesImagem,
 informacaoAparicoesCurtida,
-informacaoAparicoesUp
+informacaoAparicoesComentarios
 }
