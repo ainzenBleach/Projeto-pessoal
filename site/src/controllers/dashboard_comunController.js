@@ -1,22 +1,39 @@
 const dashboard_comunModel = require('../models/dashboard_comunModel');
 
+function informacaoDash(req, res){
+    var idUsuario = req.params.idUsuario
 
-// function informacaoSalvarComentario(req, res) {
+    dashboard_comunModel.carregarPostUsuariosDash(idUsuario)
 
-//     var idUsuario = req.body.usuarioServer;
-//     var idPost = req.body.postServer;
-//     var comentario= req.body.comentarioServer;
+    .then(resultado => {
+        res.json(resultado);
+    }).catch(err => {
+        res.status(500).send(err);
+    });
+}
 
+function informacaoUpDown(req, res){
+    var idPost = req.params.idPost
 
-//   indexModel.salvarComentario(idUsuario, idPost, comentario)
-//   .then(resultado => {
-//     res.json(resultado);
-//   }).catch(err => {
-//     res.status(500).send(err);
-//   });
-// }
+    dashboard_comunModel.carregarUpDownUsuariosDash(idPost)
 
+    .then(resultado => {
+        res.json(resultado);
+    }).catch(err => {
+        res.status(500).send(err);
+    });
+}
 
+function informacaoComentarios(req, res){
+    var idPost = req.params.idPost
 
+    dashboard_comunModel.carregarComentariosDash(idPost)
 
-module.exports = { }
+    .then(resultado => {
+        res.json(resultado);
+    }).catch(err => {
+        res.status(500).send(err);
+    });
+}
+
+module.exports = {informacaoDash, informacaoUpDown, informacaoComentarios}

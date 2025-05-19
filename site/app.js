@@ -22,8 +22,8 @@ var likeRouter = require("./src/routes/like")
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var aparicoesRouter = require("./src/routes/aparicoes");
-var dashboardAdmRouter = require("./src/routes/dashboard-adm");
-var dashboardComunRouter = require("./src/routes/dashboard-comun");
+// var dashboardAdmRouter = require("./src/routes/dashboard-adm");
+var dashboardComunRouter = require("./src/routes/dashboard_comun");
 var novoPostRouter = require('./src/routes/novoPost');
 
 app.use(express.json());
@@ -39,7 +39,7 @@ app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/aparicoes", aparicoesRouter);
 // app.use("/dashAdm", dashboardAdmRouter);
-// app.use("/dashComun", dashboardComunRouter);
+app.use("/dashComun", dashboardComunRouter);
 app.use("/novoPost", novoPostRouter);
 
 app.listen(PORTA_APP, function () {

@@ -31,7 +31,10 @@
         method: "GET"
       })
       .then(
-        res => { res.json().then(json => {
+        res => { res.json()
+        
+       .then(json => {
+        
         var imagemAparicoes = json;
 
         for(var i = 0; i < imagemAparicoes.length; i++){

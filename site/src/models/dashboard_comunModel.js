@@ -1,19 +1,39 @@
 var database = require("../database/config");
 
-// function carregarPost() {
-//   const instrucao = `
-// select p.idPost as "id",
-// p.titulo as "titulo",
-// p.imagem as "imagem",
-// p.descricao as "descricao",
-// date_format(p.dtPost, '%d/%m/%Y') as "data",
-// u.nome as "usuario"
-// from
-// post p join dadosUsuarios u 
-//     on p.fkUsuario = u.idUsuario;`;
+function carregarPostUsuariosDash(idUsuario){
+    const instrucao = `
+    select count(fkUsuario) as "postCriados" from post
+	where fkUsuario = ${idUsuario}
+	group by fkUsuario;
+    `
 
-//   return database.executar(instrucao);
-// }
+     return database.executar(instrucao);
+}
 
+function carregarUpDownUsuariosDash(idPost){
+    const instrucao = `
+    select fkpost as idPost,
+    sum(curtida = false) as CurtidasDown,
+    sum(curtida = true) as CurtidaUP
+    from
+    curtida where fkPost = ${idPost};
+    `
 
-module.exports = {}
+    return database.executar(instrucao);
+}
+
+function carregarComentariosDash(idPost){
+    const instrucao = `
+    select 
+p.idPost as "idPost",
+COUNT(c.idComentario) AS TotalDeComentarios
+from post p
+left join comentario c on p.idPost = c.fkPost
+where p.idPost = ${idPost}
+group by p.idPost;
+    `
+
+    return database.executar(instrucao);
+}
+
+module.exports = {carregarPostUsuariosDash, carregarUpDownUsuariosDash, carregarComentariosDash}
