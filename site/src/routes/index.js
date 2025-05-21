@@ -18,8 +18,6 @@ router.post('/salvarComentario', (req, res) => {
   indexController.informacaoSalvarComentario(req, res);
 });
 
-
-
 module.exports = router;
 
 

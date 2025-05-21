@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Style/style-aparicoes.css">
+    <link rel="stylesheet" href="Style/style-header.css">
     <title>Document</title>
 </head>
 <body onload="carregar(), aparicoesImagem()">
     <header id="header_pagina">
-        <img src="img/Logo_criptoradar.png" alt="">
+        <a href="index.html" id="logo"><img src="./elementos-pagina/Logo_criptoradar.png" alt="" /></a>
         <a href="index.html">Início</a>
         <a href="aparicoes.html"><span>Aparições</span></a>
         <a href="novo_post.html">Novo post</a>
@@ -19,7 +20,6 @@
     </header>
 
     <div class="aparicoes" id="scroll_aparicoes">
-
     </div>
 </body>
 </html>
@@ -47,12 +47,12 @@
                 <div class="imagem_aparicoes">
                     <img src="/img/${post.imagem}" alt="">
                 </div>
-                <div class="informacoes_aparicoes">
-                    <div id="aparicoes_up_${idPost}">
-                    <span></span>
+                <div class="informacoes_aparicoes" >
+                    <div id="aparicoes_up_${idPost}" class="info_aparicoes_up">
+                    <img src="./elementos-pagina/seta_para_cima-removebg-preview.png" alt=""><span></span>
                     </div>
-                    <div id="aparicoes_comentarios_${idPost}">
-                    <span></span>
+                    <div id="aparicoes_comentarios_${idPost}" class="info_aparicoes_comentario">
+                    <img src="./elementos-pagina/icone-chat.png" alt=""><span></span>
                     </div>    
                 </div>
             </div>
@@ -82,9 +82,9 @@ async function aparicoesCurtida(idPost){
             var div_mensagem = document.getElementById(`aparicoes_up_${idPost}`)
 
             if(curtidaAparicoes.length > 0 && curtidaAparicoes[0].curtida != null){
-                div_mensagem.innerHTML = `<span> Ups: ${curtidaAparicoes[0].curtida} </span>`;
+                div_mensagem.innerHTML = `<img src="./elementos-pagina/seta_para_cima-removebg-preview.png" alt=""><span>${curtidaAparicoes[0].curtida}</span>`;
             }else{
-                div_mensagem.innerHTML = `<span> Ups: 0 </span>`;
+                div_mensagem.innerHTML = `<img src="./elementos-pagina/seta_para_cima-removebg-preview.png" alt=""><span>0</span>`;
             }
         }   
         )
@@ -112,9 +112,9 @@ async function aparicoesComentario(idPost){
             var div_mensagem = document.getElementById(`aparicoes_comentarios_${idPost}`)
 
             if(comentarioAparicoes.length > 0 && comentarioAparicoes[0].comentarios != null){
-                div_mensagem.innerHTML = `<span> Comentários: ${comentarioAparicoes[0].comentarios} </span>`;
+                div_mensagem.innerHTML = `<img src="./elementos-pagina/icone-chat.png" alt=""><span>${comentarioAparicoes[0].comentarios}</span>`;
             }else{
-                div_mensagem.innerHTML = `<span> Comentários: 0 </span>`;
+                div_mensagem.innerHTML = `<img src="./elementos-pagina/icone-chat.png" alt=""><span>0</span>`;
             }
 
         }   

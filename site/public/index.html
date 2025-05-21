@@ -4,11 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="Style/style-index.css" />
+    <link rel="stylesheet" href="Style/style-header.css">
     <title>Document</title>
   </head>
   <body onload="carregarPost(),carregar()">
     <header id="header_pagina">
-      <img src="img/Logo_criptoradar.png" alt="" />
+      <a href="index.html" id="logo"><img src="./elementos-pagina/Logo_criptoradar.png" alt="" /></a>
       <a href="index.html"><span>Início</span></a>
       <a href="aparicoes.html">Aparições</a>
       <a href="novo_post.html">Novo post</a>
@@ -20,11 +21,11 @@
 
     <div class="principal">
       <div class="scroll_post" id="scroll_post">
-
+          
       </div>
       <div class="card destaque" id="">
         <h4>Bem vindo</h4>
-        <img src="/img/Logo_criptoradar.png" alt="" />
+        <img src="./elementos-pagina/Logo_criptoradar.png" alt="" />
         <div>
           <span
             >Bem vindo ao criptoradar, o lugar de pessoas e criaturas esperando
@@ -36,8 +37,7 @@
   </body>
 </html>
 <script>
-var deuLikeUp = false
-var deuLikeDown = false
+
 // Carregar post da pagina
   function carregarPost() {
       fetch(`/carregarPost`, {
@@ -66,14 +66,15 @@ var deuLikeDown = false
                           </div>
                       </div>
                       <div class="ups">
-                            <div id="up_${post[i].id}">
-                            <span></span>
+                            <div id="up_${post[i].id}" class="like_upDown">
+                            <span>0</span>
                             </div>
-                            <button onclick="ups(${post[i].id})">☝</button>
-                            <button onclick="down(${post[i].id})">👇</button>
 
-                            <div id="down_${post[i].id}">
-                            <span></span>
+                            <button onclick="ups(${post[i].id})"><img src="./elementos-pagina/seta_para_cima-removebg-preview.png" alt="" class="img_botao"></button>
+                            <button onclick="down(${post[i].id})"><img src="./elementos-pagina/seta_para_baixo-removebg-preview.png" alt="" class="img_botao"></button>
+
+                            <div id="down_${post[i].id}" class="like_upDown">
+                            <span>0</span>
                             </div>
                       </div>
                       <div class="descricao" >
@@ -145,7 +146,7 @@ var deuLikeDown = false
           }
 
 //Função para carregar os likes do post
-function carregarLikeUp(idPost){
+  function carregarLikeUp(idPost){
     fetch(`/like/carregarLikeUp/${idPost}`, {
       method:"GET"
     })
@@ -166,7 +167,7 @@ function carregarLikeUp(idPost){
     .catch(
     )
 }
-function carregarLikeDown(idPost){
+  function carregarLikeDown(idPost){
   fetch(`/like/carregarLikeDown/${idPost}`,{
       method:"GET"
     })
@@ -194,6 +195,12 @@ function carregarLikeDown(idPost){
       var campo_comentario = document.getElementById("campo_comentario");
       var usuario = sessionStorage.ID_USUARIO
       var div_mensagem = document.getElementById(`div_scroll_comentrios_${idPost}`)
+      
+      if (comentario == "") {
+        alert("Digite algo antes de comentar.");
+        return;
+      }
+      
       if(sessionStorage.ID_USUARIO != undefined){
         div_mensagem.innerHTML += `
         <div class="comentario_campo" id="comentario_${idPost}">
@@ -231,88 +238,53 @@ function carregarLikeDown(idPost){
   }
 
 // Sistema de like 
-function ups(idPost){
+  async function ups(idPost){
 
   var idUsuario = sessionStorage.ID_USUARIO;
 
   if(sessionStorage.ID_USUARIO == undefined){
     alert("Realize um login para poder interagir")
+    return
+  }
+  
+  const resUp = await fetch(`/like/carregarLikeUsuarioUp/${idUsuario}`)
+  const valorUp = await resUp.text()
+  let likeUsuarioUp
+
+  if(valorUp !== undefined && valorUp !== "" ){
+    likeUsuarioUp = JSON.parse(valorUp)
   }else{
-    //Ver se o  usuario deu um up no post
-    fetch(`/like/carregarLikeUsuarioUp/${idUsuario}`, {
-      method:"GET"
-    })
-    .then( res => {
-            res.text().then(text => {
-              if (!text) return;
+    likeUsuarioUp = []
+  }
 
-              const json = JSON.parse(text);
+  
+  const resDown = await fetch(`/like/carregarLikeUsuarioDown/${idUsuario}`)
+  const valorDown = await resDown.text()
+  let likeUsuarioDown
 
-             var likeUsuarioUp = json
-             deuLikeUp = false
-             for(var i = 0; i < likeUsuarioUp.length; i++){
-                if(likeUsuarioUp[i].fkPost == idPost){
-                  deuLikeUp = true
-              }
-             }
-             console.log("Ups" + likeUsuarioUp)
-            })
-    })
-    .catch(
-    )
+  if(valorDown !== undefined && valorDown !== "" ){
+    likeUsuarioDown = JSON.parse(valorDown)
+  }else{
+    likeUsuarioDown = []
+  }
+  
+  const deuLikeUp = likeUsuarioUp.some(like => like.fkPost == idPost);
+  const deuLikeDown = likeUsuarioDown.some(like => like.fkPost == idPost);
 
-    //Ver se o usuario deu um down no post
-    fetch(`/like/carregarLikeUsuarioDown/${idUsuario}`, {
-      method:"GET"
-    })
-    .then( res => {
-            res.text().then(text => {
-            if (!text) return;
-
-            const json = JSON.parse(text);
-
-             var likeUsuarioDown = json
-             deuLikeDown = false
-             for(var i = 0; i < likeUsuarioDown.length; i++){
-                if(likeUsuarioDown[i].fkPost == idPost){
-                  deuLikeDown = true
-              }
-             }
-              console.log("Down:" + likeUsuarioDown) 
-            })
-    })
-    .catch(
-    )
-
-    // Inserir no banco o up, sem o usuario ter dado um up ou down no post
-    if(deuLikeDown == false && deuLikeUp == false){
-      fetch(`/like/upInserir/${idUsuario}/${idPost}`, {
+if(deuLikeDown == false && deuLikeUp == false){
+      const res = await fetch(`/like/upInserir/${idUsuario}/${idPost}`, {
       method:"POST",
       body: JSON.stringify({
         usuarioServer: idUsuario,
         postServer: idPost
       })
     })
-    .then( res => {
-            res.text().then(text => {
-            if (!text) return;
+       await res.text();
+      console.log("Like computado down") 
 
-            const json = JSON.parse(text);
-
-              console.log("Like computado up") 
-               carregarLikeUp(idPost);
-                carregarLikeDown(idPost);
-            })
-    })
-    .catch( err =>{
-      console.error(err)
-      console.log("Like não computado") 
-    } 
-      )
-
-    }else if(deuLikeDown == true && deuLikeUp == false){
-       var troca = true
-        fetch(`/like/updateLike/${idUsuario}/${idPost}/${troca}`, {
+    }else if(deuLikeDown && !deuLikeUp){
+      var troca = true
+      const res = await fetch(`/like/updateLike/${idUsuario}/${idPost}/${troca}`, {
       method:"POST",
       body: JSON.stringify({
         trocaServer: troca,
@@ -320,110 +292,74 @@ function ups(idPost){
         postServer: idPost
       })
     })
-    .then( res => {
-            res.text().then(text => {
-            if (!text) return;
-
-            const json = JSON.parse(text);
-
-              console.log("Like computado e trocado") 
-              carregarLikeUp(idPost);
-                carregarLikeDown(idPost);
-            })
-    })
-    .catch(
-      console.log("Like não computado") 
-    )
-
-    
+      await res.text();
+      carregarLikeUp(idPost);
+      carregarLikeDown(idPost);
+      console.log("Like computado e trocado") 
+              
     }
 
+    
+console.log("Usuário:", idUsuario);
+console.log("Post:", idPost);
+console.log("deuLikeUp:", deuLikeUp);
+console.log("deuLikeDown:", deuLikeDown);
 
-  }
+  
+  carregarLikeUp(idPost);
+  carregarLikeDown(idPost);
+
 }
-
-function down(idPost){
-
+  async function down(idPost){
 
   var idUsuario = sessionStorage.ID_USUARIO;
 
   if(sessionStorage.ID_USUARIO == undefined){
     alert("Realize um login para poder interagir")
+    return
+  }
+
+  // Fazendo a requisição para o servidor e esperando a resposta para continuar o codígo
+  const resUp = await fetch(`/like/carregarLikeUsuarioUp/${idUsuario}`)
+  const valorUp = await resUp.text()
+  let likeUsuarioUp
+
+  if(valorUp !== undefined && valorUp !== "" ){
+    likeUsuarioUp = JSON.parse(valorUp)
   }else{
-    //Ver se o  usuario deu um up no post
-    fetch(`/like/carregarLikeUsuarioUp/${idUsuario}`, {
-      method:"GET"
-    })
-    .then( res => {
-            res.text().then(text => {
-            if (!text) return;
+    likeUsuarioUp = []
+  }
 
-            const json = JSON.parse(text);
+  
+  const resDown = await fetch(`/like/carregarLikeUsuarioDown/${idUsuario}`)
+  const valorDown = await resDown.text()
+  let likeUsuarioDown
 
-             var likeUsuarioUp = json
-             deuLikeUp = false
-             for(var i = 0; i < likeUsuarioUp.length; i++){
-                if(likeUsuarioUp[i].fkPost == idPost){
-                  deuLikeUp = true
-              }
-             }
-             console.log("Ups" + likeUsuarioUp)
-            })
-    })
-    .catch(
-    )
+  if(valorDown !== undefined && valorDown !== "" ){
+    likeUsuarioDown = JSON.parse(valorDown)
+  }else{
+    likeUsuarioDown = []
+  }
+  
+  const deuLikeUp = likeUsuarioUp.some(like => like.fkPost == idPost);
+  const deuLikeDown = likeUsuarioDown.some(like => like.fkPost == idPost);
 
-    //Ver se o usuario deu um down no post
-    fetch(`/like/carregarLikeUsuarioDown/${idUsuario}`, {
-      method:"GET"
-    })
-    .then( res => {
-            res.text().then(text => {
-            if (!text) return;
 
-            const json = JSON.parse(text);
 
-             var likeUsuarioDown = json
-             deuLikeDown = false
-             for(var i = 0; i < likeUsuarioDown.length; i++){
-                if(likeUsuarioDown[i].fkPost == idPost){
-                  deuLikeDown = true
-              }
-             }
-              console.log("Down:" + likeUsuarioDown) 
-            })
-    })
-    .catch(
-    )
-
-    // Inserir no banco o up, sem o usuario ter dado um up ou down no post
-    if(deuLikeDown == false && deuLikeUp == false){
-
-      fetch(`/like/downInserir/${idUsuario}/${idPost}`, {
+  if(deuLikeDown == false && deuLikeUp == false){
+      const res = await fetch(`/like/downInserir/${idUsuario}/${idPost}`, {
       method:"POST",
       body: JSON.stringify({
         usuarioServer: idUsuario,
         postServer: idPost
       })
     })
-    .then( res => {
-            res.text().then(text => {
-            if (!text) return;
+       await res.text();
+      console.log("Like computado down") 
 
-            const json = JSON.parse(text);
-
-              console.log("Like computado down") 
-              carregarLikeUp(idPost);
-                carregarLikeDown(idPost);
-            })
-    })
-    .catch(
-      console.log("Like não computado") 
-    )
-
-    }else if(deuLikeDown == false && deuLikeUp == true){
-       var troca = false
-        fetch(`/like/updateLike/${idUsuario}/${idPost}/${troca}`, {
+    }else if(deuLikeDown == false && deuLikeUp){
+      var troca = false
+      const res = await fetch(`/like/updateLike/${idUsuario}/${idPost}/${troca}`, {
       method:"POST",
       body: JSON.stringify({
         trocaServer: troca,
@@ -431,26 +367,17 @@ function down(idPost){
         postServer: idPost
       })
     })
-    .then( res => {
-            res.text().then(text => {
-            if (!text) return;
-
-            const json = JSON.parse(text);
-              console.log("Like computado e trocado") 
-              carregarLikeUp(idPost);
-              carregarLikeDown(idPost);
-            })
-    })
-    .catch(
-      console.log("Like não computado") 
-    )
-
-    
+      await res.text();
+      console.log("Like computado e trocado") 
+              
     }
 
+  
+  carregarLikeUp(idPost);
+  carregarLikeDown(idPost);
 
+              
   }
-}
 
   //manter os dados de login do usuário
   function carregar(){
@@ -465,7 +392,7 @@ function down(idPost){
   function sair(){
       sessionStorage.clear()
   }
-function dashboard(){
+  function dashboard(){
     var cargo = sessionStorage.CARGO_USUARIO
     
     if(cargo != "administrador"){
@@ -475,74 +402,115 @@ function dashboard(){
     }
 }
 
+// ------------------------------------------------------------------------------------------- 
 
-// var idUsuario = sessionStorage.ID_USUARIO;
+//Ver se o  usuario deu um up no post
+  //   fetch(`/like/carregarLikeUsuarioUp/${idUsuario}`, {
+  //     method:"GET"
+  //   })
+  //   .then( res => {
+  //           res.text().then(text => {
+  //             if (!text) return;
+              
+  //             var deuLikeUp = false
+  //             var deuLikeDown = false
 
-//   if (idUsuario == undefined) {
-//     alert("Realize um login para poder interagir");
-//     return;
-//   }
+  //             const json = JSON.parse(text);
 
-  
-//   const resUp = await fetch(`/like/carregarLikeUsuarioUp/${idUsuario}`);
-//   const likeUsuarioUp = await resUp.json();
+  //            var likeUsuarioUp = json
+  //            for(var i = 0; i < likeUsuarioUp.length; i++){
+  //               if(likeUsuarioUp[i].fkPost == idPost){
+  //                 deuLikeUp = true
+  //             }
+  //            }
 
-//   const resDown = await fetch(`/like/carregarLikeUsuarioDown/${idUsuario}`);
-//   const likeUsuarioDown = await resDown.json();
+  //            fetch(`/like/carregarLikeUsuarioDown/${idUsuario}`, {
+  //     method:"GET"
+  //   })
+  //   .then( res => {
+  //           res.text().then(text => {
+  //           if (!text) return;
 
- 
-//   const deuLikeUp = likeUsuarioUp.some(like => like.fkPost == idPost);
-//   const deuLikeDown = likeUsuarioDown.some(like => like.fkPost == idPost);
+  //           const json = JSON.parse(text);
+
+  //            var likeUsuarioDown = json
+
+  //            for(var i = 0; i < likeUsuarioDown.length; i++){
+  //               if(likeUsuarioDown[i].fkPost == idPost){
+  //                 deuLikeDown = true
+  //             }
+  //            }
+  //            if(deuLikeDown == false && deuLikeUp == false){
+  //     fetch(`/like/upInserir/${idUsuario}/${idPost}`, {
+  //     method:"POST",
+  //     body: JSON.stringify({
+  //       usuarioServer: idUsuario,
+  //       postServer: idPost
+  //     })
+  //   })
+  //   .then( res => {
+  //           res.text().then(text => {
+  //           if (!text) return;
+
+  //           const json = JSON.parse(text);
+      
+  //             console.log("Like computado up") 
+  //              carregarLikeUp(idPost);
+  //               carregarLikeDown(idPost);
+  //           })
+  //   })
+  //   .catch( err =>{
+  //     console.error(err)
+  //     console.log("Like não computado") 
+  //   } 
+  //     )
+
+  //   }else if(deuLikeDown && deuLikeUp == false){
+  //      var troca = true
+  //       fetch(`/like/updateLike/${idUsuario}/${idPost}/${troca}`, {
+  //     method:"POST",
+  //     body: JSON.stringify({
+  //       trocaServer: troca,
+  //       usuarioServer: idUsuario,
+  //       postServer: idPost
+  //     })
+  //   })
+  //   .then( res => {
+  //           res.text().then(text => {
+  //           if (!text) return;
+
+  //           const json = JSON.parse(text);
+
+  //             console.log("Like computado e trocado") 
+  //             carregarLikeUp(idPost);
+  //             carregarLikeDown(idPost);
+  //           })
+  //   })
+  //   .catch(
+  //     console.log("Like não computado") 
+  //   )
+
+    
+  //   }
+  //             console.log("Down:" + likeUsuarioDown) 
+  //           })
+  //   })
+  //   .catch(
+  //   )
 
 
-//   if (deuLikeUp == false && deuLikeDown == false) {
-//     await fetch(`/like/downInserir/${idUsuario}/${idPost}`, {
-//       method: "POST"
-//     });
-//   } else if (deuLikeUp && deuLikeDown == false) {
-//     await fetch(`/like/updateLike/${idUsuario}/${idPost}/false`, {
-//       method: "POST"
-//     });
-//   }
+  //            console.log("Ups" + likeUsuarioUp)
+  //           })
+  //   })
+  //   .catch(
+  //   )
+
+  //   //Ver se o usuario deu um down no post
+    
+
+  //   // Inserir no banco o up, sem o usuario ter dado um up ou down no post
 
 
-//   carregarLikeUp(idPost);
-//   carregarLikeDown(idPost);
-
-
-
-
-
-// var idUsuario = sessionStorage.ID_USUARIO;
-
-  // if (!idUsuario) {
-  //   alert("Realize um login para poder interagir");
-  //   return;
   // }
-
-  
-  // const resUp = await fetch(`/like/carregarLikeUsuarioUp/${idUsuario}`);
-  // const likeUsuarioUp = await resUp.json();
-
-  
-  // const resDown = await fetch(`/like/carregarLikeUsuarioDown/${idUsuario}`);
-  // const likeUsuarioDown = await resDown.json();
-
-  // const deuLikeUp = likeUsuarioUp.some(like => like.fkPost == idPost);
-  // const deuLikeDown = likeUsuarioDown.some(like => like.fkPost == idPost);
-
-  // if (!deuLikeUp && !deuLikeDown) {
-  //   await fetch(`/like/upInserir/${idUsuario}/${idPost}`, {
-  //     method: "POST"
-  //   });
-
-  // } else if (deuLikeDown && !deuLikeUp) {
-  //   await fetch(`/like/updateLike/${idUsuario}/${idPost}/true`, {
-  //     method: "POST"
-  //   });
-  // }
-
-  // carregarLikeUp(idPost);
-  // carregarLikeDown(idPost);
 
 </script>
