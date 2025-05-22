@@ -13,9 +13,10 @@ body{
 /*Configuração do header*/
 #header_pagina{
    display: flex;
+   height: max-content;
    justify-content: space-between;
    align-items: center;
-   font-size: 20px;
+   font-size: 3.2vh;
    padding-left: 100px;
    padding-right: 100px;
    background-color: #3E5641;
@@ -24,7 +25,7 @@ body{
    top: 0;
 }
 #header_pagina img{
-   width: 80px;
+   width: 14vh;
 }
 
 #header_pagina a{

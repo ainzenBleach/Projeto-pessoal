@@ -15,7 +15,8 @@
 }
 
 .post{
-   padding:15px;
+   padding: 15px;
+   display: flex;
 }
 .scroll_post{
    display: flex;
@@ -64,12 +65,18 @@
    padding-bottom: 5px;
 }
 /* Configuração do botão embaixo da imagem do post */
+.votacao{
+   margin-right: 10px;
+   padding-top: 60px;
+}
+
 .ups{
    margin-bottom: 10px;
     border: solid 3px #A3422C;
     border-radius: 10px;
     width: fit-content;
     display: flex;
+    flex-direction: column;
     align-items: center;
     height: fit-content;
     justify-content: space-around;
@@ -79,7 +86,7 @@
    background: transparent;
    width: fit-content;
    height: fit-content;
-   font-size: 15px;
+   font-size: 5vh;
    border: none;
    padding-top: 7px;
 }
