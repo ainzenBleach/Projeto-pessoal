@@ -27,7 +27,7 @@
       <div class="card destaque" id="">
         <h4>Bem vindo</h4>
         <img src="./elementos-pagina/Logo_criptoradar.png" alt="" />
-        <div>
+        <div >
           <span
             >Bem vindo ao criptoradar, o lugar de pessoas e criaturas esperando
             ser documentadas.</span>
@@ -52,20 +52,6 @@
                   scroll_post.innerHTML += `
 
 <div class="card post" id="post_${post[i].id}">
-              <div class="votacao">
-                  <div class="ups">
-                            <div id="up_${post[i].id}" class="like_upDown">
-                            <span>0</span>
-                            </div>
-
-                            <button onclick="ups(${post[i].id})"><img src="./elementos-pagina/seta_para_cima-removebg-preview.png" alt="" class="img_botao"></button>
-                            <button onclick="down(${post[i].id})"><img src="./elementos-pagina/seta_para_baixo-removebg-preview.png" alt="" class="img_botao"></button>
-
-                            <div id="down_${post[i].id}" class="like_upDown">
-                            <span>0</span>
-                            </div>
-                      </div>
-              </div>
               <div class="conteudo">
                       <div class="titulo">
                         <div class="titulo_1">
@@ -79,6 +65,20 @@
                           <div class="relato_imagem">
                               <img src="../img/${post[i].imagem}" alt="">
                           </div>
+                          <div class="votacao">
+                                <div class="ups">
+                                          <div id="up_${post[i].id}" class="like_upDown">
+                                          <span>0</span>
+                                          </div>
+
+                                          <button onclick="ups(${post[i].id})"><img src="./elementos-pagina/seta_para_cima-removebg-preview.png" alt="" class="img_botao"></button>
+                                          <button onclick="down(${post[i].id})"><img src="./elementos-pagina/seta_para_baixo-removebg-preview.png" alt="" class="img_botao"></button>
+
+                                          <div id="down_${post[i].id}" class="like_upDown">
+                                          <span>0</span>
+                                          </div>
+                                    </div>
+                            </div>
                       </div>
                       
                       <div class="descricao" >
@@ -87,7 +87,10 @@
                               <span>${post[i].descricao}</span>
                           </div>
                       </div>
-                      <div class="campo_comentario">
+                      <div class="img_comentario"> 
+                      <img src="./elementos-pagina/icone-chat.png" alt="" onclick="mostrar(${post[i].id})">
+                      </div>
+                      <div class="campo_comentario" id="campo_comentario_${post[i].id}" style="display: none;">
                           <div class="inserir_comentario">
                           <input type="text" class="adicionar_comentario" placeholder="Adicione um comentário" id="input_post_${post[i].id}">
                           <button onclick="comentar(${post[i].id})">Comentar</button>
@@ -296,10 +299,8 @@ if(deuLikeDown == false && deuLikeUp == false){
         postServer: idPost
       })
     })
-      await res.text();
-      carregarLikeUp(idPost);
-      carregarLikeDown(idPost);
-      console.log("Like computado e trocado") 
+
+      
               
     }
 
@@ -312,7 +313,9 @@ console.log("deuLikeDown:", deuLikeDown);
   
   carregarLikeUp(idPost);
   carregarLikeDown(idPost);
-
+  var campo = document.getElementById(`campo_comentario_${idPost}`)
+  campo.style.display = "block"
+  
 }
   async function down(idPost){
 
@@ -379,7 +382,8 @@ console.log("deuLikeDown:", deuLikeDown);
   
   carregarLikeUp(idPost);
   carregarLikeDown(idPost);
-
+    var campo = document.getElementById(`campo_comentario_${idPost}`)
+      campo.style.display = "block"
               
   }
 
@@ -405,7 +409,16 @@ console.log("deuLikeDown:", deuLikeDown);
         window.location.href = "dashboard-adm.html";
     }
 }
+  function mostrar(idPost){
+    var campo = document.getElementById(`campo_comentario_${idPost}`)
 
+    if(campo.style.display == "block"){
+      campo.style.display = "none"
+    }else{
+      campo.style.display = "block"
+    }
+    
+  }
 // ------------------------------------------------------------------------------------------- 
 
 //Ver se o  usuario deu um up no post

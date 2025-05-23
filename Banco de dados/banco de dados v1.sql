@@ -1,6 +1,8 @@
 create database criptoradar;
 use criptoradar;
 
+
+
 create table dadosUsuarios(
 	idUsuario int primary key auto_increment,
     nome varchar(45),
@@ -16,11 +18,39 @@ create table post(
     fkUsuario int,
     titulo varchar(1000),
     imagem varchar(1000),
+    dtPost datetime default current_timestamp, 
     descricao varchar(1000),
     constraint pkComposta primary key(idPost, fkUsuario)
 );
 alter table post add constraint fkPostUsuario foreign key (fkUsuario) references dadosUsuarios(idUsuario);
+select * from comentario;
 select * from post;
+update post set dtPost = default where idPost = 1;
+
+
+insert into post(fkUsuario, titulo, imagem, descricao, dtPost) values
+(1,"bcdbcd","banana", "bananão", default);
+-- select post
+select * from comentario;
+select p.idPost as "ID do post",
+p.titulo as "Titulo do post",
+p.imagem as "Imagem do post",
+p.descricao as "Descrição do Post",
+date_format(p.dtPost, '%d/%m/%Y') as "Data do post",
+u.nome as "Nome do usuário"
+from
+post p join dadosUsuarios u 
+	on p.fkUsuario = u.idUsuario;
+
+-- select comentario
+select c.comentario as "Comentario",
+c.fkPost as "ID do post",
+u.nome as "Nome do usuário"
+from
+comentario c left join post p
+	on c.fkUsuario = p.idPost
+join dadosUsuarios u
+	on c.fkUsuario = u.idUsuario;
 
 create table comentario(
 	idComentario int auto_increment,
@@ -42,8 +72,8 @@ create table curtida(
     fkPost int,
     constraint fkComposta
     primary key (fkUsuario,fkPost),
-    dtCurtida date,
-    curtida tinyint,
+    dtCurtida datetime default current_timestamp,
+    curtida boolean,
     constraint fkCurtidaUsuario
 		foreign key (fkUsuario)
 			references dadosUsuarios(idUsuario),
@@ -51,14 +81,38 @@ create table curtida(
 		foreign key (fkPost) 
 			references post(idPost)
 );
+select * from curtida;
 
+
+
+create table testeCurtida(
+idCurtida int auto_increment,
+idPost int,
+idUsuario int,
+curtida boolean,
+constraint chaveComposta primary key(idCurtida, idUsuario)
+);
+
+-- Teste de conta
+insert into testeCurtida (idPost, idUsuario, curtida) values
+(1,1,true),
+(1,2,true),
+(1,5,true),
+(1,6,true),
+(1,3,true),
+(1,4,true),
+(1,4,true);
+
+select count(curtida) from testeCurtida;
+
+drop table testeCurtida;
 show tables;
 -- Alimentação teste
 
-INSERT INTO dadosUsuarios (nome, email, senha, confirmarSenha, continente, cargo) VALUES
-('Alice Silva', 'alice@email.com', '12345', '12345', 'América do Sul', 'Explorador'),
-('Bruno Costa', 'bruno@email.com', 'senha123', 'senha123', 'Ásia', 'Pesquisador'),
-('Camila Rocha', 'camila@email.com', 'senha456', 'senha456', 'Europa', 'Fotografo');
+INSERT INTO dadosUsuarios (nome, email, senha, continente, cargo) VALUES
+('Alice Silva', 'alice@gmail.com', '12341234', 'América do Sul', 'Explorador'),
+('Bruno Costa', 'bruno@gmail.com', '12341234', 'Ásia', 'Pesquisador'),
+('Camila Rocha', 'camila@gmail.com', '12341234', 'Europa', 'Fotografo');
 
 INSERT INTO post (fkUsuario, imagem, descricao) VALUES
 (1, '', 'Avistamento do Pé Grande na floresta de Oregon.'),
@@ -97,3 +151,72 @@ INSERT INTO comentario (fkUsuario, fkPost, comentario) VALUES
 INSERT INTO comentario (fkUsuario, fkPost, comentario) VALUES
 (1, 6, 'O Mapinguari me dá arrepios.'),
 (2, 6, 'Tem algum áudio gravado?');
+
+INSERT INTO curtida (fkUsuario, fkPost, curtida) VALUES 
+(1, 1, true),
+(2, 1, false),
+(3, 1, true),
+(1, 2, false),
+(2, 2, true),
+(3, 2, false);
+
+select fkPost, count(curtida) from curtida
+	where curtida = true
+    group by fkPost;
+    
+show tables;
+
+select * from comentario;
+select * from curtida;
+select * from dadosusuarios;
+select * from post;
+
+select fkPost as "idPost",
+count(comentario) as "Total de comentarios"
+from
+comentario
+where fkPost = 3
+group by fkPost ;
+
+select 
+p.idPost as "idPost",
+COUNT(c.idComentario) AS TotalDeComentarios
+from post p
+left join comentario c on p.idPost = c.fkPost
+where p.idPost = 3
+group by p.idPost;
+
+select fkpost as idPost,
+sum(curtida = false) as CurtidasDown,
+sum(curtida = true) as CurtidaUP
+from
+curtida where fkPost = 1;
+
+
+select count(fkUsuario) as "postCriados" from post
+	where fkUsuario = 2
+	group by fkUsuario;
+
+select imagem from post
+	where idPost = 1;
+
+select fkPost as idPost, count(curtida) as curtida from curtida
+	where fkPost = 1 and curtida = true;
+
+select count(comentario) as comentarios from comentario
+	where fkPost = 1;
+
+
+select c.fkPost,
+count(c.curtida),
+count(comentario.comentario)
+from
+curtida c join comentario
+	where curtida = true
+	group by c.fkPost;
+
+select fkPost from curtida
+	where fkUsuario = 1 and curtida = false;
+    
+    
+select * from aquatech.usuario;
