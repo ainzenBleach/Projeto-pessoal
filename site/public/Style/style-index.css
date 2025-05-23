@@ -96,6 +96,7 @@
 
 .ups button:hover{
    cursor: pointer;
+   scale: 1.2;
 }
 
 .img_botao{
@@ -130,6 +131,7 @@
    margin-bottom: 15px;
    border-radius: 8px;
    display: flex;
+   font-family: inter;
 }
 
 .descricao div{
@@ -156,6 +158,7 @@
    display: flex;
    flex-direction: column;
    transition: 0.5s;
+   font-family: inter;
 }
 
 .inserir_comentario button{
@@ -166,6 +169,7 @@
    padding: 5px 0px;
    background-color: #A3422C;
    transition: 0.5s;
+   font-family: inter;
 }
 
 .inserir_comentario button:hover{
@@ -185,7 +189,9 @@
    border: none;
    border-radius: 10px;
    margin-bottom: 5px;
+   transition: 0.5s;
    color: black;
+   font-family: inter;
 }
 .adicionar_comentario:hover{
    scale: 1.05;
@@ -196,18 +202,24 @@
    margin-bottom: 10px;
 }
 /* vizualização dos comentários */
+.img_comentario{
+   position: relative;
+   z-index: 10;
+}
+
 .img_comentario img{
-   width: 45px;
-   height: 50px;
+   width: 35px;
+   height: 40px;
    margin-top: -15px;
    opacity: 0.3;
 }   
 
 .img_comentario img:hover{
    cursor: pointer;
-   transition: 0.5s;
+   transition: 0.9s;
    scale: 1.05;
    opacity: 1;
+  filter: drop-shadow(0 0 10px white);
 }
 
 .img_comentario img:active{
@@ -234,6 +246,7 @@
 /* Campo de inserir e ver comentarios de outros usuários */
 .campo_comentario{
    transition: 1s;
+   font-family: inter;
 }
 .comentario_campo{
    margin-top: 10px;

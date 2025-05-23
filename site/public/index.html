@@ -97,7 +97,7 @@
                           </div>
                           <div class="visualizar_comentario" id="campo_comentari_${post[i].id}">
                               <h3>Comentário:</h3>
-                              <div id="div_scroll_comentrios_${post[i].id}">
+                              <div id="div_scroll_comentrios_${post[i].id} class="div_scroll_comentrios_" ">
                               </div>
                           </div>
                           </div>
@@ -111,6 +111,15 @@
             carregarLikeUp(idPost);
             carregarLikeDown(idPost);
             }
+            
+                const hash = window.location.hash;
+                if (hash && document.querySelector(hash)) {
+                setTimeout(() => {
+                const target = document.querySelector(hash);
+                  target.scrollIntoView({ behavior: "smooth", block: "center" });
+                }, 500); 
+}
+
               }
 
           })
@@ -118,6 +127,9 @@
         .catch(err => {
           console.log(err);
         })
+
+        
+        
     }
 
 // Carregar comntarios do post

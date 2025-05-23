@@ -64,6 +64,7 @@
 
 .imagem_carregar .texto{
     background-color: #A3422C;
+    border-radius: 3px;
     color: white;
     width: fit-content;
     padding: 5px;

@@ -111,3 +111,10 @@ body{
 #tipo_button{
     margin-bottom: 0px;
 }
+
+
+/* .texto-limite {
+  white-space: nowrap;       /* Impede quebra de linha */
+ /* overflow: hidden;          /* Oculta o texto excedente */
+  /* text-overflow: ellipsis;   /* Adiciona reticências no final */
+/*} */

@@ -18,7 +18,7 @@
         <a href="#" style="display: none" id="perfil" onclick="dashboard()">perfil</a>
         <a href="" style="display: none;" onclick="sair() " id="sair">sair</a>
     </header>
-
+   
     <div class="aparicoes" id="scroll_aparicoes">
     </div>
 </body>
@@ -44,17 +44,19 @@
 
         scroll_aparicoes.innerHTML += `
             <div class="card" id="aparicoes_${idPost}">
-                <div class="imagem_aparicoes">
-                    <img src="/img/${post.imagem}" alt="">
-                </div>
-                <div class="informacoes_aparicoes" >
-                    <div id="aparicoes_up_${idPost}" class="info_aparicoes_up">
-                    <img src="./elementos-pagina/seta_para_cima-removebg-preview.png" alt=""><span></span>
+                <a href="./index.html#post_${idPost}">
+                    <div class="imagem_aparicoes">
+                        <img src="/img/${post.imagem}" alt="">
                     </div>
-                    <div id="aparicoes_comentarios_${idPost}" class="info_aparicoes_comentario">
-                    <img src="./elementos-pagina/icone-chat.png" alt=""><span></span>
-                    </div>    
-                </div>
+                    <div class="informacoes_aparicoes" >
+                        <div id="aparicoes_up_${idPost}" class="info_aparicoes_up">
+                        <img src="./elementos-pagina/seta_para_cima-removebg-preview.png" alt=""><span></span>
+                        </div>
+                        <div id="aparicoes_comentarios_${idPost}" class="info_aparicoes_comentario">
+                        <img src="./elementos-pagina/icone-chat.png" alt=""><span></span>
+                        </div>    
+                    </div>
+                </a>
             </div>
         `
 

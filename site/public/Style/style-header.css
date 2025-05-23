@@ -23,6 +23,7 @@ body{
    border-bottom: solid 1px #D6C4A8;
    position: sticky;
    top: 0;
+   z-index: 1000000;
 }
 #header_pagina img{
    width: 14vh;
@@ -46,10 +47,9 @@ body{
 
 #header_pagina #logo:hover{
    scale: 1.1;
-   box-shadow: 0 0 100px #5FA877;
-   background-color: rgb(95, 168, 119, 0.7);
-
-}
+   background-color: transparent;
+   filter: drop-shadow(0 0 2rem rgb(95, 168, 119, 2));
+}  
 #header_pagina a:active /*validar*/{
    transition: 0.1s;
    color: white;

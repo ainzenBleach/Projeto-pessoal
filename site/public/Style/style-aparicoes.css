@@ -26,7 +26,8 @@
 }
 
 .imagem_aparicoes img{
-   width: 250px;
+   width: 260px;
+   height: 160px;
    border-top-left-radius: 8px;
    border-top-right-radius: 8px;
 }
