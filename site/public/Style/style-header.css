@@ -38,6 +38,7 @@ body{
 
 #header_pagina a:hover{
    font-weight: 500;
+   cursor: pointer;
    scale: 1.1;
    text-decoration: underline solid 1px #D6C4A8;
    background-color: rgb(95, 168, 119);

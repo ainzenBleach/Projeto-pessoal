@@ -11,26 +11,41 @@
     <div class="dashboard">
         <div class="painel">
           <div id="mensagem_boas_vindas">
-            
           </div>
-            
-
             <div class="escolha_filtro" id="scroll_post">
-
             </div>
 
             <button onclick="sair()" class="botao-sair">Sair</button>
         </div>
-        <div class="quadro">
-            <div id="grafico_up" class="grafico_tipo_conta">
-                <canvas id="grafico_1" style="width: 450px;">
-                </canvas>
+        
+        <div class="grafico">
+          
+          <header class="header">
+            <h1>Visão Geral do Post</h1>
+          </header>
+
+          <div class="quadro_kpis">
+            <div class="div_kpi">
+              <h3>Likes nos Posts</h3>
+              <p>10</p>
             </div>
-            <div id="grafico_comentario" class="grafico_total_conta">
-                <canvas id="grafico_2" style="width: 450px;">
-                </canvas>
+            <div class="div_kpi">
+              <h3>Comentários Totais</h3>
+              <p>10</p>
             </div>
+          </div>
+          
+          <div class="div_graficos">
+              <div class="div_grafico">
+                <canvas id="grafico_1" class="canvas_grafico"></canvas>
+              </div>
+              <div class="div_grafico">
+                <canvas id="grafico_2" class="canvas_grafico"></canvas>
+              </div>
+          </div>
         </div>
+
+        
 
     </div>
 </body>
@@ -100,7 +115,7 @@ function dashComun(idPost){
       
   .then(json => {
 
-      var InformacoesComentario = json
+    var InformacoesComentario = json
      
     
     var comentarios = InformacoesComentario[0].TotalDeComentarios
@@ -119,24 +134,46 @@ function dashComun(idPost){
     data: {
       labels: ["Up","Down"],
       datasets: [{
-        label: `Quantidade de Ups e Downs no post`,
-        data: [],
-        borderWidth: 1
+        label: '',
+        data: [10,60],
+        backgroundColor: ['#62aa77', '#a2391d'],
+        borderRadius: [8],
+        barPercentage: 0.4
       }
     ]
     },
     options: {
-
+      maintainAspectRatio: false,
+      plugins: {
+          legend: {
+            display: false,
+            labels: {
+              color: '#e6d6b8',
+              
+            }
+          },
+          
+        },
       scales: {
         y: {
           ticks:{
+            color: '#e6d6b8' ,
             stepSize:1,
             callback: function (value){
               return Math.floor(value)
             }
           },
+        font: {
+                size: 14
+            },
           beginAtZero: true
         },
+        x: {
+            ticks: { 
+              color: '#e6d6b8'
+             },
+            categoryPercentage: 0.5
+          },
       }
     }
   });
@@ -144,28 +181,59 @@ function dashComun(idPost){
   const grafico2 = document.getElementById('grafico_2');
 
   var grafico_2 = new Chart(grafico2, {
-    type: 'bar',
+    type: 'line',
     data: {
-      labels: ["comentarios no post"],
+      labels: ['21/02/2024', '22/02/2024', '23/02/2024', '24/02/2024',  ],
       datasets: [{
-        label: `Quantidade de comentarios`,
-        data: [],
+        label: ``,
+        data: [5,13,2,1],
         borderWidth: 1
       }
     ]
     },
     options: {
+      maintainAspectRatio: false,
+      plugins: {
+          legend: {
+            display: false,
+            labels: {
+              color: '#e6d6b8',
+              
+            }
+          },
+          title: {
+                display: true,
+                text: 'Interações nos comentários',
+                 color: '#e6d6b8',
+                 padding: {
+                    bottom: 40
+                 },
+                 font: {
+                        size: 18
+                    }
 
+            }
+        },
       scales: {
         y: {
           ticks:{
+            color: '#e6d6b8' ,
             stepSize:1,
             callback: function (value){
               return Math.floor(value)
             }
           },
+        font: {
+                size: 14
+            },
           beginAtZero: true
         },
+        x: {
+            ticks: { 
+              color: '#e6d6b8'
+             },
+            categoryPercentage: 0.5
+          },
       }
     }
   });

@@ -96,9 +96,14 @@
                           <button onclick="comentar(${post[i].id})">Comentar</button>
                           </div>
                           <div class="visualizar_comentario" id="campo_comentari_${post[i].id}">
+                            <div class="titulo_comentario">
                               <h3>Comentário:</h3>
-                              <div id="div_scroll_comentrios_${post[i].id} class="div_scroll_comentrios_" ">
+                            </div>  
+                            <div class="container">
+                              <div id="div_scroll_comentarios_${post[i].id}" class="div_scroll_comentarios_">
                               </div>
+                            </div>
+
                           </div>
                           </div>
                       </div>
@@ -142,11 +147,10 @@
           res.json().then(json =>{
               const comentario = json;
 
-              const divComentarios = document.getElementById(`div_scroll_comentrios_${idPost}`)
+              const divComentarios = document.getElementById(`div_scroll_comentarios_${idPost}`)
 
               for(var i = 0; i < comentario.length; i++){
                 divComentarios.innerHTML += `
-
               <div class="comentario_campo" id="comentario_${comentario[i].idComentario}">
                   <div class="comentario_texto">
                       <div> <h4>${comentario[i].usuario}</h4> </div>
@@ -411,6 +415,11 @@ console.log("deuLikeDown:", deuLikeDown);
   }
   function sair(){
       sessionStorage.clear()
+      
+      document.getElementById("sair").style.display = "none";
+      document.getElementById("perfil").style.display = "none";
+      document.getElementById("login").style.display = "block";
+      document.getElementById("cadastro").style.display = "block";
   }
   function dashboard(){
     var cargo = sessionStorage.CARGO_USUARIO

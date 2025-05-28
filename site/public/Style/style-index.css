@@ -212,6 +212,7 @@
    height: 40px;
    margin-top: -15px;
    opacity: 0.3;
+   transition: 0.9s;
 }   
 
 .img_comentario img:hover{
@@ -224,18 +225,22 @@
 
 .img_comentario img:active{
    scale: 1.15;
+   transition: 0.1s;
 }
 
-.visualizar_comentario{
-   background: transparent;
+.titulo_comentario{
+   border: solid 2px black;
+}
+
+.container{
    border: solid 2px #A3422C;
+   background: transparent;
    padding-bottom: 10px;
    margin-top: 15px;
    border-radius: 10px;
    height: 180px;
    overflow-x: auto;
 }
-
 
 .visualizar_comentario h3{
    padding-left: 10px;

@@ -71,7 +71,6 @@ function enviar() {
     }
     }
     
-
 function carregar(){
     var sessao = sessionStorage.ID_USUARIO
     if(sessao != undefined){
@@ -84,6 +83,11 @@ function carregar(){
 
 function sair(){
     sessionStorage.clear()
+
+    document.getElementById("sair").style.display = "none";
+      document.getElementById("perfil").style.display = "none";
+      document.getElementById("login").style.display = "block";
+      document.getElementById("cadastro").style.display = "block";
 }
 
 function dashboard(){
