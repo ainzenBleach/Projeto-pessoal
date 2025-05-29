@@ -103,6 +103,7 @@
    width: 35px;
    height: 35px;
 }
+
 .ups span{
    text-align: center;
    padding-top: 5px;
@@ -205,6 +206,32 @@
 .img_comentario{
    position: relative;
    z-index: 10;
+   display: flex;
+   justify-content: space-between;
+   
+}
+
+.img_comentario button{
+   margin-bottom: 10px;
+   padding: 2px;
+   border: none;
+   width: 150px;
+   color: white;
+   border-radius: 40px;
+   border: none;
+   padding: 5px 0px;
+   background-color: #A3422C;
+   transition: 0.5s;
+   font-family: inter;
+}
+
+.img_comentario button:hover{
+   scale: 1.09;
+   cursor: pointer;
+}
+.img_comentario button:active{
+   background-color: white;
+   color: #A3422C;
 }
 
 .img_comentario img{
@@ -336,4 +363,99 @@
 
 .destaque img{
    width: 100px;
+}
+
+/* Campo comentario */
+
+.div_comentario{
+   width: 130vh;
+   height: 80vh;
+   /* display: none; */
+   z-index:10000000000000000000000;
+   background-color: #D6C4A8;
+   border: solid 1px black;
+   border-radius: 5px;
+   top: 10vh;
+   position:fixed;
+   right: 35vh;
+}
+
+.titulo1{
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   padding: 10px;
+}
+
+.titulo1 p{
+   font-size: 30px;
+   padding-right: 10px;
+   margin-top: 5px;
+   color: black;
+   font-family: inter;
+}
+
+.titulo1 button{
+   font-size: 23px;
+   border-radius: 10px;
+   padding: 7px;
+   background-color: transparent;
+   color: white;
+   background-color: #A3422C;
+   transition: 0.2s;
+   box-shadow: 0 1px 4px rgba(75, 58, 47, 0.32);
+}
+
+.titulo1 button:hover{
+   scale: 1.05;
+   cursor: pointer;
+}
+
+.titulo1 button:active{
+   color:#A3422C;
+   background-color: white;
+}
+
+#textarea_comentario{
+   height: max-content;
+   display: flex;
+   flex-direction: column;
+   padding: 10px;
+
+}
+
+#textarea_comentario textarea{
+   height: 55vh;
+   padding: 5px;
+   font-family: inter;
+   font-size: 18px;
+}
+
+#textarea_comentario textarea:active{
+   border: none;
+}
+
+#textarea_comentario button{
+   margin-top: 10px;
+   padding: 2px;
+   border: none;
+   width: 150px;
+   color: white;
+   border-radius: 40px;
+   border: none;
+   padding: 5px 0px;
+   background-color: #A3422C;
+   transition: 0.5s;
+   font-family: inter;
+   font-size: 18px;
+}
+
+#textarea_comentario button:hover{
+scale: 1.05;
+cursor: pointer;
+}
+
+#textarea_comentario button:active{
+   color:#A3422C;
+   background-color: white;
 }

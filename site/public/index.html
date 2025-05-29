@@ -7,6 +7,17 @@
     <link rel="stylesheet" href="Style/style-header.css">
     <title>Document</title>
   </head>
+
+<div class="div_comentario" id="area_comentario" style="display: none;">
+  <div class="titulo1">
+     <button onclick="sairComentario()">X</button> <p>Digite seu comentário</p>
+  </div>
+  <div id="textarea_comentario">
+  </div>
+
+</div>
+
+
   <body onload="carregarPost(),carregar()">
     <header id="header_pagina">
       <a href="index.html" id="logo"><img src="./elementos-pagina/Logo_criptoradar.png" alt="" /></a>
@@ -22,8 +33,10 @@
     <div class="principal">
       <div class="scroll_post" id="scroll_post">
 
-            
+
       </div>
+      
+      
       <div class="card destaque" id="">
         <h4>Bem vindo</h4>
         <img src="./elementos-pagina/Logo_criptoradar.png" alt="" />
@@ -89,12 +102,9 @@
                       </div>
                       <div class="img_comentario"> 
                       <img src="./elementos-pagina/icone-chat.png" alt="" onclick="mostrar(${post[i].id})">
+                      <button onclick="mostrarComentario(${post[i].id})">adicionar comentário</button>
                       </div>
-                      <div class="campo_comentario" id="campo_comentario_${post[i].id}" style="display: none;">
-                          <div class="inserir_comentario">
-                          <input type="text" class="adicionar_comentario" placeholder="Adicione um comentário" id="input_post_${post[i].id}">
-                          <button onclick="comentar(${post[i].id})">Comentar</button>
-                          </div>
+                      <div class="campo_comentario" id="campo_comentario_${post[i].id}" >
                           <div class="visualizar_comentario" id="campo_comentari_${post[i].id}">
                             <div class="titulo_comentario">
                               <h3>Comentário:</h3>
@@ -218,7 +228,8 @@
       var campo_comentario = document.getElementById("campo_comentario");
       var usuario = sessionStorage.ID_USUARIO
       var div_mensagem = document.getElementById(`div_scroll_comentrios_${idPost}`)
-      
+      var text_area = document.getElementById('textarea_comentario') 
+
       if (comentario == "") {
         alert("Digite algo antes de comentar.");
         return;
@@ -233,6 +244,7 @@
               </div>
         </div>
       `
+        text_area.style.display = 'none'
 
      fetch(`/salvarComentario`,{
         method: "POST",
@@ -247,6 +259,7 @@
     })
       .then(
           alert(`Comentario postado com sucesso`)
+          
       )
       .catch(err => {
         console.error("Erro ao salvar comentário:", err);
@@ -302,7 +315,7 @@ if(deuLikeDown == false && deuLikeUp == false){
         postServer: idPost
       })
     })
-       await res.text();
+      await res.text();
       console.log("Like computado down") 
 
     }else if(deuLikeDown && !deuLikeUp){
@@ -321,7 +334,7 @@ if(deuLikeDown == false && deuLikeUp == false){
     }
 
     
-console.log("Usuário:", idUsuario);
+oconsle.log("Usuário:", idUsuario);
 console.log("Post:", idPost);
 console.log("deuLikeUp:", deuLikeUp);
 console.log("deuLikeDown:", deuLikeDown);
@@ -440,7 +453,33 @@ console.log("deuLikeDown:", deuLikeDown);
     }
     
   }
-// ------------------------------------------------------------------------------------------- 
+
+  function mostrarComentario(idPost){
+    var campo = document.getElementById(`area_comentario`)
+
+    var text_area = document.getElementById('textarea_comentario') 
+      
+      text_area.innerHTML = `
+      <textarea id="input_post_${idPost}" placeholder="Digite seu comentário aqui"></textarea>
+      <button onclick="comentar(${idPost})"}>Comentar</button>
+      `
+
+    if(campo.style.display == "block"){
+      campo.style.display = "none"
+
+      
+
+    }else{
+      campo.style.display = "block"
+    }
+  }
+
+  function sairComentario(){
+    var area_comentario = document.getElementById("area_comentario")
+
+    area_comentario.style.display = 'none'
+  }
+  // ------------------------------------------------------------------------------------------- 
 
 //Ver se o  usuario deu um up no post
   //   fetch(`/like/carregarLikeUsuarioUp/${idUsuario}`, {

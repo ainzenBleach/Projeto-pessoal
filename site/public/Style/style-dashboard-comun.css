@@ -77,7 +77,7 @@ body{
     cursor: pointer;
     background-color: #ffffff22;
     border: none;
-    width: 130px;
+    width: fit-content;
     font-size: 3.8vh;
     align-self: center;
     transition: background-color 0.3s ease-in-out;
@@ -159,10 +159,10 @@ body{
     margin-top: 10vh;
     padding: 5vh;
     border-radius: 3px;
-    min-height: 250px;
-    max-height: 500px;
+    height: fit-content;
+    max-height: 240px;
     width: 300px;
-    
+    top: 0;
 }
 
 .canvas_grafico{
