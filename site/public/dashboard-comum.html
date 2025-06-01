@@ -7,6 +7,34 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Document</title>
 </head>
+<!-- Quadro suspenço de grafico -->
+<div class="painel_post" id="painel_post" style="display: none;">
+  <header class="header_painel">
+    <button onclick="sairPainel()">X</button>
+    <span>Informações do post</span>
+  </header>
+  <div class="quadro" >
+    <div id="kpi_painel" class="quadro_kpis" >
+            <div class="div_kpi">
+              <h3>Likes nos Posts</h3>
+              <p>0</p>
+            </div>
+            <div class="div_kpi">
+              <h3>Comentarios no Post</h3>
+              <p>0</p>
+            </div>
+  </div>
+    <div id="quadro_grafico" class="quadro_grafico">
+              <div class="div_grafico">
+                <canvas id="grafico_1" class="canvas_grafico"></canvas>
+              </div>
+              <div class="div_grafico">
+                <canvas id="grafico_2" class="canvas_grafico"></canvas>
+              </div>
+    </div>
+  </div>
+</div>
+<!-- Corpo do site -->
 <body onload="carregar()">
     <div class="dashboard">
         <div class="painel">
@@ -14,15 +42,16 @@
           </div>
             <div class="escolha_filtro" id="scroll_post">
 
-                <button id="post_button" onclick="dashComun()">Visão do perfil</button>
-                <button id="post_button" onclick="dashComun()">Ver Post</button>
+                <button id="post_button" onclick="perfil()">Visão do perfil</button>
+                <button id="post_button" onclick="post()">Ver Post</button>
             </div>
 
             <button onclick="sair()" class="botao-sair">Sair</button>
         </div>
         
-        <div class="grafico" style="display: none;">
+        <div class="fundo-grafico" >
           
+        <div class="grafico" style="display: none;" id="grafico_geral">
           <header class="header">
             <h1>Visão Geral dos Posts</h1>
           </header>
@@ -32,6 +61,7 @@
               <h3>Likes nos Posts</h3>
               <p>10</p>
             </div>
+
             <div class="div_kpi">
               <h3>Comentários Totais</h3>
               <p>10</p>
@@ -40,55 +70,160 @@
           
           <div class="div_graficos">
               <div class="div_grafico">
-                <canvas id="grafico_1" class="canvas_grafico"></canvas>
+                <canvas id="grafico_total_likes" class="canvas_grafico"></canvas>
               </div>
               <div class="div_grafico">
-                <canvas id="grafico_2" class="canvas_grafico"></canvas>
+                <canvas id="grafico_total_comentario" class="canvas_grafico"></canvas>
               </div>
           </div>
         </div>
 
+
+
+        <div class="categoria_post" id="quadro_post" style="display: none;">
+
+        </div>
+      </div>
+
+      
     </div>
 </body>
 </html>
 
 <script>
 
+// Carregado ao entrar na pagina
 function carregar(){
   const idUsuario = sessionStorage.ID_USUARIO
 
   var div_mensagem = document.getElementById("mensagem_boas_vindas")
 
   div_mensagem.innerHTML = `<h3>Bem vindo, ${sessionStorage.NOME_USUARIO}</h3>`
-  
-  fetch(`/dashComun/carregarDashUsuario/${idUsuario}`, {
-    method: "GET"
-  })
-  .then(
-    res => { res.json()
-      
-  .then(json => {
 
-      var div_mensagem = document.getElementById("scroll_post")
-
-      var InformacoesDash = json
-
-      for(var i = 1; i <= InformacoesDash[0].postCriados; i++){
-        
-        idPost = i
-
-        div_mensagem.innerHTML += `<button id="post_button" onclick="dashComun(${idPost})">post ${i}</button>`
-      
-      }
-
-    })}
-  )
 
 }
 
 function dashComun(idPost){
 
-    fetch(`/dashComun/carregarUpDownUsuario/${idPost}`, {
+  //   fetch(`/dashComun/carregarUpDownUsuario/${idPost}`, {
+  //   method: "GET"
+  // })
+  // .then(
+  //   res => { res.json()
+      
+  // .then(json => {
+
+  //     var InformacoesUpDown = json
+      
+
+  //     var up = Number(InformacoesUpDown[0].CurtidaUP) 
+  //     var down = Number(InformacoesUpDown[0].CurtidasDown)
+
+  //     grafico.data.datasets[0].data = [up,down];
+  //     grafico.update()
+
+  //   })}
+  // )
+
+  //   fetch(`/dashComun/carregarComentariosUsuario/${idPost}`, {
+  //   method: "GET"
+  // })
+  // .then(
+  //   res => { res.json()
+      
+  // .then(json => {
+
+  //   var InformacoesComentario = json
+     
+    
+  //   var comentarios = InformacoesComentario[0].TotalDeComentarios
+
+  //     grafico_2.data.datasets[0].data = [comentarios];
+  //     grafico_2.update()
+
+  //   })}
+  // )
+
+}    
+
+// Puxar todas as informações do perfil
+function perfil(){
+
+idUsuario = sessionStorage.ID_USUARIO
+
+quadro_post = document.getElementById('quadro_post')
+quadro_post.style.display = "none"
+
+grafico_geral = document.getElementById('grafico_geral')
+grafico_geral.style.display = "flex"
+
+
+fetch(`/dashComun/carregarDadosUsuario/${idUsuario}`, {
+  method:"GET"
+})
+.then(
+    res => { res.json()
+      
+  .then(json => {
+
+    var InformacoesPerfil = json
+
+    grafico_geral
+
+  })})
+
+
+
+}
+
+
+function post(){
+  grafico_geral = document.getElementById('grafico_geral')
+  grafico_geral.style.display = "none"
+
+  quadro_post = document.getElementById('quadro_post')
+  quadro_post.style.display = "flex"
+
+  idUsuario = sessionStorage.ID_USUARIO
+
+  fetch(`/dashComun/carregarPostUsuario/${idUsuario}`, {
+    method: "GET"
+  })
+  .then(
+    res => { res.json()
+      
+  .then(json => {
+      console.log("uva")
+
+      quadro_post.innerHTML = ``
+
+      var informacoesPost = json
+      
+      for(var i = 0; i < informacoesPost.length; i++){
+      console.log("uva2")
+        quadro_post.innerHTML += `
+        
+        <div class="card_post" onclick="ver(${informacoesPost[i].idPost})">
+              <h3>${informacoesPost[i].titulo}</h3>
+              <img src="./img/${informacoesPost[i].imagem}" alt="">
+        </div >
+
+        `
+      }
+      
+    })}
+  )
+
+}
+
+function ver(idPost){
+
+var painel = document.getElementById("painel_post")
+painel.style.display = "block"
+
+var kpi_painel = document.getElementById("kpi_painel")
+
+fetch(`/dashComun/carregarUpDownUsuario/${idPost}`, {
     method: "GET"
   })
   .then(
@@ -96,9 +231,22 @@ function dashComun(idPost){
       
   .then(json => {
 
-      var InformacoesUpDown = json
-      
+  
 
+      var InformacoesUpDown = json
+      var curtidaUP = 0
+      
+      if(InformacoesUpDown[0].CurtidaUP != null){
+        curtidaUP = InformacoesUpDown[0].CurtidaUP
+      }
+
+      kpi_painel.innerHTML = `
+      
+      <div class="div_kpi">
+              <h3>Likes nos Posts</h3>
+              <p>${curtidaUP}</p>
+      </div>
+      `
       var up = Number(InformacoesUpDown[0].CurtidaUP) 
       var down = Number(InformacoesUpDown[0].CurtidasDown)
 
@@ -113,30 +261,82 @@ function dashComun(idPost){
   })
   .then(
     res => { res.json()
-      
   .then(json => {
 
+    var kpi_painel = document.getElementById("kpi_painel")
     var InformacoesComentario = json
      
-    
-    var comentarios = InformacoesComentario[0].TotalDeComentarios
+    var totalComentarios = 0
 
-      grafico_2.data.datasets[0].data = [comentarios];
-      grafico_2.update()
+    for(var i = 0; i < InformacoesComentario.length; i++){
+      totalComentarios += Number(InformacoesComentario[i].totalComentarios)
+    }
+
+
+    kpi_painel.innerHTML += `
+      
+      <div class="div_kpi">
+              <h3>Comentarios no Post</h3>
+              <p>${totalComentarios}</p>
+      </div>
+      `
+    
+    if (InformacoesComentario.length > 0) {
+      grafico_2.data.labels = [];
+      grafico_2.data.datasets[0].data = [];
+
+      grafico_2.update();
+      
+      var comentarios = [];
+      var datas = [];
+
+      for (var i = 0; i < InformacoesComentario.length; i++) {
+        
+        comentarios.push(InformacoesComentario[i].totalComentarios);
+        
+        if(InformacoesComentario[i].dataHorario == null){
+          datas.push("data não informada")
+        }else{
+          datas.push(InformacoesComentario[i].dataHorario);
+        }
+        
+      }
+
+  grafico_2.data.labels = datas;  
+  grafico_2.data.datasets[0].data = comentarios; 
+  grafico_2.update();
+}
+    
+    
 
     })}
   )
 
-}    
-  const ctx = document.getElementById('grafico_1');
 
+}
+
+function sair(){
+  window.location.href = "index.html"
+}
+
+function sairPainel(){
+  var painel = document.getElementById("painel_post")
+  
+  painel.style.display = "none"
+
+}
+
+
+// Configuração dos grafios
+
+  const ctx = document.getElementById('grafico_1');
   var grafico = new Chart(ctx, {
     type: 'bar',
     data: {
       labels: ["Up","Down"],
       datasets: [{
         label: '',
-        data: [10,60],
+        data: [],
         backgroundColor: ['#62aa77', '#a2391d'],
         borderRadius: [8],
         barPercentage: 0.4
@@ -180,14 +380,13 @@ function dashComun(idPost){
   });
 
   const grafico2 = document.getElementById('grafico_2');
-
   var grafico_2 = new Chart(grafico2, {
     type: 'line',
     data: {
-      labels: ['21/02/2024', '22/02/2024', '23/02/2024', '24/02/2024',  ],
+      labels: [],
       datasets: [{
         label: ``,
-        data: [5,13,2,1],
+        data: [],
         borderWidth: 1
       }
     ]
@@ -239,8 +438,115 @@ function dashComun(idPost){
     }
   });
 
-  function sair(){
-    window.location.href = "index.html"
-  }
+  const ctx3 = document.getElementById('grafico_1');
+  var grafico = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ["Up","Down"],
+      datasets: [{
+        label: '',
+        data: [],
+        backgroundColor: ['#62aa77', '#a2391d'],
+        borderRadius: [8],
+        barPercentage: 0.4
+      }
+    ]
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: {
+          legend: {
+            display: false,
+            labels: {
+              color: '#e6d6b8',
+              
+            }
+          },
+          
+        },
+      scales: {
+        y: {
+          ticks:{
+            color: '#e6d6b8' ,
+            stepSize:1,
+            callback: function (value){
+              return Math.floor(value)
+            }
+          },
+        font: {
+                size: 14
+            },
+          beginAtZero: true
+        },
+        x: {
+            ticks: { 
+              color: '#e6d6b8'
+             },
+            categoryPercentage: 0.5
+          },
+      }
+    }
+  });
+
+  const grafico23 = document.getElementById('grafico_2');
+  var grafico_2 = new Chart(grafico2, {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [{
+        label: ``,
+        data: [],
+        borderWidth: 1
+      }
+    ]
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: {
+          legend: {
+            display: false,
+            labels: {
+              color: '#e6d6b8',
+              
+            }
+          },
+          title: {
+                display: true,
+                text: 'Interações nos comentários',
+                 color: '#e6d6b8',
+                 padding: {
+                    bottom: 40
+                 },
+                 font: {
+                        size: 18
+                    }
+
+            }
+        },
+      scales: {
+        y: {
+          ticks:{
+            color: '#e6d6b8' ,
+            stepSize:1,
+            callback: function (value){
+              return Math.floor(value)
+            }
+          },
+        font: {
+                size: 14
+            },
+          beginAtZero: true
+        },
+        x: {
+            ticks: { 
+              color: '#e6d6b8'
+             },
+            categoryPercentage: 0.5
+          },
+      }
+    }
+  });
+
+
 </script>
  

@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
 *{
     margin: 0px;
     padding: 0px;
@@ -18,10 +18,12 @@ body{
     background-color: #3E5641;
     box-shadow: 0 0 10px;
     height: 100vh;
-    width: 65vh;
+    width: 50vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: sticky;
+    top: 0;
 }
 
 .painel h3{
@@ -170,3 +172,86 @@ body{
     max-height: 300px;
 }
 
+.fundo-grafico{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 2rem;
+}
+
+
+
+/* Configuração painel */
+.painel_post{
+    background-color: white;
+    width: 850px;
+    height: 550px;
+    position: fixed;
+    top: 3vh;
+    right: 15vh;
+    border-radius: 5px;
+    z-index: 100000;
+}
+
+.header_painel{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.header_painel button{
+    width: 50px;
+    height: 50px;
+    font-size: 25px;
+    font-weight: 900;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+}
+
+.quadro{
+    display: flex;
+    flex-direction: column;
+}
+
+.quadro_grafico{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+/* Configurção da div que tera os post */
+
+.categoria_post{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+/* Configuração dos post */
+.card_post{
+    width: fit-content;
+    height: fit-content;
+    background-color: white;
+    border-radius: 3px;
+    transition: 0.3s;
+    margin: 8px;
+}
+.card_post:hover{
+    cursor: pointer;
+    scale: 1.05;
+}
+
+.card_post img{
+    width: 250px;
+    height: 150px;
+    padding: 5px;
+}
+
+.card_post h3{
+    text-align: center;
+    font-family: Source Serif 4;
+    width: 250px;
+    padding: 4px;
+    overflow-x: auto;
+}

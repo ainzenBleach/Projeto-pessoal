@@ -1,6 +1,6 @@
 const dashboard_comunModel = require('../models/dashboard_comunModel');
 
-function informacaoDash(req, res){
+function carregarPost(req, res){
     var idUsuario = req.params.idUsuario
 
     dashboard_comunModel.carregarPostUsuariosDash(idUsuario)
@@ -36,4 +36,16 @@ function informacaoComentarios(req, res){
     });
 }
 
-module.exports = {informacaoDash, informacaoUpDown, informacaoComentarios}
+function informacaoPerfil(req, res){
+    var idUsuario = req.params.idUsuario
+
+    dashboard_comunModel.carregarComentariosTotais(idUsuario)
+
+    .then(resultado => {
+        res.json(resultado);
+    }).catch(err => {
+        res.status(500).send(err);
+    });
+}
+
+module.exports = {carregarPost, informacaoUpDown, informacaoComentarios, informacaoPerfil}

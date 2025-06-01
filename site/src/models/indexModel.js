@@ -34,8 +34,8 @@ join dadosUsuarios u
 function salvarComentario(idUsuario, idPost, comentario) {
 
 const instrucao = `
-INSERT INTO comentario (fkUsuario, fkPost, comentario) VALUES
-(${idUsuario},${idPost}, '${comentario}');
+INSERT INTO comentario (fkUsuario, fkPost, comentario, dtComentario) VALUES
+(${idUsuario},${idPost}, '${comentario}', now());
 `;
 
   return database.executar(instrucao);
