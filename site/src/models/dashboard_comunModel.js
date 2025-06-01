@@ -46,6 +46,25 @@ group by dataHorario, p.idPost;
     return database.executar(instrucao);
 }
 
+function carregarInteraçõesTotais(idUsuario){
+    const instrucao = `
+select 
+    du.idUsuario,
+    p.idPost,
+    sum(c.curtida = true) as totalUps,
+    sum(c.curtida = false ) as totalDown
+from 
+dadosUsuarios du join post p 
+	on p.fkUsuario = du.idUsuario
+left join curtida c 
+	on c.fkPost = p.idPost
+where du.idUsuario = ${idUsuario}
+group by du.idUsuario, p.idPost;
+    `
+
+    return database.executar(instrucao);
+}
+
 function carregarComentariosTotais(idUsuario){
     const instrucao = `
 select
@@ -69,4 +88,5 @@ group by dataHorario, p.idPost;
 module.exports = {carregarPostUsuariosDash, 
     carregarUpDownUsuariosDash, 
     carregarComentariosDash, 
-    carregarComentariosTotais}
+    carregarComentariosTotais,
+    carregarInteraçõesTotais}

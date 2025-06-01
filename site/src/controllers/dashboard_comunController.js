@@ -39,6 +39,18 @@ function informacaoComentarios(req, res){
 function informacaoPerfil(req, res){
     var idUsuario = req.params.idUsuario
 
+    dashboard_comunModel.carregarInteraçõesTotais(idUsuario)
+
+    .then(resultado => {
+        res.json(resultado);
+    }).catch(err => {
+        res.status(500).send(err);
+    });
+}
+
+function informacaoPerfilComentario(req, res){
+    var idUsuario = req.params.idUsuario
+
     dashboard_comunModel.carregarComentariosTotais(idUsuario)
 
     .then(resultado => {
@@ -48,4 +60,4 @@ function informacaoPerfil(req, res){
     });
 }
 
-module.exports = {carregarPost, informacaoUpDown, informacaoComentarios, informacaoPerfil}
+module.exports = {carregarPost, informacaoUpDown, informacaoComentarios, informacaoPerfil, informacaoPerfilComentario}

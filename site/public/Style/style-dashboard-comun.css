@@ -100,8 +100,8 @@ body{
 .grafico{
     display: flex;
     flex-direction: column;
-    width: 100%;
-    padding: 2rem;
+    width: 99%;
+    padding: 1rem;
 }
 
 /* Configurção no quadro de KPI */

@@ -18,6 +18,10 @@ router.get('/carregarDadosUsuario/:idUsuario', (req, res) => {
   dashboard_comunController.informacaoPerfil(req, res);
 });
 
+router.get('/carregarDadosUsuarioComentario/:idUsuario', (req, res) => {
+  dashboard_comunController.informacaoPerfilComentario(req, res);
+});
+
 
 
 
