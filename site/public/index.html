@@ -22,6 +22,7 @@
     <header id="header_pagina">
       <a href="index.html" id="logo"><img src="./elementos-pagina/Logo_criptoradar.png" alt="" /></a>
       <a href="index.html"><span>Início</span></a>
+      <a href="sobre.html">Sobre nós</a>
       <a href="aparicoes.html">Aparições</a>
       <a href="novo_post.html">Novo post</a>
       <a href="login.html" id="login">Login</a>
@@ -40,10 +41,16 @@
       <div class="card destaque" id="">
         <h4>Bem vindo</h4>
         <img src="./elementos-pagina/Logo_criptoradar.png" alt="" />
-        <div >
-          <span
-            >Bem vindo ao criptoradar, o lugar de pessoas e criaturas esperando
-            ser documentadas.</span>
+        <div>
+          <span class="texto_card">Bem vindo ao <a href="sobre.html">criptoradar</a>,o lugar onde o mistério ganha vida! Aqui você encontrará relatos incríveis, imagens surpreendentes e testemunhos de pessoas que cruzaram com o desconhecido. Nosso espaço é dedicado a documentar criaturas lendárias, aparições enigmáticas, eventos que desafiam a lógica, pessoas e criaturas esperando
+            ser documentadas.
+          </span>
+          <br>
+          <br>
+          <span class="texto_card">
+            <a href="cadastro.html">Junte-se</a> à comunidade, <a href="novo_post.html">compartilhe</a> suas experiências e participe votando e comentando nas postagens. Quem sabe? Sua história pode ser a próxima a surpreender a todos. Prepare-se para explorar um mundo onde o real e o inexplicável se encontram.
+          </span>
+
         </div>
       </div>
     </div>
@@ -127,7 +134,7 @@
             carregarLikeDown(idPost);
             }
             
-                const hash = window.location.hash;
+                var hash = window.location.hash;
                 if (hash && document.querySelector(hash)) {
                 setTimeout(() => {
                 const target = document.querySelector(hash);
@@ -479,115 +486,5 @@ console.log("deuLikeDown:", deuLikeDown);
 
     area_comentario.style.display = 'none'
   }
-  // ------------------------------------------------------------------------------------------- 
-
-//Ver se o  usuario deu um up no post
-  //   fetch(`/like/carregarLikeUsuarioUp/${idUsuario}`, {
-  //     method:"GET"
-  //   })
-  //   .then( res => {
-  //           res.text().then(text => {
-  //             if (!text) return;
-              
-  //             var deuLikeUp = false
-  //             var deuLikeDown = false
-
-  //             const json = JSON.parse(text);
-
-  //            var likeUsuarioUp = json
-  //            for(var i = 0; i < likeUsuarioUp.length; i++){
-  //               if(likeUsuarioUp[i].fkPost == idPost){
-  //                 deuLikeUp = true
-  //             }
-  //            }
-
-  //            fetch(`/like/carregarLikeUsuarioDown/${idUsuario}`, {
-  //     method:"GET"
-  //   })
-  //   .then( res => {
-  //           res.text().then(text => {
-  //           if (!text) return;
-
-  //           const json = JSON.parse(text);
-
-  //            var likeUsuarioDown = json
-
-  //            for(var i = 0; i < likeUsuarioDown.length; i++){
-  //               if(likeUsuarioDown[i].fkPost == idPost){
-  //                 deuLikeDown = true
-  //             }
-  //            }
-  //            if(deuLikeDown == false && deuLikeUp == false){
-  //     fetch(`/like/upInserir/${idUsuario}/${idPost}`, {
-  //     method:"POST",
-  //     body: JSON.stringify({
-  //       usuarioServer: idUsuario,
-  //       postServer: idPost
-  //     })
-  //   })
-  //   .then( res => {
-  //           res.text().then(text => {
-  //           if (!text) return;
-
-  //           const json = JSON.parse(text);
-      
-  //             console.log("Like computado up") 
-  //              carregarLikeUp(idPost);
-  //               carregarLikeDown(idPost);
-  //           })
-  //   })
-  //   .catch( err =>{
-  //     console.error(err)
-  //     console.log("Like não computado") 
-  //   } 
-  //     )
-
-  //   }else if(deuLikeDown && deuLikeUp == false){
-  //      var troca = true
-  //       fetch(`/like/updateLike/${idUsuario}/${idPost}/${troca}`, {
-  //     method:"POST",
-  //     body: JSON.stringify({
-  //       trocaServer: troca,
-  //       usuarioServer: idUsuario,
-  //       postServer: idPost
-  //     })
-  //   })
-  //   .then( res => {
-  //           res.text().then(text => {
-  //           if (!text) return;
-
-  //           const json = JSON.parse(text);
-
-  //             console.log("Like computado e trocado") 
-  //             carregarLikeUp(idPost);
-  //             carregarLikeDown(idPost);
-  //           })
-  //   })
-  //   .catch(
-  //     console.log("Like não computado") 
-  //   )
-
-    
-  //   }
-  //             console.log("Down:" + likeUsuarioDown) 
-  //           })
-  //   })
-  //   .catch(
-  //   )
-
-
-  //            console.log("Ups" + likeUsuarioUp)
-  //           })
-  //   })
-  //   .catch(
-  //   )
-
-  //   //Ver se o usuario deu um down no post
-    
-
-  //   // Inserir no banco o up, sem o usuario ter dado um up ou down no post
-
-
-  // }
 
 </script>

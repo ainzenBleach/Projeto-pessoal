@@ -9,7 +9,7 @@
 .card{
    background-color: #3E5641;
    height: fit-content;
-   margin-top: 65px;
+   margin-top: 50px;
    border-radius: 8px;
    box-shadow: 0 0 10px;
 }
@@ -256,16 +256,39 @@
 }
 
 .titulo_comentario{
-   border: solid 2px black;
+
+}
+
+.texto_card{
+   line-height: 1.3;
+   text-align: left;
+   width: 90%;
+   margin-bottom: 5px;
+   font-family: 'Inter', sans-serif;
+   font-size: 14px;
+}
+
+.texto_card a{
+   color: white;
+   text-decoration: none;
+   transition: 0.3s;
+}
+
+.texto_card a:hover{
+   color: #5fa877;
+   text-decoration:underline;
+   font-size: 19px;
+   cursor: pointer;
 }
 
 .container{
-   border: solid 2px #A3422C;
+   border-top: solid 2px #A3422C;
    background: transparent;
    padding-bottom: 10px;
-   margin-top: 15px;
-   border-radius: 10px;
-   height: 180px;
+   margin-top: 5px;
+   /* border-radius: 10px; */
+   height: fit-content;
+   max-height: 180px;
    overflow-x: auto;
 }
 
@@ -332,8 +355,9 @@
 /* Configuraação dos destaques */
 
 .destaque{
-   width: 300px;
-   height: 500px;
+   width: 350px;
+   height: fit-content;
+   max-height: 500px;
    position:sticky;
    top: 100px;
    box-shadow: 0 0 10px;
@@ -341,24 +365,29 @@
    display: flex;
    flex-direction: column;
    align-items: center;
+   padding: 0px 8px;
+   padding-bottom: 25px;
+   overflow-y: auto;
 }
 
 .destaque h4{
    color: white;
    padding: 10px;
    text-align: center;
-   font-size: 30px;
+   font-size: 35px;
+   font-family:  Source Serif 4;
    font-weight: 500;
 }
 
 .destaque div{
       margin-top: 20px;
-      text-align: center;
-      padding-left: 5px;
+      text-align: left;
+      padding-left: 10px;
+      border-left: 3px solid #5fa877;
 }
 
 .destaque div span{
-   color: white;
+   color: white; 
 }
 
 .destaque img{
