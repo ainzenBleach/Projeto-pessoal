@@ -2,7 +2,9 @@ const likeModel = require('../models/likeModel');
 
 // Carregar os ups e downs dos post
 function informacaoLikeUp(req, res) {
-  likeModel.carregarLikeUp(req.params.idPost)
+idPost = req.params.idPost
+
+  likeModel.carregarLikeUp(idPost)
   
   .then(resultado => {
     res.json(resultado);
@@ -12,7 +14,9 @@ function informacaoLikeUp(req, res) {
 }
 
 function informacaoLikeDown(req, res) {
-  likeModel.carregarLikeDown(req.params.idPost)
+idPost = req.params.idPost
+
+  likeModel.carregarLikeDown(idPost)
   .then(resultado => {
     res.json(resultado);
   }).catch(err => {
@@ -21,23 +25,40 @@ function informacaoLikeDown(req, res) {
 }
 
 // Checar se o usuario já deu um up ou down no post
-function informacaoLikeUsuarioUp(req, res){
-  likeModel.carregarLikeUsuarioUp(req.params.ID_USUARIO)
-  .then(resultado => {
-    res.json(resultado);
-  }).catch(err => {
-    res.status(500). send(err);
-  });
-}
+function informacaoLikeUsuario(req, res){
+  idUsuario = req.params.idUsuario
+  idPost = req.params.idPost
 
-function informacaoLikeUsuarioDown(req, res){
-  likeModel.carregarLikeUsuarioDown(req.params.ID_USUARIO)
+  likeModel.carregarLikeUsuario(idUsuario, idPost)
   .then(resultado => {
     res.json(resultado);
   }).catch(err => {
     res.status(500). send(err);
   });
 }
+// function informacaoLikeUsuarioUp(req, res){
+//   idUsuario = req.params.idUsuario
+//   idPost = req.params.idPost
+
+//   likeModel.carregarLikeUsuario(idUsuario, idPost)
+//   .then(resultado => {
+//     res.json(resultado);
+//   }).catch(err => {
+//     res.status(500). send(err);
+//   });
+// }
+// function informacaoLikeUsuarioDown(req, res){
+//   idUsuario = req.params.idUsuario
+//   idPost = req.params.idPost
+
+//   likeModel.carregarLikeUsuario(idUsuario, idPost)
+//   .then(resultado => {
+//     res.json(resultado);
+//   }).catch(err => {
+//     res.status(500). send(err);
+//   });
+// }
+
 
 // Sistema para contabilizar os ups e downs
 function upUsuarioInserir(req, res){
@@ -90,7 +111,8 @@ module.exports = {
   downUsuarioInserir,
   informacaoLikeUp,
   informacaoLikeDown,
-  informacaoLikeUsuarioUp, 
+  informacaoLikeUsuario, 
+  informacaoLikeUsuarioUp,
   informacaoLikeUsuarioDown,
   updateUsuarioLike 
   }

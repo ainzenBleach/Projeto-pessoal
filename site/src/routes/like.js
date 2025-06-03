@@ -13,13 +13,18 @@ router.get('/carregarLikeDown/:idPost', (req, res) => {
 });
 
 // Checar se o usuario já deu um up ou down no post
-router.get('/carregarLikeUsuarioUP/:ID_USUARIO', (req, res) => {
-  likeController.informacaoLikeUsuarioUp(req, res);
+router.get('/carregarLikeUsuario/:idUsuario/:idPost', (req, res) => {
+  likeController.informacaoLikeUsuario(req, res);
 });
 
-router.get('/carregarLikeUsuarioDown/:ID_USUARIO', (req, res) => {
-  likeController.informacaoLikeUsuarioDown(req, res);
-});
+// router.get('/carregarLikeUsuarioUp/:idUsuario', (req, res) => {
+//   likeController.informacaoLikeUsuarioUp(req, res);
+// });
+
+// router.get('/carregarLikeUsuarioDown/:idUsuario', (req, res) => {
+//   likeController.informacaoLikeUsuarioDown(req, res);
+// });
+
 
 // Sistema para contabilizar os ups e downs
 router.post('/upInserir/:idUsuario/:idPost', (req, res) => {

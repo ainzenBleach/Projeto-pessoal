@@ -16,7 +16,7 @@
   <div class="quadro" >
     <div id="kpi_painel" class="quadro_kpis" >
             <div class="div_kpi">
-              <h3>Likes nos Posts</h3>
+              <h3>Likes no Post</h3>
               <p>0</p>
             </div>
             <div class="div_kpi">
@@ -69,10 +69,10 @@
           </div>
           
           <div class="div_graficos">
-              <div class="div_grafico">
+              <div class="div_grafico_principal">
                 <canvas id="grafico_total_likes" class="canvas_grafico"></canvas>
               </div>
-              <div class="div_grafico">
+              <div class="div_grafico_principal">
                 <canvas id="grafico_total_comentario" class="canvas_grafico"></canvas>
               </div>
           </div>
@@ -101,50 +101,7 @@ function carregar(){
   div_mensagem.innerHTML = `<h3>Bem vindo, ${sessionStorage.NOME_USUARIO}</h3>`
 
 
-}
-
-function dashComun(idPost){
-
-  //   fetch(`/dashComun/carregarUpDownUsuario/${idPost}`, {
-  //   method: "GET"
-  // })
-  // .then(
-  //   res => { res.json()
-      
-  // .then(json => {
-
-  //     var InformacoesUpDown = json
-      
-
-  //     var up = Number(InformacoesUpDown[0].CurtidaUP) 
-  //     var down = Number(InformacoesUpDown[0].CurtidasDown)
-
-  //     grafico.data.datasets[0].data = [up,down];
-  //     grafico.update()
-
-  //   })}
-  // )
-
-  //   fetch(`/dashComun/carregarComentariosUsuario/${idPost}`, {
-  //   method: "GET"
-  // })
-  // .then(
-  //   res => { res.json()
-      
-  // .then(json => {
-
-  //   var InformacoesComentario = json
-     
-    
-  //   var comentarios = InformacoesComentario[0].TotalDeComentarios
-
-  //     grafico_2.data.datasets[0].data = [comentarios];
-  //     grafico_2.update()
-
-  //   })}
-  // )
-
-}    
+}  
 
 // Puxar todas as informações do perfil
 function perfil(){
@@ -174,8 +131,10 @@ fetch(`/dashComun/carregarDadosUsuario/${idUsuario}`, {
       for(var i = 0; i < InformacoesPerfil.length; i++){
         if(InformacoesPerfil[i].totalUps == null){
           up += 0
+          down = Number(InformacoesPerfil[i].totalDown)
         }else if(InformacoesPerfil[i].totalDown == null){
           down += 0
+          up = Number(InformacoesPerfil[i].totalUps)
         }else{
           up = Number(InformacoesPerfil[i].totalUps)
           down = Number(InformacoesPerfil[i].totalDown)
@@ -309,7 +268,7 @@ fetch(`/dashComun/carregarUpDownUsuario/${idPost}`, {
       kpi_painel.innerHTML = `
       
       <div class="div_kpi">
-              <h3>Likes nos Posts</h3>
+              <h3>Likes no Post</h3>
               <p>${curtidaUP}</p>
       </div>
       `

@@ -104,6 +104,8 @@ body{
     padding: 1rem;
 }
 
+
+
 /* Configurção no quadro de KPI */
 
 .quadro_kpis{
@@ -156,6 +158,18 @@ body{
 }
 
 .div_grafico{
+    background-color: #3E5641;
+    box-shadow: 0 0 10px rgb(62, 86, 65, 0.8);
+    margin-top: 10vh;
+    padding: 5vh;
+    border-radius: 3px;
+    height: fit-content;
+    max-height: 240px;
+    width: 300px;
+    top: 0;
+}
+
+.div_grafico_principal{
     background-color: #3E5641;
     box-shadow: 0 0 10px rgb(62, 86, 65, 0.8);
     margin-top: 10vh;

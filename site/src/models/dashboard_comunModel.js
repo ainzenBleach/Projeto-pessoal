@@ -70,7 +70,7 @@ function carregarComentariosTotais(idUsuario){
 select
 p.idPost,
 count(c.idComentario) as totalComentarios,
-DATE_FORMAT(c.dtComentario, '%Y-%m %H:%i') as dataHorario
+DATE_FORMAT(c.dtComentario, '%Y-%m-%d %H:%i') as dataHorario
 from
 post p
 left join

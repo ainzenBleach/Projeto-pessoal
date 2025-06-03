@@ -42,14 +42,20 @@
         <h4>Bem vindo</h4>
         <img src="./elementos-pagina/Logo_criptoradar.png" alt="" />
         <div>
-          <span class="texto_card">Bem vindo ao <a href="sobre.html">criptoradar</a>,o lugar onde o mistério ganha vida! Aqui você encontrará relatos incríveis, imagens surpreendentes e testemunhos de pessoas que cruzaram com o desconhecido. Nosso espaço é dedicado a documentar criaturas lendárias, aparições enigmáticas, eventos que desafiam a lógica, pessoas e criaturas esperando
+          <span class="texto_card">Bem vindo ao <a href="sobre.html">criptoradar</a>,o lugar onde o 
+            mistério ganha vida! Aqui você encontrará relatos, imagens e testemunhos 
+            de pessoas que cruzaram com o desconhecido. Nosso espaço é dedicado a documentar criaturas 
+            lendárias, aparições enigmáticas, eventos que desafiam a lógica, pessoas e criaturas esperando
             ser documentadas.
           </span>
           <br>
           <br>
           <span class="texto_card">
-            <a href="cadastro.html">Junte-se</a> à comunidade, <a href="novo_post.html">compartilhe</a> suas experiências e participe votando e comentando nas postagens. Quem sabe? Sua história pode ser a próxima a surpreender a todos. Prepare-se para explorar um mundo onde o real e o inexplicável se encontram.
-          </span>
+            <a href="cadastro.html">Junte-se</a> à comunidade, <a href="novo_post.html">compartilhe</a> suas 
+            experiências e participe votando e comentando nas postagens. Quem sabe? Sua história pode ser a 
+            próxima a surpreender a todos. Prepare-se para explorar um mundo onde o real e o inexplicável se 
+            encontram.
+          </span >
 
         </div>
       </div>
@@ -59,7 +65,7 @@
 <script>
 
 // Carregar post da pagina
-  function carregarPost() {
+function carregarPost() {
       fetch(`/carregarPost`, {
         method: "GET"
       })
@@ -111,8 +117,8 @@
                       <img src="./elementos-pagina/icone-chat.png" alt="" onclick="mostrar(${post[i].id})">
                       <button onclick="mostrarComentario(${post[i].id})">adicionar comentário</button>
                       </div>
-                      <div class="campo_comentario" id="campo_comentario_${post[i].id}" >
-                          <div class="visualizar_comentario" id="campo_comentari_${post[i].id}">
+                      <div class="campo_comentario" id="campo_comentario_${post[i].id}" style="display: none;>
+                          <div class="visualizar_comentario">
                             <div class="titulo_comentario">
                               <h3>Comentário:</h3>
                             </div>  
@@ -155,7 +161,7 @@
     }
 
 // Carregar comntarios do post
-  function carregarComentario(idPost){
+function carregarComentario(idPost){
       fetch(`/carregarComentario/${idPost}`,{
         method: "GET"
       })
@@ -186,40 +192,55 @@
           }
 
 //Função para carregar os likes do post
-  function carregarLikeUp(idPost){
+function carregarLikeUp(idPost){
     fetch(`/like/carregarLikeUp/${idPost}`, {
       method:"GET"
     })
     .then(res => {
           res.json().then(json => {
-
           var up = json
+          var upTotal = 0
+          
+          for(var i = 0; i < up.length; i++ ){
+            console.log(up[i].curtida)
+            if(up[i].curtida == null || up[i].curtida == undefined){
+            upTotal = 0
+          }else{
+            upTotal = up[i].curtida
+          }
+          }
 
           var div_mensagemUp = document.getElementById(`up_${idPost}`)
+          
+          div_mensagemUp.innerHTML = `<span>${upTotal}</span>`
 
-          for(var i = 0; i < up.length; i++){
-                div_mensagemUp.innerHTML = `<span>${up[i].curtida}</span>`
-          }
-  
           })
       })
 
     .catch(
     )
 }
-  function carregarLikeDown(idPost){
+  
+function carregarLikeDown(idPost){
   fetch(`/like/carregarLikeDown/${idPost}`,{
       method:"GET"
     })
     .then( res => {
             res.json().then(json => {
               var down = json
-
-              var div_mensagemDown = document.getElementById(`down_${idPost}`)
+              var downTotal = 0
 
               for(var i = 0; i < down.length; i++){
-                div_mensagemDown.innerHTML = `<span>${down[i].curtida}</span>`
+                if(down[i].curtida == null || down[i].curtida == undefined){
+                downTotal = 0
+              }else{
+                 downTotal = down[i].curtida
               }
+              }
+              
+              var div_mensagemDown = document.getElementById(`down_${idPost}`)
+
+              div_mensagemDown.innerHTML = `<span>${downTotal}</span>`
             
             })
     })
@@ -229,7 +250,7 @@
 }
 
 // Função para comentar e salvar no banco de dados
-  function comentar(idPost){
+function comentar(idPost){
       var valorComentario = document.getElementById(`input_post_${idPost}`)
       var comentario = valorComentario.value
       var campo_comentario = document.getElementById("campo_comentario");
@@ -281,80 +302,46 @@
   }
 
 // Sistema de like 
-  async function ups(idPost){
-
+function ups(idPost){
   var idUsuario = sessionStorage.ID_USUARIO;
 
   if(sessionStorage.ID_USUARIO == undefined){
     alert("Realize um login para poder interagir")
     return
   }
-  
-  const resUp = await fetch(`/like/carregarLikeUsuarioUp/${idUsuario}`)
-  const valorUp = await resUp.text()
-  let likeUsuarioUp
 
-  if(valorUp !== undefined && valorUp !== "" ){
-    likeUsuarioUp = JSON.parse(valorUp)
-  }else{
-    likeUsuarioUp = []
-  }
-
-  
-  const resDown = await fetch(`/like/carregarLikeUsuarioDown/${idUsuario}`)
-  const valorDown = await resDown.text()
-  let likeUsuarioDown
-
-  if(valorDown !== undefined && valorDown !== "" ){
-    likeUsuarioDown = JSON.parse(valorDown)
-  }else{
-    likeUsuarioDown = []
-  }
-  
-  const deuLikeUp = likeUsuarioUp.some(like => like.fkPost == idPost);
-  const deuLikeDown = likeUsuarioDown.some(like => like.fkPost == idPost);
-
-if(deuLikeDown == false && deuLikeUp == false){
-      const res = await fetch(`/like/upInserir/${idUsuario}/${idPost}`, {
-      method:"POST",
-      body: JSON.stringify({
-        usuarioServer: idUsuario,
-        postServer: idPost
-      })
-    })
-      await res.text();
-      console.log("Like computado down") 
-
-    }else if(deuLikeDown && !deuLikeUp){
-      var troca = true
-      const res = await fetch(`/like/updateLike/${idUsuario}/${idPost}/${troca}`, {
-      method:"POST",
-      body: JSON.stringify({
-        trocaServer: troca,
-        usuarioServer: idUsuario,
-        postServer: idPost
-      })
-    })
-
-      
-              
-    }
-
+  fetch(`/like/carregarLikeUsuario/${idUsuario}/${idPost}`, {
+    method: "GET"
+  })
+  .then( res => {res.json()
+   .then(json => {
+    var likeUsuario = json
     
-oconsle.log("Usuário:", idUsuario);
-console.log("Post:", idPost);
-console.log("deuLikeUp:", deuLikeUp);
-console.log("deuLikeDown:", deuLikeDown);
+
+    if(likeUsuario[0].curtida == null || likeUsuario[0].curtida == undefined){
+      fetch(`/like/upInserir/${idUsuario}/${idPost}`, {
+      method:"post"
+    })
+      
+    }else if(likeUsuario[0].curtida == 0){
+      var troca = true
+      fetch(`/like/updateLike/${idUsuario}/${idPost}/${troca}`, {
+      method:"post"
+    })
+      
+
+   }})})
 
   
+
   carregarLikeUp(idPost);
   carregarLikeDown(idPost);
   var campo = document.getElementById(`campo_comentario_${idPost}`)
   campo.style.display = "block"
-  
-}
-  async function down(idPost){
 
+}
+
+function down(idPost){
   var idUsuario = sessionStorage.ID_USUARIO;
 
   if(sessionStorage.ID_USUARIO == undefined){
@@ -362,68 +349,35 @@ console.log("deuLikeDown:", deuLikeDown);
     return
   }
 
-  // Fazendo a requisição para o servidor e esperando a resposta para continuar o codígo
-  const resUp = await fetch(`/like/carregarLikeUsuarioUp/${idUsuario}`)
-  const valorUp = await resUp.text()
-  let likeUsuarioUp
+  fetch(`/like/carregarLikeUsuario/${idUsuario}/${idPost}`, {
+    method: "GET"
+  })
+  .then( res => {res.json()
+   .then(json => {
+    var likeUsuario = json
+    
+    console.log(likeUsuario[0])
 
-  if(valorUp !== undefined && valorUp !== "" ){
-    likeUsuarioUp = JSON.parse(valorUp)
-  }else{
-    likeUsuarioUp = []
-  }
-
-  
-  const resDown = await fetch(`/like/carregarLikeUsuarioDown/${idUsuario}`)
-  const valorDown = await resDown.text()
-  let likeUsuarioDown
-
-  if(valorDown !== undefined && valorDown !== "" ){
-    likeUsuarioDown = JSON.parse(valorDown)
-  }else{
-    likeUsuarioDown = []
-  }
-  
-  const deuLikeUp = likeUsuarioUp.some(like => like.fkPost == idPost);
-  const deuLikeDown = likeUsuarioDown.some(like => like.fkPost == idPost);
-
-
-
-  if(deuLikeDown == false && deuLikeUp == false){
-      const res = await fetch(`/like/downInserir/${idUsuario}/${idPost}`, {
-      method:"POST",
-      body: JSON.stringify({
-        usuarioServer: idUsuario,
-        postServer: idPost
-      })
+    if(likeUsuario[0].curtida == null || likeUsuario[0].curtida == undefined){
+      fetch(`/like/downInserir/${idUsuario}/${idPost}`, {
+      method:"post"
     })
-       await res.text();
-      console.log("Like computado down") 
-
-    }else if(deuLikeDown == false && deuLikeUp){
+      
+    }else if(likeUsuario[0].curtida == 1){
       var troca = false
-      const res = await fetch(`/like/updateLike/${idUsuario}/${idPost}/${troca}`, {
-      method:"POST",
-      body: JSON.stringify({
-        trocaServer: troca,
-        usuarioServer: idUsuario,
-        postServer: idPost
-      })
+      fetch(`/like/updateLike/${idUsuario}/${idPost}/${troca}`, {
+      method:"post"
     })
-      await res.text();
-      console.log("Like computado e trocado") 
-              
-    }
+    }})})
 
-  
   carregarLikeUp(idPost);
   carregarLikeDown(idPost);
-    var campo = document.getElementById(`campo_comentario_${idPost}`)
-      campo.style.display = "block"
-              
-  }
+  var campo = document.getElementById(`campo_comentario_${idPost}`)
+  campo.style.display = "block"
 
-  //manter os dados de login do usuário
+}
+
+//manter os dados de login do usuário
   function carregar(){
       var sessao = sessionStorage.ID_USUARIO
       if(sessao != undefined){
@@ -473,9 +427,6 @@ console.log("deuLikeDown:", deuLikeDown);
 
     if(campo.style.display == "block"){
       campo.style.display = "none"
-
-      
-
     }else{
       campo.style.display = "block"
     }
