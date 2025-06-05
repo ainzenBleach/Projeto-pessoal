@@ -36,29 +36,6 @@ function informacaoLikeUsuario(req, res){
     res.status(500). send(err);
   });
 }
-// function informacaoLikeUsuarioUp(req, res){
-//   idUsuario = req.params.idUsuario
-//   idPost = req.params.idPost
-
-//   likeModel.carregarLikeUsuario(idUsuario, idPost)
-//   .then(resultado => {
-//     res.json(resultado);
-//   }).catch(err => {
-//     res.status(500). send(err);
-//   });
-// }
-// function informacaoLikeUsuarioDown(req, res){
-//   idUsuario = req.params.idUsuario
-//   idPost = req.params.idPost
-
-//   likeModel.carregarLikeUsuario(idUsuario, idPost)
-//   .then(resultado => {
-//     res.json(resultado);
-//   }).catch(err => {
-//     res.status(500). send(err);
-//   });
-// }
-
 
 // Sistema para contabilizar os ups e downs
 function upUsuarioInserir(req, res){
@@ -112,7 +89,5 @@ module.exports = {
   informacaoLikeUp,
   informacaoLikeDown,
   informacaoLikeUsuario, 
-  informacaoLikeUsuarioUp,
-  informacaoLikeUsuarioDown,
   updateUsuarioLike 
   }

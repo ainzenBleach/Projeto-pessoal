@@ -49,7 +49,7 @@ body{
 #header_pagina #logo:hover{
    scale: 1.1;
    background-color: transparent;
-   filter: drop-shadow(0 0 2rem rgb(95, 168, 119, 2));
+   filter: drop-shadow(0 0 px rgb(95, 168, 119, 2));
 }  
 #header_pagina a:active /*validar*/{
    transition: 0.1s;

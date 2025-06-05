@@ -40,6 +40,7 @@
 .titulo_1{
    width: 300px;
    word-break: break-word;
+   margin-bottom: 1.5rem;
 }
 .titulo_2{
    width: 120px;
@@ -409,11 +410,10 @@
 .div_comentario{
    width: 130vh;
    height: 80vh;
-   /* display: none; */
-   z-index:10000000000000000000000;
-   background-color: #D6C4A8;
+   z-index:1000000000000000000000000000;;
+   background-color: #3E5641;
    box-shadow: 0 2px 6px rgba(75, 58, 47, 0.12);
-   border: solid 1px black;
+   border: solid 2px black;
    border-radius: 5px;
    top: 10vh;
    position:fixed;
@@ -431,24 +431,30 @@
    font-size: 30px;
    padding-right: 10px;
    margin-top: 5px;
-   color: black;
-   font-family: inter;
+   color: white;
+   font-family: Source Serif 4;
+   text-shadow:0 0 10px rgb(0, 0, 0, 10);
 }
 
 .titulo1 button{
    font-size: 23px;
-   border-radius: 10px;
+   border-radius: 100px;
+   border: none;
    padding: 7px;
    background-color: transparent;
    color: white;
-   background-color: #A3422C;
+   background-color: transparent;
    transition: 0.2s;
-   box-shadow: 0 1px 4px rgba(75, 58, 47, 0.32);
+   height: 50px;
+   width: 50px;
+   
 }
 
 .titulo1 button:hover{
    scale: 1.05;
    cursor: pointer;
+   box-shadow: 0 1px 4px rgba(75, 58, 47, 0.32);
+   filter: drop-shadow(0 0 0px black);
 }
 
 .titulo1 button:active{
@@ -461,7 +467,7 @@
    display: flex;
    flex-direction: column;
    padding: 10px;
-
+border-radius: 10px;
 }
 
 #textarea_comentario textarea{
@@ -488,6 +494,7 @@
    transition: 0.5s;
    font-family: inter;
    font-size: 18px;
+   border: solid 1px;
 }
 
 #textarea_comentario button:hover{
@@ -498,4 +505,13 @@ cursor: pointer;
 #textarea_comentario button:active{
    color:#A3422C;
    background-color: white;
+}
+
+#body_fundo{
+   width: 10000vh;
+   right: 0;
+   height: 100vh;
+   background-color: white;
+   position: absolute;
+   opacity: 1;
 }

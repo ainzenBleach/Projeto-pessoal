@@ -8,18 +8,21 @@
     <title>Document</title>
   </head>
 
+<!-- <div id="body_fundo">
+</div> -->
+
 <div class="div_comentario" id="area_comentario" style="display: none;">
   <div class="titulo1">
-     <button onclick="sairComentario()">X</button> <p>Digite seu comentário</p>
+     <p>Digite seu comentário</p> <button onclick="sairComentario()">X</button> 
   </div>
   <div id="textarea_comentario">
   </div>
-
 </div>
 
 
-  <body onload="carregarPost(),carregar()">
-    <header id="header_pagina">
+  <body onload="carregarPost(),carregar()" >
+    <div >
+      <header id="header_pagina">
       <a href="index.html" id="logo"><img src="./elementos-pagina/Logo_criptoradar.png" alt="" /></a>
       <a href="index.html"><span>Início</span></a>
       <a href="sobre.html">Sobre nós</a>
@@ -59,6 +62,7 @@
 
         </div>
       </div>
+    </div>
     </div>
   </body>
 </html>
@@ -256,7 +260,7 @@ function comentar(idPost){
       var campo_comentario = document.getElementById("campo_comentario");
       var usuario = sessionStorage.ID_USUARIO
       var div_mensagem = document.getElementById(`div_scroll_comentarios_${idPost}`)
-      var text_area = document.getElementById('textarea_comentario') 
+      var text_area = document.getElementById('area_comentario') 
 
       if (comentario == "") {
         alert("Digite algo antes de comentar.");
@@ -296,7 +300,8 @@ function comentar(idPost){
       }else{
         alert(`Realize o login`)
       } 
-      
+      var body = document.getElementById(`body_fundo`)
+       body.style.filter = "blur(0px)"
       
 
   }
@@ -318,7 +323,7 @@ function ups(idPost){
     var likeUsuario = json
     
 
-    if(likeUsuario[0].curtida == null || likeUsuario[0].curtida == undefined){
+    if(likeUsuario[0] == null || likeUsuario[0] == undefined){
       fetch(`/like/upInserir/${idUsuario}/${idPost}`, {
       method:"post"
     })
@@ -356,9 +361,8 @@ function down(idPost){
    .then(json => {
     var likeUsuario = json
     
-    console.log(likeUsuario[0])
 
-    if(likeUsuario[0].curtida == null || likeUsuario[0].curtida == undefined){
+    if(likeUsuario[0] == null || likeUsuario[0] == undefined){
       fetch(`/like/downInserir/${idUsuario}/${idPost}`, {
       method:"post"
     })
@@ -417,6 +421,8 @@ function down(idPost){
 
   function mostrarComentario(idPost){
     var campo = document.getElementById(`area_comentario`)
+    var body = document.getElementById(`body_fundo`)
+    campo.style.display = "block"
 
     var text_area = document.getElementById('textarea_comentario') 
       
@@ -424,18 +430,17 @@ function down(idPost){
       <textarea id="input_post_${idPost}" placeholder="Digite seu comentário aqui"></textarea>
       <button onclick="comentar(${idPost})"}>Comentar</button>
       `
-
-    if(campo.style.display == "block"){
-      campo.style.display = "none"
-    }else{
-      campo.style.display = "block"
-    }
+      
+    body.style.filter = "blur(5px)"
+    
   }
 
   function sairComentario(){
-    var area_comentario = document.getElementById("area_comentario")
+    var areaComentario = document.getElementById("area_comentario")
+    areaComentario.style.display = 'none'
 
-    area_comentario.style.display = 'none'
+    var body = document.getElementById(`body_fundo`)
+    body.style.filter = "blur(0px)"
   }
 
 </script>

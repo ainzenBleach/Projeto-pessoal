@@ -10,8 +10,8 @@
 <!-- Quadro suspenço de grafico -->
 <div class="painel_post" id="painel_post" style="display: none;">
   <header class="header_painel">
-    <button onclick="sairPainel()">X</button>
     <span>Informações do post</span>
+    <button onclick="sairPainel()">X</button>
   </header>
   <div class="quadro" >
     <div id="kpi_painel" class="quadro_kpis" >
@@ -35,14 +35,16 @@
   </div>
 </div>
 <!-- Corpo do site -->
-<body onload="carregar()">
+<body onload="carregar(), perfil()">
     <div class="dashboard">
         <div class="painel">
           <div id="mensagem_boas_vindas">
           </div>
             <div class="escolha_filtro" id="scroll_post">
-
                 <button id="post_button" onclick="perfil()">Visão do perfil</button>
+            </div>
+
+            <div class="escolha_filtro" id="scroll_post">
                 <button id="post_button" onclick="post()">Ver Post</button>
             </div>
 
@@ -79,9 +81,13 @@
         </div>
 
 
+        <div id="div_post" style="display: none;">
+          <header class="header">
+            <h1>Meus Posts</h1>
+          </header>
+        <div class="categoria_post" id="quadro_post" >
 
-        <div class="categoria_post" id="quadro_post" style="display: none;">
-
+        </div>
         </div>
       </div>
 
@@ -108,8 +114,8 @@ function perfil(){
 
 idUsuario = sessionStorage.ID_USUARIO
 
-quadro_post = document.getElementById('quadro_post')
-quadro_post.style.display = "none"
+div_post = document.getElementById('div_post')
+div_post.style.display = "none"
 
 grafico_geral = document.getElementById('grafico_geral')
 grafico_geral.style.display = "flex"
@@ -206,8 +212,8 @@ function post(){
   grafico_geral = document.getElementById('grafico_geral')
   grafico_geral.style.display = "none"
 
-  quadro_post = document.getElementById('quadro_post')
-  quadro_post.style.display = "flex"
+  div_post = document.getElementById('div_post')
+  div_post.style.display = "flex"
 
   idUsuario = sessionStorage.ID_USUARIO
 
@@ -381,7 +387,19 @@ function sairPainel(){
               
             }
           },
-          
+          title: {
+                display: true,
+                text: 'Interações no seu post',
+                 color: '#e6d6b8',
+                 padding: {
+                    bottom: 40
+                 },
+                 font: {
+                        size: 18
+                    }
+
+            },
+        },
         },
       scales: {
         y: {
@@ -405,7 +423,7 @@ function sairPainel(){
           },
       }
     }
-  });
+  );
 
   const grafico2 = document.getElementById('grafico_2');
   var grafico_2 = new Chart(grafico2, {
@@ -490,7 +508,17 @@ function sairPainel(){
               
             }
           },
-          
+          title: {
+                display: true,
+                text: 'total de votos em seus post',
+                 color: '#e6d6b8',
+                 padding: {
+                    bottom: 40
+                 },
+                 font: {
+                        size: 18
+                    }
+            },
         },
       scales: {
         y: {

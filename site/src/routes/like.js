@@ -17,15 +17,6 @@ router.get('/carregarLikeUsuario/:idUsuario/:idPost', (req, res) => {
   likeController.informacaoLikeUsuario(req, res);
 });
 
-// router.get('/carregarLikeUsuarioUp/:idUsuario', (req, res) => {
-//   likeController.informacaoLikeUsuarioUp(req, res);
-// });
-
-// router.get('/carregarLikeUsuarioDown/:idUsuario', (req, res) => {
-//   likeController.informacaoLikeUsuarioDown(req, res);
-// });
-
-
 // Sistema para contabilizar os ups e downs
 router.post('/upInserir/:idUsuario/:idPost', (req, res) => {
   likeController.upUsuarioInserir(req, res);
