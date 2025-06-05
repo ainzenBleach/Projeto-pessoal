@@ -62,3 +62,6 @@ body{
    border-radius: 40px;
 }
 
+#header_blur{
+   filter: blur(10px);
+}

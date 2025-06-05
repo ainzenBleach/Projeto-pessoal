@@ -10,7 +10,7 @@
 <!-- Quadro suspenço de grafico -->
 <div class="painel_post" id="painel_post" style="display: none;">
   <header class="header_painel">
-    <span>Informações do post</span>
+    <div id="data_post"><span>Informações do post</span></div>
     <button onclick="sairPainel()">X</button>
   </header>
   <div class="quadro" >
@@ -224,14 +224,12 @@ function post(){
     res => { res.json()
       
   .then(json => {
-      console.log("uva")
 
       quadro_post.innerHTML = ``
 
       var informacoesPost = json
       
       for(var i = 0; i < informacoesPost.length; i++){
-      console.log("uva2")
         quadro_post.innerHTML += `
         
         <div class="card_post" onclick="ver(${informacoesPost[i].idPost})">
@@ -297,6 +295,9 @@ fetch(`/dashComun/carregarUpDownUsuario/${idPost}`, {
     var kpi_painel = document.getElementById("kpi_painel")
     var InformacoesComentario = json
      
+    data_post = document.getElementById("data_post")
+    data_post.innerHTML = `<span>${InformacoesComentario[0].dataPost}</span>`
+
     var totalComentarios = 0
 
     for(var i = 0; i < InformacoesComentario.length; i++){

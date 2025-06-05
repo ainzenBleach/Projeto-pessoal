@@ -268,7 +268,7 @@ body{
     font-family: Source Serif 4;
     width: 250px;
     padding: 4px;
-    overflow-x: auto;
+    overflow-y: auto;
 }
 
 #div_post{

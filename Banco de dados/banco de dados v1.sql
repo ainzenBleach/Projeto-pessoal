@@ -1,7 +1,6 @@
+drop database criptoradar;
 create database criptoradar;
 use criptoradar;
-
-
 
 create table dadosUsuarios(
 	idUsuario int primary key auto_increment,
@@ -11,7 +10,6 @@ create table dadosUsuarios(
     continente varchar(45),
     cargo varchar(45)
 );
-select * from dadosUsuarios;
 
 create table post(
 	idPost int auto_increment,
@@ -20,13 +18,42 @@ create table post(
     imagem varchar(1000),
     dtPost datetime default current_timestamp, 
     descricao varchar(1000),
-    constraint pkComposta primary key(idPost, fkUsuario)
+    constraint pkComposta primary key(idPost, fkUsuario),
+    constraint fkPostUsuario foreign key (fkUsuario) references dadosUsuarios(idUsuario)
 );
-alter table post add constraint fkPostUsuario foreign key (fkUsuario) references dadosUsuarios(idUsuario);
-select * from comentario;
-select * from post;
-update post set dtPost = default where idPost = 1;
 
+create table comentario(
+	idComentario int auto_increment,
+    fkUsuario int,
+    fkPost int,
+    constraint fkComposta
+    primary key (idComentario, fkUsuario,fkPost),
+    comentario varchar(1000),
+    constraint fkComentarioUsuario
+		foreign key (fkUsuario)
+			references dadosUsuarios(idUsuario),
+	constraint fkComentarioPost
+		foreign key (fkPost) 
+			references post(idPost),
+	dtComentario datetime
+);
+
+create table curtida(
+    fkUsuario int,
+    fkPost int,
+    constraint fkComposta
+    primary key (fkUsuario,fkPost),
+    dtCurtida datetime default current_timestamp,
+    curtida boolean,
+    constraint fkCurtidaUsuario
+		foreign key (fkUsuario)
+			references dadosUsuarios(idUsuario),
+	constraint fkCurtidaPost
+		foreign key (fkPost) 
+			references post(idPost)
+);
+
+/*Insert nas tabelas*/
 
 insert into post(fkUsuario, titulo, imagem, descricao, dtPost) values
 (1,"bcdbcd","banana", "bananão", default);
@@ -52,46 +79,9 @@ comentario c left join post p
 join dadosUsuarios u
 	on c.fkUsuario = u.idUsuario;
 
-create table comentario(
-	idComentario int auto_increment,
-    fkUsuario int,
-    fkPost int,
-    constraint fkComposta
-    primary key (idComentario, fkUsuario,fkPost),
-    comentario varchar(1000),
-    constraint fkComentarioUsuario
-		foreign key (fkUsuario)
-			references dadosUsuarios(idUsuario),
-	constraint fkComentarioPost
-		foreign key (fkPost) 
-			references post(idPost)
-);
-
-create table curtida(
-    fkUsuario int,
-    fkPost int,
-    constraint fkComposta
-    primary key (fkUsuario,fkPost),
-    dtCurtida datetime default current_timestamp,
-    curtida boolean,
-    constraint fkCurtidaUsuario
-		foreign key (fkUsuario)
-			references dadosUsuarios(idUsuario),
-	constraint fkCurtidaPost
-		foreign key (fkPost) 
-			references post(idPost)
-);
-select * from curtida;
 
 
 
-create table testeCurtida(
-idCurtida int auto_increment,
-idPost int,
-idUsuario int,
-curtida boolean,
-constraint chaveComposta primary key(idCurtida, idUsuario)
-);
 
 -- Teste de conta
 insert into testeCurtida (idPost, idUsuario, curtida) values
@@ -103,10 +93,6 @@ insert into testeCurtida (idPost, idUsuario, curtida) values
 (1,4,true),
 (1,4,true);
 
-select count(curtida) from testeCurtida;
-
-drop table testeCurtida;
-show tables;
 -- Alimentação teste
 
 INSERT INTO dadosUsuarios (nome, email, senha, continente, cargo) VALUES
@@ -170,6 +156,106 @@ select * from comentario;
 select * from curtida;
 select * from dadosusuarios;
 select * from post;
+
+select 
+    du.idUsuario,
+    p.idPost,
+    sum(c.curtida = true) as totalLikes,
+    sum(c.curtida = false ) as totalDislikes,
+    count(distinct cm.idComentario) as totalComentarios
+from 
+dadosUsuarios du join post p 
+	on p.fkUsuario = du.idUsuario
+left join curtida c 
+	on c.fkPost = p.idPost
+left join comentario cm
+	on cm.fkPost = p.idPost
+where du.idUsuario = 2
+group by du.idUsuario, p.idPost;
+
+select
+du.idUsuario,
+p.idPost,
+sum(c.curtida = false) as CurtidasDown,
+sum(c.curtida = true) as CurtidaUP
+from
+dadosusuarios du join post p
+on p.fkUsuario = du.idUsuario
+join curtida c
+on c.fkPost = p.idPost
+where du.idUsuario = 2
+group by du.idUsuario, p.idPost;
+
+INSERT INTO comentario (fkUsuario, fkPost, comentario, dtComentario) VALUES
+(2,2, '${comentario}', now()),
+(2,2, '${comentario}', now()),
+(2,2, '${comentario}', now());
+
+select
+count(c.fkpost) as totalComentarios,
+p.idPost,
+DATE_FORMAT(c.dtComentario, '%Y-%m %H:%i')
+from
+comentario c join post p
+on p.idPost = c.fkPost 
+where c.fkUsuario = 2
+group by DATE_FORMAT(c.dtComentario, '%Y-%m %H:%i'), p.idPost;
+
+	select p.fkUsuario as idUsuario,
+    c.fkPost as idPost,
+    sum(c.curtida = false) as CurtidasDown,
+    sum(c.curtida = true) as CurtidaUP
+    from
+    curtida c right join post p
+    on c.fkPost = p.idPOst
+    where p.fkUsuario = 2
+    group by c.fkPost, p.fkUsuario;
+
+	select 
+    p.idPost,
+    sum(c.curtida = false) as CurtidasDown,
+    sum(c.curtida = true) as CurtidaUP
+	from post p
+	left join curtida c on p.idPost = c.fkPost
+	where p.idPost = 4
+	group by p.idPost;
+
+select * from comentario;
+
+select
+p.idPost,
+count(c.idComentario) as totalComentarios,
+DATE_FORMAT(c.dtComentario, '%Y-%m %H:%i') as dataHorario
+from
+post p
+left join
+comentario c
+on c.fkPost = p.idPost
+where p.idPost = 2 
+group by dataHorario, p.idPost;
+
+select
+p.idPost,
+count(c.idComentario) as totalComentarios,
+DATE_FORMAT(c.dtComentario, '%Y-%m %H:%i') as dataHorario
+from
+post p
+left join
+comentario c
+on c.fkPost = p.idPost
+where p.fkUsuario = 2
+group by dataHorario, p.idPost;
+
+/*--------------------------------------------------------------------------------------------------------------*/
+
+select 
+idPost,
+fkUsuario,
+titulo,
+imagem
+from post where fkUsuario = 2;
+
+
 
 select fkPost as "idPost",
 count(comentario) as "Total de comentarios"

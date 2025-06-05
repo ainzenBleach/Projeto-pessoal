@@ -506,12 +506,3 @@ cursor: pointer;
    color:#A3422C;
    background-color: white;
 }
-
-#body_fundo{
-   width: 10000vh;
-   right: 0;
-   height: 100vh;
-   background-color: white;
-   position: absolute;
-   opacity: 1;
-}

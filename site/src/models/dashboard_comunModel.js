@@ -32,6 +32,7 @@ function carregarComentariosDash(idPost){
     const instrucao = `
 select
 p.idPost,
+date_format(p.dtPost, '%Y-%m-%d') as dataPost,
 count(c.idComentario) as totalComentarios,
 DATE_FORMAT(c.dtComentario, '%Y-%m %H:%i') as dataHorario
 from
@@ -39,8 +40,8 @@ post p
 left join
 comentario c
 on c.fkPost = p.idPost
-where p.idPost = ${idPost} 
-group by dataHorario, p.idPost;
+where p.idPost = ${idPost}
+group by dataHorario, p.idPost, p.dtPost;
     `
 
     return database.executar(instrucao);
