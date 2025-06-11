@@ -50,17 +50,17 @@ group by dataHorario, p.idPost, p.dtPost;
 function carregarInteraçõesTotais(idUsuario){
     const instrucao = `
 select 
-    du.idUsuario,
+    du.fkUsuario,
     p.idPost,
-    sum(c.curtida = true) as totalUps,
-    sum(c.curtida = false ) as totalDown
+    count(c.curtida = true) as totalUps,
+    count(c.curtida = false ) as totalDown
 from 
-dadosUsuarios du join post p 
-	on p.fkUsuario = du.idUsuario
+curtida du join post p 
+	on p.fkUsuario = du.fkUsuario
 left join curtida c 
 	on c.fkPost = p.idPost
-where du.idUsuario = ${idUsuario}
-group by du.idUsuario, p.idPost;
+where du.fkUsuario = ${idUsuario}
+group by du.fkUsuario, p.idPost;
     `
 
     return database.executar(instrucao);

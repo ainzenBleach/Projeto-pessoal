@@ -142,14 +142,16 @@ fetch(`/dashComun/carregarDadosUsuario/${idUsuario}`, {
       var down = 0
 
       for(var i = 0; i < InformacoesPerfil.length; i++){
+
+
         if(InformacoesPerfil[i].totalUps == null){
           up += 0
-          down = Number(InformacoesPerfil[i].totalDown)
-        }else if(InformacoesPerfil[i].totalDown == null){
-          down += 0
-          up = Number(InformacoesPerfil[i].totalUps)
         }else{
           up = Number(InformacoesPerfil[i].totalUps)
+        }
+         if(InformacoesPerfil[i].totalDown == null){
+          down += 0
+        }else{
           down = Number(InformacoesPerfil[i].totalDown)
         }
       }
