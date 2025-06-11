@@ -63,6 +63,7 @@ function autenticar(req, res) {
                             email: resultadoAutenticar[0].email,
                             nome: resultadoAutenticar[0].nome,
                             cargo: resultadoAutenticar[0].cargo,
+                            continente: resultadoAutenticar[0].continente
                         })
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");

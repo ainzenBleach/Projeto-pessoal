@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="Style/style-index.css" />
     <link rel="stylesheet" href="Style/style-header.css">
-    <title>Document</title>
+    <title>Criptoradar</title>
+    <link rel="shortcut icon" href="./elementos-pagina/Logo_criptoradar.png" type="image/x-icon">
   </head>
 
 <div class="div_comentario" id="area_comentario" style="display: none;">
   <div class="titulo1">
-     <p>Digite seu comentário</p> <button onclick="sairComentario()">X</button> 
+     <p>Digite seu comentário:</p> <button onclick="sairComentario()">X</button> 
   </div>
   <div id="textarea_comentario">
   </div>
@@ -55,8 +56,8 @@
           <span class="texto_card">
             <a href="cadastro.html">Junte-se</a> à comunidade, <a href="novo_post.html">compartilhe</a> suas 
             experiências e participe votando e comentando nas postagens. Quem sabe? Sua história pode ser a 
-            próxima a surpreender a todos. Prepare-se para explorar um mundo onde o real e o inexplicável se 
-            encontram.
+            próxima a surpreender a todos. Prepare-se para explorar um mundo onde a procura pelo inexplicável se torna o
+            foco principal.
           </span >
 
         </div>
@@ -112,7 +113,7 @@ function carregarPost() {
                       
                       <div class="descricao" >
                           <div>
-                              <h4>${post[i].usuario}</h4>
+                              <h4>${post[i].usuario} - ${post[i].continente} - ${post[i].cargo}</h4>
                               <span>${post[i].descricao}</span>
                           </div>
                       </div>
@@ -143,11 +144,14 @@ function carregarPost() {
             carregarLikeDown(idPost);
             }
             
-            var hash = window.location.hash;
-            if (hash && document.querySelector(hash)) {
+            var ancora = window.location.hash;
+
+            if (ancora && document.querySelector(ancora)) {
             setTimeout(() => {
-            var target = document.querySelector(hash);
-              target.scrollIntoView({ behavior: "smooth", block: "center" });
+
+            var post = document.querySelector(ancora);
+            post.scrollIntoView({ behavior: "smooth", block: "center" });
+
             }, 500); 
 }
 
@@ -289,7 +293,7 @@ function comentar(idPost){
       }),
     })
       .then(
-          alert(`Comentario postado com sucesso`)
+          alert(`Comentário postado com sucesso`)
           
       )
       .catch(err => {
@@ -303,8 +307,11 @@ function comentar(idPost){
 
     var header = document.getElementById(`header_pagina`)
     header.style.filter = "blur(0px)"
+    header.style.opacity = "1"
     var principal = document.getElementById(`principal`)
     principal.style.filter = "blur(0px)"
+    principal.style.opacity = "1"
+
   }
 
 // Sistema de like 
@@ -434,8 +441,10 @@ function down(idPost){
       
     var header = document.getElementById(`header_pagina`)
     header.style.filter = "blur(10px)"
+    header.style.opacity = "0.6"
     var principal = document.getElementById(`principal`)
     principal.style.filter = "blur(10px)"
+    principal.style.opacity = "0.6"
   }
 
   function sairComentario(){
@@ -444,8 +453,10 @@ function down(idPost){
 
     var header = document.getElementById(`header_pagina`)
     header.style.filter = "blur(0px)"
+    header.style.opacity = "1"
     var principal = document.getElementById(`principal`)
     principal.style.filter = "blur(0px)"
+    principal.style.opacity = "1"
   }
 
 </script>

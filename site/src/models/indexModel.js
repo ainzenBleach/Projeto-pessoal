@@ -7,7 +7,9 @@ p.titulo as "titulo",
 p.imagem as "imagem",
 p.descricao as "descricao",
 date_format(p.dtPost, '%d/%m/%Y') as "data",
-u.nome as "usuario"
+u.nome as "usuario",
+u.continente as "continente",
+u.cargo as "cargo"
 from
 post p join dadosUsuarios u 
 	on p.fkUsuario = u.idUsuario;`;

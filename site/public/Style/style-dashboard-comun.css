@@ -34,6 +34,14 @@ body{
     font-weight: 400;
 }
 
+.painel h1{
+    color: white;
+    text-align: center;
+    padding-top: 20px;
+    font-size: 18px;
+    font-weight: 400;
+}
+
 .botao-sair{
     margin-bottom: 30px;
     color: white;
@@ -60,6 +68,7 @@ body{
 /* customizaçaão do filtro */
 .escolha_filtro{
     background-color: #A3422C;
+    border-radius: 5px;
     padding-top: 1.5vh;
     max-height: 400px;
     width: 200px;
@@ -165,7 +174,7 @@ body{
     border-radius: 3px;
     height: fit-content;
     max-height: 240px;
-    width: 300px;
+    width: 400px;
     top: 0;
 }
 
@@ -197,21 +206,26 @@ body{
 
 
 /* Configuração painel */
-.painel_post{
-    background-color: white;
-    width: 850px;
-    height: 550px;
+.painel_post {
+    background-color: #1A1F1B;
+    width: 1050px;
+    height: fit-content;
     position: fixed;
-    top: 3vh;
-    right: 15vh;
+    top: 5vh;
+    right: 17vh;
     border-radius: 5px;
     z-index: 100000;
+    box-shadow: 0px 0px 30px rgb(98, 170, 119, 0.25);
+    padding-bottom: 15px;
 }
+
 
 .header_painel{
     display: flex;
     justify-content: space-between;
     padding: 5px;
+    padding-top: 10px;
+    align-items: center;
 }
 
 .header_painel button{
@@ -222,6 +236,23 @@ body{
     border-radius: 100px;
     border: none;
     cursor: pointer;
+    transition: 0.3s;
+    opacity: 0.5;
+}
+
+.header_painel button:hover{
+    scale: 1.08;
+    opacity: 1;
+}
+
+.header_painel button:active{
+    opacity: 0.5;
+}    
+
+.header_painel span {
+    font-size: 24px;
+    color: white;
+    padding-left: 15px;
 }
 
 .quadro{

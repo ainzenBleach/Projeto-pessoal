@@ -10,7 +10,7 @@
 <!-- Quadro suspenço de grafico -->
 <div class="painel_post" id="painel_post" style="display: none;">
   <header class="header_painel">
-    <div id="data_post"><span>Informações do post</span></div>
+    <div id="data_post"><span>--/--/----</span></div>
     <button onclick="sairPainel()">X</button>
   </header>
   <div class="quadro" >
@@ -37,10 +37,16 @@
 <!-- Corpo do site -->
 <body onload="carregar(), perfil()">
     <div class="dashboard">
-        <div class="painel">
+        <div class="painel" id="hud_lateral">
+          <div id="div_mensagem_boas_vindas"> 
           <div id="mensagem_boas_vindas">
+
           </div>
-            <div class="escolha_filtro" id="scroll_post">
+          <div id="mensagem_complementar">
+
+          </div>
+          </div>
+            <div class="escolha_filtro" id="scroll_perfil">
                 <button id="post_button" onclick="perfil()">Visão do perfil</button>
             </div>
 
@@ -55,18 +61,18 @@
           
         <div class="grafico" style="display: none;" id="grafico_geral">
           <header class="header">
-            <h1>Visão Geral dos Posts</h1>
+            <h1>Visão Geral do perfil</h1>
           </header>
 
           <div class="quadro_kpis" id="quadro_perfil">
             <div class="div_kpi">
               <h3>Likes nos Posts</h3>
-              <p>10</p>
+              <p>0</p>
             </div>
 
             <div class="div_kpi">
               <h3>Comentários Totais</h3>
-              <p>10</p>
+              <p>0</p>
             </div>
           </div>
           
@@ -91,7 +97,6 @@
         </div>
       </div>
 
-      
     </div>
 </body>
 </html>
@@ -100,12 +105,13 @@
 
 // Carregado ao entrar na pagina
 function carregar(){
-  const idUsuario = sessionStorage.ID_USUARIO
 
   var div_mensagem = document.getElementById("mensagem_boas_vindas")
+  var div_mensagem2 = document.getElementById("mensagem_complementar")
 
   div_mensagem.innerHTML = `<h3>Bem vindo, ${sessionStorage.NOME_USUARIO}</h3>`
 
+  div_mensagem2.innerHTML = ` <h1> ${sessionStorage.CARGO_USUARIO} - ${sessionStorage.CONTINENTE_USUARIO} </h1>`
 
 }  
 
@@ -157,11 +163,8 @@ fetch(`/dashComun/carregarDadosUsuario/${idUsuario}`, {
       grafico3.data.datasets[0].data = [up,down];
       grafico3.update()
 
-  })})
 
-
-
-  fetch(`/dashComun/carregarDadosUsuarioComentario/${idUsuario}`, {
+      fetch(`/dashComun/carregarDadosUsuarioComentario/${idUsuario}`, {
     method:"GET"
   })
   .then(
@@ -206,7 +209,12 @@ fetch(`/dashComun/carregarDadosUsuario/${idUsuario}`, {
         grafico_23.data.labels = datas;  
         grafico_23.data.datasets[0].data = comentarios; 
         grafico_23.update();
-    })})}
+    })})
+  })})
+
+
+
+  }
 
 function post(){
   grafico_geral = document.getElementById('grafico_geral')
@@ -233,7 +241,9 @@ function post(){
         quadro_post.innerHTML += `
         
         <div class="card_post" onclick="ver(${informacoesPost[i].idPost})">
+            <div style="overflow-x: auto; width: fit-content">
               <h3>${informacoesPost[i].titulo}</h3>
+            </div>
               <img src="./img/${informacoesPost[i].imagem}" alt="">
         </div >
 
@@ -246,9 +256,17 @@ function post(){
 }
 
 function ver(idPost){
+var div_post = document.getElementById("div_post")
+div_post.style.filter = "blur(10px)"
+div_post.style.opacity = "0.6"
+
+var hud_lateral = document.getElementById("hud_lateral")
+hud_lateral.style.filter = "blur(10px)"
+hud_lateral.style.opacity = "0.6"
 
 var painel = document.getElementById("painel_post")
 painel.style.display = "block"
+
 
 var kpi_painel = document.getElementById("kpi_painel")
 
@@ -282,10 +300,9 @@ fetch(`/dashComun/carregarUpDownUsuario/${idPost}`, {
       grafico.data.datasets[0].data = [up,down];
       grafico.update()
 
-    })}
-  )
 
-    fetch(`/dashComun/carregarComentariosUsuario/${idPost}`, {
+
+      fetch(`/dashComun/carregarComentariosUsuario/${idPost}`, {
     method: "GET"
   })
   .then(
@@ -296,7 +313,7 @@ fetch(`/dashComun/carregarUpDownUsuario/${idPost}`, {
     var InformacoesComentario = json
      
     data_post = document.getElementById("data_post")
-    data_post.innerHTML = `<span>${InformacoesComentario[0].dataPost}</span>`
+    data_post.innerHTML = `<span>Postado: ${InformacoesComentario[0].dataPost}</span>`
 
     var totalComentarios = 0
 
@@ -346,6 +363,10 @@ fetch(`/dashComun/carregarUpDownUsuario/${idPost}`, {
 
     })}
   )
+    })}
+  )
+
+    
 
 
 }
@@ -355,6 +376,14 @@ function sair(){
 }
 
 function sairPainel(){
+var div_post = document.getElementById("div_post")
+div_post.style.filter = "blur(0px)"
+div_post.style.opacity = "1"
+
+var hud_lateral = document.getElementById("hud_lateral")
+hud_lateral.style.filter = "blur(0px)"
+hud_lateral.style.opacity = "1"
+
   var painel = document.getElementById("painel_post")
   
   painel.style.display = "none"
@@ -527,7 +556,7 @@ function sairPainel(){
             color: '#e6d6b8' ,
             stepSize:1,
             callback: function (value){
-              return Math.floor(value)
+            return Math.floor(value)
             }
           },
         font: {

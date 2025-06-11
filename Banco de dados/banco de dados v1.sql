@@ -53,6 +53,9 @@ create table curtida(
 			references post(idPost)
 );
 
+
+
+
 /*Insert nas tabelas*/
 
 insert into post(fkUsuario, titulo, imagem, descricao, dtPost) values
@@ -68,6 +71,19 @@ u.nome as "Nome do usuário"
 from
 post p join dadosUsuarios u 
 	on p.fkUsuario = u.idUsuario;
+
+select
+p.idPost,
+date_format(p.dtPost, '%Y-%m-%d') as dataPost,
+count(c.idComentario) as totalComentarios,
+DATE_FORMAT(c.dtComentario, '%Y-%m %H:%i') as dataHorario
+from
+post p
+left join
+comentario c
+on c.fkPost = p.idPost
+where p.idPost = 2
+group by dataHorario, p.idPost, p.dtPost;
 
 -- select comentario
 select c.comentario as "Comentario",
