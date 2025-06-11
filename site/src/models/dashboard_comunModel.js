@@ -69,16 +69,15 @@ group by du.fkUsuario, p.idPost;
 function carregarComentariosTotais(idUsuario){
     const instrucao = `
 select
-p.idPost,
 count(c.idComentario) as totalComentarios,
-DATE_FORMAT(c.dtComentario, '%Y-%m-%d %H:%i') as dataHorario
+DATE_FORMAT(c.dtComentario, '%Y-%m-%d') as dataHorario
 from
 post p
 left join
 comentario c
 on c.fkPost = p.idPost
 where p.fkUsuario = ${idUsuario}
-group by dataHorario, p.idPost;
+group by dataHorario;
     `
 
     return database.executar(instrucao);
